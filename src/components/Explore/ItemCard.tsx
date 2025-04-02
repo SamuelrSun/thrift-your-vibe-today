@@ -53,7 +53,7 @@ const ItemCard = ({ item }: ItemCardProps) => {
         <div className="p-4 h-1/4 flex flex-col justify-between">
           <div>
             <div className="flex justify-between items-start">
-              <h3 className="font-medium text-lg truncate">{item.title}</h3>
+              <h3 className="font-medium text-lg truncate max-w-[80%]">{item.title}</h3>
               <Button 
                 variant="ghost" 
                 size="icon"
@@ -65,7 +65,7 @@ const ItemCard = ({ item }: ItemCardProps) => {
                 />
               </Button>
             </div>
-            <p className="text-sm text-thrift-charcoal/70">{item.brand} • {item.size}</p>
+            <p className="text-sm text-thrift-charcoal/70 truncate">{item.brand} • {item.size}</p>
           </div>
           <div className="mt-1 flex justify-between items-center">
             <p className="font-medium">${item.price}</p>
@@ -77,7 +77,7 @@ const ItemCard = ({ item }: ItemCardProps) => {
       {/* Back of Card */}
       <div className="card-back rounded-lg overflow-hidden shadow-md h-full bg-white p-5 flex flex-col justify-between">
         <div>
-          <h3 className="font-medium text-lg mb-1">{item.title}</h3>
+          <h3 className="font-medium text-lg mb-1 truncate">{item.title}</h3>
           <div className="flex justify-between mb-3">
             <p className="font-medium">${item.price}</p>
             <p className="text-sm text-thrift-charcoal/70">{item.condition}</p>

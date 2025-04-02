@@ -1,4 +1,3 @@
-
 import { useState, useRef, useEffect } from 'react';
 import PromoBanner from './PromoBanner';
 import ItemCard from './ItemCard';
@@ -105,15 +104,32 @@ const dummyItems = [
   },
 ];
 
-// Create a mixed feed with 40% style posts and 60% item listings
+// Create a mixed feed with style posts and item pairings to match heights
 const createMixedFeed = () => {
   const feed = [];
   
   // Add all style posts
-  feed.push(...dummyPosts.map(post => ({ type: 'post', content: post })));
+  const stylePosts = dummyPosts.map(post => ({ type: 'post', content: post }));
   
-  // Add all items
-  feed.push(...dummyItems.map(item => ({ type: 'item', content: item })));
+  // Pair items to match post heights (two items per style post)
+  const itemPairs = [];
+  for (let i = 0; i < dummyItems.length; i += 2) {
+    if (i + 1 < dummyItems.length) {
+      itemPairs.push({
+        type: 'item-pair',
+        contents: [dummyItems[i], dummyItems[i + 1]]
+      });
+    } else {
+      itemPairs.push({
+        type: 'item-pair',
+        contents: [dummyItems[i]]
+      });
+    }
+  }
+  
+  // Combine and shuffle posts and item pairs
+  feed.push(...stylePosts);
+  feed.push(...itemPairs);
   
   // Shuffle the feed
   return feed.sort(() => Math.random() - 0.5);
@@ -182,7 +198,11 @@ const ExplorePage = () => {
             {item.type === 'post' ? (
               <StylePost post={item.content} />
             ) : (
-              <ItemCard item={item.content} />
+              <div className="flex flex-col gap-6">
+                {item.contents.map((product, pIndex) => (
+                  <ItemCard key={`item-${product.id}-${pIndex}`} item={product} />
+                ))}
+              </div>
             )}
           </div>
         ))}
