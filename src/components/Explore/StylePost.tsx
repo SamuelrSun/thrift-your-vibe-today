@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Heart, MessageCircle, Share2, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Heart, MessageCircle, Share2, ChevronLeft, ChevronRight, ChevronDown } from 'lucide-react';
 import Button from '../shared/Button';
 
 interface StylePostProps {
