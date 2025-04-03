@@ -1,7 +1,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import PromoBanner from './PromoBanner';
-import ItemCard from './ItemCard';
+import ItemCard from '../shared/ItemCard';
 import StylePost from './StylePost';
 import { Bell } from 'lucide-react';
 import { dummyItems } from '../Search/searchData';

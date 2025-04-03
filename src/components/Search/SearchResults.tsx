@@ -1,7 +1,7 @@
 
 import React from 'react';
-import ItemCard from '../Explore/ItemCard';
-import { Item } from './searchData';
+import ItemCard from '../shared/ItemCard';
+import { Item } from '../shared/ItemCard';
 
 interface SearchResultsProps {
   searchQuery: string;

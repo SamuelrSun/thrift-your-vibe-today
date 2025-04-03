@@ -1,21 +1,29 @@
 
+import React from 'react';
 import { Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLikes, LikedItem } from '@/contexts/LikesContext';
 import { Card, CardContent } from '@/components/ui/card';
+import { Item } from './index';
 
-interface LikedItemCardProps {
-  item: LikedItem;
-  isSelected: boolean;
-  onSelect: () => void;
+interface CompactItemCardProps {
+  item: Item | LikedItem;
+  isSelected?: boolean;
+  onSelect?: () => void;
 }
 
-const LikedItemCard = ({ item, isSelected, onSelect }: LikedItemCardProps) => {
-  const { unlikeItem } = useLikes();
+const CompactItemCard = ({ item, isSelected = false, onSelect }: CompactItemCardProps) => {
+  const { unlikeItem, isItemLiked } = useLikes();
   
+  // Handle different property naming between Item and LikedItem
+  const itemId = 'item_id' in item ? item.item_id : item.id;
+  const imageUrl = 'image_url' in item ? item.image_url : item.imageUrl;
+  
+  const isLiked = isItemLiked(itemId);
+
   const handleUnlike = (e: React.MouseEvent) => {
     e.stopPropagation();
-    unlikeItem(item.item_id);
+    unlikeItem(itemId);
   };
   
   // Create formatted title with brand included
@@ -23,27 +31,35 @@ const LikedItemCard = ({ item, isSelected, onSelect }: LikedItemCardProps) => {
     ? item.title 
     : `${item.brand} ${item.title}`;
 
+  const handleClick = () => {
+    if (onSelect) {
+      onSelect();
+    }
+  };
+
   return (
     <Card 
       className={`cursor-pointer transition-all hover:shadow-md ${
         isSelected ? 'ring-2 ring-thrift-terracotta shadow-md' : ''
       }`}
-      onClick={onSelect}
+      onClick={handleClick}
     >
       <div className="relative h-40 overflow-hidden">
         <img 
-          src={item.image_url} 
+          src={imageUrl} 
           alt={item.title} 
           className="w-full h-full object-cover"
         />
-        <Button 
-          variant="ghost" 
-          size="icon" 
-          className="absolute top-2 right-2 bg-white/80 hover:bg-white rounded-full"
-          onClick={handleUnlike}
-        >
-          <Heart className="h-4 w-4 fill-thrift-terracotta text-thrift-terracotta" />
-        </Button>
+        {isLiked && (
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="absolute top-2 right-2 bg-white/80 hover:bg-white rounded-full"
+            onClick={handleUnlike}
+          >
+            <Heart className="h-4 w-4 fill-thrift-terracotta text-thrift-terracotta" />
+          </Button>
+        )}
       </div>
       <CardContent className="p-3">
         <h3 className="font-medium text-sm truncate">{formattedTitle}</h3>
@@ -56,4 +72,4 @@ const LikedItemCard = ({ item, isSelected, onSelect }: LikedItemCardProps) => {
   );
 };
 
-export default LikedItemCard;
+export default CompactItemCard;

@@ -1,11 +1,11 @@
 
 import { useState } from 'react';
 import { Heart, ShoppingCart, Check } from 'lucide-react';
-import Button from '../shared/Button';
+import Button from '../../shared/Button';
 import { useCart } from '@/contexts/CartContext';
 import { useLikes } from '@/contexts/LikesContext';
 
-interface Item {
+export interface Item {
   id: number;
   title: string;
   brand: string;

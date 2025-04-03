@@ -1,6 +1,6 @@
 
 import { useLikes } from '@/contexts/LikesContext';
-import LikedItemCard from './LikedItemCard';
+import CompactItemCard from '../shared/ItemCard/CompactItemCard';
 import { LikedItem } from '@/contexts/LikesContext';
 
 interface LikedItemsListProps {
@@ -15,7 +15,7 @@ const LikedItemsList = ({ items, selectedItemId, onSelectItem }: LikedItemsListP
       <h2 className="text-xl font-medium mb-4">Your Collection</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {items.map(item => (
-          <LikedItemCard 
+          <CompactItemCard 
             key={item.id} 
             item={item} 
             isSelected={selectedItemId === item.item_id}

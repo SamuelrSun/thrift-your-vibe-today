@@ -1,8 +1,9 @@
 
 import { useState, useEffect } from 'react';
 import { LikedItem, useLikes } from '@/contexts/LikesContext';
-import { dummyItems, Item as SearchItem } from '@/components/Search/searchData';
-import ItemCard from '@/components/Explore/ItemCard';
+import { dummyItems } from '@/components/Search/searchData';
+import ItemCard from '@/components/shared/ItemCard';
+import { Item } from '@/components/shared/ItemCard';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
@@ -14,8 +15,8 @@ interface ItemSuggestionsProps {
 const ItemSuggestions = ({ selectedItemId, fallbackItemId }: ItemSuggestionsProps) => {
   const { likedItems } = useLikes();
   const [activeItemId, setActiveItemId] = useState<number | null>(null);
-  const [recommendedItems, setRecommendedItems] = useState<SearchItem[]>([]);
-  const [outfitItems, setOutfitItems] = useState<SearchItem[]>([]);
+  const [recommendedItems, setRecommendedItems] = useState<Item[]>([]);
+  const [outfitItems, setOutfitItems] = useState<Item[]>([]);
   
   useEffect(() => {
     // Use selectedItemId if available, otherwise use fallback
@@ -60,7 +61,7 @@ const ItemSuggestions = ({ selectedItemId, fallbackItemId }: ItemSuggestionsProp
   }
   
   // Map LikedItem to the format expected by ItemCard
-  const mapToItemCardFormat = (item: LikedItem): SearchItem => ({
+  const mapToItemCardFormat = (item: LikedItem): Item => ({
     id: item.item_id,
     title: item.title,
     brand: item.brand,
