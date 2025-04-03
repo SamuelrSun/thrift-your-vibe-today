@@ -25,6 +25,31 @@ const thriftPhrases = [
   "Not Me Finding the Best Deals 👀"
 ];
 
+// Try phrases that will be randomly selected for suggestion buttons
+const tryPhrases = [
+  "Cozy oversized sweater under $50",
+  "Y2K inspired outfit for a festival",
+  "Minimalist gold jewelry under $30",
+  "Trendy workwear outfit for spring",
+  "Aesthetic tote bags for everyday use",
+  "Best budget-friendly skincare for dry skin",
+  "Streetwear hoodies for men",
+  "Comfy loungewear set for travel",
+  "Retro sunglasses for summer",
+  "Stylish ankle boots for fall",
+  "Pastel aesthetic room decor",
+  "Festival-ready cowboy boots",
+  "Sustainable fashion brands to shop",
+  "Vintage-inspired denim jackets",
+  "Affordable wedding guest dresses"
+];
+
+// Function to get random phrases from an array
+const getRandomPhrases = (array: string[], count: number) => {
+  const shuffled = [...array].sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, count);
+};
+
 // Dummy data for demo
 const dummyItems = [
   {
@@ -94,11 +119,15 @@ const SearchPage = () => {
   const [searchResults, setSearchResults] = useState(dummyItems);
   const [searchQuery, setSearchQuery] = useState('');
   const [randomPhrase, setRandomPhrase] = useState("");
+  const [currentTryPhrases, setCurrentTryPhrases] = useState<string[]>([]);
 
-  // Set a random thrift phrase on component mount
+  // Set a random thrift phrase and try phrases on component mount
   useEffect(() => {
     const randomIndex = Math.floor(Math.random() * thriftPhrases.length);
     setRandomPhrase(thriftPhrases[randomIndex]);
+    
+    // Get 2 random try phrases
+    setCurrentTryPhrases(getRandomPhrases(tryPhrases, 2));
   }, []);
 
   const handleSearch = (query: string) => {
@@ -130,6 +159,7 @@ const SearchPage = () => {
           isAIMode={isAIMode}
           onToggleMode={() => setIsAIMode(!isAIMode)}
           onSearch={handleSearch}
+          tryPhrases={currentTryPhrases}
         />
       </div>
       

@@ -7,14 +7,20 @@ interface SearchBarProps {
   isAIMode: boolean;
   onToggleMode: () => void;
   onSearch: (query: string) => void;
+  tryPhrases?: string[];
 }
 
-const SearchBar = ({ isAIMode, onToggleMode, onSearch }: SearchBarProps) => {
+const SearchBar = ({ isAIMode, onToggleMode, onSearch, tryPhrases = [] }: SearchBarProps) => {
   const [query, setQuery] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSearch(query);
+  };
+
+  const handleTryPhraseClick = (phrase: string) => {
+    setQuery(phrase);
+    onSearch(phrase);
   };
 
   return (
@@ -63,11 +69,17 @@ const SearchBar = ({ isAIMode, onToggleMode, onSearch }: SearchBarProps) => {
         </div>
       </form>
 
-      {isAIMode && (
-        <p className="mt-3 text-sm text-thrift-charcoal/80 text-center">
-          Try: "Cozy oversized sweater under $50" or "Y2K inspired outfit for a festival"
-        </p>
-      )}
+      <div className="mt-3 flex flex-wrap justify-center gap-2">
+        {isAIMode && tryPhrases.map((phrase, index) => (
+          <button 
+            key={index}
+            onClick={() => handleTryPhraseClick(phrase)}
+            className="px-3 py-1 text-xs bg-gray-100 text-thrift-charcoal/80 rounded-full hover:bg-gray-200 transition-colors"
+          >
+            {phrase}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };
