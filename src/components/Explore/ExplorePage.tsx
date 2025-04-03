@@ -4,7 +4,7 @@ import PromoBanner from './PromoBanner';
 import ItemCard from '../shared/ItemCard';
 import StylePost from './StylePost';
 import { Bell } from 'lucide-react';
-import { dummyItems } from '../Search/searchData';
+import { inventory } from '../Search/searchData';
 
 // Dummy data for style posts
 const dummyPosts = [
@@ -22,15 +22,15 @@ const dummyPosts = [
     similarItems: [
       {
         id: 101,
-        imageUrl: dummyItems[0].imageUrl,
-        title: dummyItems[0].title,
-        price: dummyItems[0].price
+        imageUrl: inventory[0].imageUrl,
+        title: inventory[0].title,
+        price: inventory[0].price
       },
       {
         id: 102,
-        imageUrl: dummyItems[1].imageUrl,
-        title: dummyItems[1].title,
-        price: dummyItems[1].price
+        imageUrl: inventory[1].imageUrl,
+        title: inventory[1].title,
+        price: inventory[1].price
       }
     ]
   },
@@ -48,22 +48,22 @@ const dummyPosts = [
     similarItems: [
       {
         id: 103,
-        imageUrl: dummyItems[2].imageUrl,
-        title: dummyItems[2].title,
-        price: dummyItems[2].price
+        imageUrl: inventory[2].imageUrl,
+        title: inventory[2].title,
+        price: inventory[2].price
       },
       {
         id: 104,
-        imageUrl: dummyItems[3].imageUrl,
-        title: dummyItems[3].title,
-        price: dummyItems[3].price
+        imageUrl: inventory[3].imageUrl,
+        title: inventory[3].title,
+        price: inventory[3].price
       }
     ]
   }
 ];
 
 // Use items data from search data
-const exploreItems = dummyItems.slice(0, 4).map(product => ({
+const exploreItems = inventory.slice(0, 4).map(product => ({
   id: product.id,
   title: product.title,
   brand: product.brand,

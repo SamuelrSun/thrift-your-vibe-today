@@ -1,52 +1,26 @@
+// Item interface definition to ensure consistency
+export interface Item {
+  id: number;
+  title: string;
+  brand: string;
+  price: number;
+  size: string;
+  condition: string;
+  imageUrl: string;
+  description: string;
+}
 
-// Thrift phrases that will be randomly selected
-export const thriftPhrases = [
-  "What's Thriftin'? ✨",
-  "Finders, Keepers!",
-  "Pre-Loved, Re-Loved",
-  "Wardrobe Wins Await!",
-  "Drip, But Make It Thrift",
-  "Slay, Sustainably 💃",
-  "Old School Cool 😎",
-  "Certified Pre-Owned Drip 💧",
-  "Get in Loser, We're Going Thrifting!",
-  "Thrift Game Strong",
-  "Who Needs Retail?",
-  "Retail Therapy, But Budget-Friendly 🤑",
-  "Drip So Hard, They Think It's Designer 😤",
-  "POV: You Just Scored a Fire Fit",
-  "She's Vintage, Your Honor",
-  "New Fit, Who Dis?",
-  "Not Me Finding the Best Deals 👀"
-];
+// ====================================================================================
+// STORE INVENTORY - EDIT THIS SECTION TO ADD/MODIFY YOUR LISTINGS
+// ====================================================================================
+// Instructions:
+// 1. To add a new item: Copy an existing item block and change the values
+// 2. To edit an item: Find the item by its ID and modify its properties
+// 3. Always give each new item a unique ID (increment from the highest existing ID)
+// 4. Make sure all image links are valid and accessible
+// 5. Keep the format consistent for all items
 
-// Try phrases that will be randomly selected for suggestion buttons
-export const tryPhrases = [
-  "Cozy oversized sweater under $50",
-  "Y2K inspired outfit for a festival",
-  "Minimalist gold jewelry under $30",
-  "Trendy workwear outfit for spring",
-  "Aesthetic tote bags for everyday use",
-  "Best budget-friendly skincare for dry skin",
-  "Streetwear hoodies for men",
-  "Comfy loungewear set for travel",
-  "Retro sunglasses for summer",
-  "Stylish ankle boots for fall",
-  "Pastel aesthetic room decor",
-  "Festival-ready cowboy boots",
-  "Sustainable fashion brands to shop",
-  "Vintage-inspired denim jackets",
-  "Affordable wedding guest dresses"
-];
-
-// Function to get random phrases from an array
-export const getRandomPhrases = (array: string[], count: number) => {
-  const shuffled = [...array].sort(() => 0.5 - Math.random());
-  return shuffled.slice(0, count);
-};
-
-// Mock item data
-export const dummyItems = [
+export const inventory: Item[] = [
   {
     id: 1,
     title: '501 Jeans',
@@ -107,7 +81,57 @@ export const dummyItems = [
     imageUrl: 'https://static.zara.net/assets/public/4a94/de1b/b5af49c58969/7942584a631e/02019770520-a1/02019770520-a1.jpg?ts=1731574480622&w=744&f=auto',
     description: 'Structured linen blazer in sand color. Perfect for summer office attire or casual elevation.'
   },
+  // Add more items here following the same format...
 ];
+
+// Export dummyItems for backward compatibility with existing code
+export const dummyItems = inventory;
+
+// Thrift phrases that will be randomly selected
+export const thriftPhrases = [
+  "What's Thriftin'? ✨",
+  "Finders, Keepers!",
+  "Pre-Loved, Re-Loved",
+  "Wardrobe Wins Await!",
+  "Drip, But Make It Thrift",
+  "Slay, Sustainably 💃",
+  "Old School Cool 😎",
+  "Certified Pre-Owned Drip 💧",
+  "Get in Loser, We're Going Thrifting!",
+  "Thrift Game Strong",
+  "Who Needs Retail?",
+  "Retail Therapy, But Budget-Friendly 🤑",
+  "Drip So Hard, They Think It's Designer 😤",
+  "POV: You Just Scored a Fire Fit",
+  "She's Vintage, Your Honor",
+  "New Fit, Who Dis?",
+  "Not Me Finding the Best Deals 👀"
+];
+
+// Try phrases that will be randomly selected for suggestion buttons
+export const tryPhrases = [
+  "Cozy oversized sweater under $50",
+  "Y2K inspired outfit for a festival",
+  "Minimalist gold jewelry under $30",
+  "Trendy workwear outfit for spring",
+  "Aesthetic tote bags for everyday use",
+  "Best budget-friendly skincare for dry skin",
+  "Streetwear hoodies for men",
+  "Comfy loungewear set for travel",
+  "Retro sunglasses for summer",
+  "Stylish ankle boots for fall",
+  "Pastel aesthetic room decor",
+  "Festival-ready cowboy boots",
+  "Sustainable fashion brands to shop",
+  "Vintage-inspired denim jackets",
+  "Affordable wedding guest dresses"
+];
+
+// Function to get random phrases from an array
+export const getRandomPhrases = (array: string[], count: number) => {
+  const shuffled = [...array].sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, count);
+};
 
 // Define the Item interface to be used across components
 export interface Item {
