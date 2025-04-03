@@ -5,13 +5,24 @@ import FilterPanel from './FilterPanel';
 import SearchHeader from './SearchHeader';
 import SearchResults from './SearchResults';
 import { thriftPhrases, tryPhrases, getRandomPhrases, dummyItems } from './searchData';
+import { useSearchFilters } from '@/hooks/useSearchFilters';
+import { toast } from '@/hooks/use-toast';
 
 const SearchPage = () => {
   const [isAIMode, setIsAIMode] = useState(true);
-  const [searchResults, setSearchResults] = useState(dummyItems);
+  const [allItems, setAllItems] = useState(dummyItems);
+  const [filteredItems, setFilteredItems] = useState(dummyItems);
   const [searchQuery, setSearchQuery] = useState('');
   const [randomPhrase, setRandomPhrase] = useState("");
   const [currentTryPhrases, setCurrentTryPhrases] = useState<string[]>([]);
+  
+  const {
+    activeFilters,
+    toggleFilter,
+    setPriceRange,
+    clearFilters,
+    applyFilters
+  } = useSearchFilters(dummyItems);
 
   // Set a random thrift phrase and try phrases on component mount
   useEffect(() => {
@@ -27,17 +38,31 @@ const SearchPage = () => {
     // In a real app, we would make an API call here
     console.log('Searching for:', query, 'using AI mode:', isAIMode);
     
-    // Simulate search results (in real app, this would come from API)
-    setSearchResults(dummyItems.filter(item => 
+    // Filter based on search query
+    const queryResults = dummyItems.filter(item => 
       item.title.toLowerCase().includes(query.toLowerCase()) ||
       item.brand.toLowerCase().includes(query.toLowerCase()) ||
       item.description.toLowerCase().includes(query.toLowerCase())
-    ));
+    );
+    
+    setAllItems(queryResults);
+    // Apply any active filters to the search results
+    setFilteredItems(applyFilters(queryResults));
   };
 
   const handleClearSearch = () => {
     setSearchQuery('');
-    setSearchResults(dummyItems);
+    setAllItems(dummyItems);
+    setFilteredItems(dummyItems);
+  };
+
+  const handleApplyFilters = () => {
+    const results = applyFilters(allItems);
+    setFilteredItems(results);
+    toast({
+      title: "Filters applied",
+      description: `Showing ${results.length} filtered results`,
+    });
   };
 
   return (
@@ -57,13 +82,19 @@ const SearchPage = () => {
       <div className="flex flex-col md:flex-row gap-8">
         {/* Sidebar Filters */}
         <div className="md:w-1/4">
-          <FilterPanel />
+          <FilterPanel 
+            activeFilters={activeFilters}
+            onToggleFilter={toggleFilter}
+            onPriceChange={setPriceRange}
+            onApplyFilters={handleApplyFilters}
+            onClearFilters={clearFilters}
+          />
         </div>
         
         {/* Search Results */}
         <SearchResults 
           searchQuery={searchQuery}
-          searchResults={searchResults}
+          searchResults={filteredItems}
           isAIMode={isAIMode}
         />
       </div>

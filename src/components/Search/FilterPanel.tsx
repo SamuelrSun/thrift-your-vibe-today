@@ -2,15 +2,31 @@
 import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import Button from '../shared/Button';
+import { FilterState } from '@/hooks/useSearchFilters';
 
 interface FilterOption {
   id: string;
   label: string;
 }
 
-const FilterPanel = () => {
-  const [activeFilters, setActiveFilters] = useState<string[]>([]);
+interface FilterPanelProps {
+  activeFilters: FilterState;
+  onToggleFilter: (category: keyof Omit<FilterState, 'priceMin' | 'priceMax'>, filterId: string) => void;
+  onPriceChange: (min: number | '', max: number | '') => void;
+  onApplyFilters: () => void;
+  onClearFilters: () => void;
+}
+
+const FilterPanel = ({
+  activeFilters,
+  onToggleFilter,
+  onPriceChange,
+  onApplyFilters,
+  onClearFilters
+}: FilterPanelProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [priceMin, setPriceMin] = useState<number | ''>(activeFilters.priceMin);
+  const [priceMax, setPriceMax] = useState<number | ''>(activeFilters.priceMax);
 
   const sizes: FilterOption[] = [
     { id: 'xs', label: 'XS' },
@@ -45,12 +61,9 @@ const FilterPanel = () => {
     { id: 'shoes', label: 'Shoes' },
   ];
 
-  const toggleFilter = (filterId: string) => {
-    setActiveFilters(prev => 
-      prev.includes(filterId) 
-        ? prev.filter(id => id !== filterId)
-        : [...prev, filterId]
-    );
+  const handleApplyFilters = () => {
+    onPriceChange(priceMin, priceMax);
+    onApplyFilters();
   };
 
   return (
@@ -76,6 +89,8 @@ const FilterPanel = () => {
               placeholder="$" 
               className="w-20 border border-thrift-lightgray rounded px-2 py-1"
               min="0"
+              value={priceMin}
+              onChange={(e) => setPriceMin(e.target.value ? Number(e.target.value) : '')}
             />
             <span>to</span>
             <input 
@@ -83,6 +98,8 @@ const FilterPanel = () => {
               placeholder="$" 
               className="w-20 border border-thrift-lightgray rounded px-2 py-1"
               min="0"
+              value={priceMax}
+              onChange={(e) => setPriceMax(e.target.value ? Number(e.target.value) : '')}
             />
           </div>
         </div>
@@ -94,9 +111,9 @@ const FilterPanel = () => {
             {sizes.map(size => (
               <button
                 key={size.id}
-                onClick={() => toggleFilter(size.id)}
+                onClick={() => onToggleFilter('sizes', size.id)}
                 className={`px-3 py-1 rounded-full text-sm transition-colors ${
-                  activeFilters.includes(size.id)
+                  activeFilters.sizes.includes(size.id)
                     ? 'bg-thrift-sage text-white'
                     : 'bg-thrift-lightgray text-thrift-charcoal'
                 }`}
@@ -115,8 +132,8 @@ const FilterPanel = () => {
               <label key={brand.id} className="flex items-center">
                 <input 
                   type="checkbox"
-                  checked={activeFilters.includes(brand.id)}
-                  onChange={() => toggleFilter(brand.id)}
+                  checked={activeFilters.brands.includes(brand.id)}
+                  onChange={() => onToggleFilter('brands', brand.id)}
                   className="rounded border-thrift-lightgray text-thrift-sage focus:ring-thrift-sage"
                 />
                 <span className="ml-2 text-sm">{brand.label}</span>
@@ -133,8 +150,8 @@ const FilterPanel = () => {
               <label key={condition.id} className="flex items-center">
                 <input 
                   type="checkbox"
-                  checked={activeFilters.includes(condition.id)}
-                  onChange={() => toggleFilter(condition.id)}
+                  checked={activeFilters.conditions.includes(condition.id)}
+                  onChange={() => onToggleFilter('conditions', condition.id)}
                   className="rounded border-thrift-lightgray text-thrift-sage focus:ring-thrift-sage"
                 />
                 <span className="ml-2 text-sm">{condition.label}</span>
@@ -151,8 +168,8 @@ const FilterPanel = () => {
               <label key={category.id} className="flex items-center">
                 <input 
                   type="checkbox"
-                  checked={activeFilters.includes(category.id)}
-                  onChange={() => toggleFilter(category.id)}
+                  checked={activeFilters.categories.includes(category.id)}
+                  onChange={() => onToggleFilter('categories', category.id)}
                   className="rounded border-thrift-lightgray text-thrift-sage focus:ring-thrift-sage"
                 />
                 <span className="ml-2 text-sm">{category.label}</span>
@@ -163,11 +180,11 @@ const FilterPanel = () => {
         
         {/* Action Buttons */}
         <div className="flex space-x-2 pt-3 border-t border-thrift-lightgray">
-          <Button variant="default" className="w-full">Apply Filters</Button>
+          <Button variant="default" className="w-full" onClick={handleApplyFilters}>Apply Filters</Button>
           <Button 
             variant="outline" 
             className="border-thrift-lightgray text-thrift-charcoal"
-            onClick={() => setActiveFilters([])}
+            onClick={onClearFilters}
           >
             Clear All
           </Button>
