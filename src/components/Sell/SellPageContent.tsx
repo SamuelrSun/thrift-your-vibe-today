@@ -95,38 +95,38 @@ const SellPageContent = () => {
   };
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-12 mx-auto">
       {/* Step 1: Upload Photos */}
-      <section className="bg-white p-6 rounded-lg shadow-md">
+      <section className="bg-white p-8 rounded-lg shadow-md">
         <h2 className="text-xl font-semibold flex items-center gap-2 mb-4">
           <span className="bg-thrift-sage text-white w-7 h-7 rounded-full flex items-center justify-center">1</span>
           Upload Photos
         </h2>
-        <p className="mb-4 text-gray-600">
+        <p className="mb-6 text-gray-600">
           Take clear photos of your item from multiple angles to help us evaluate its condition.
         </p>
         <ItemImageUpload images={images} onChange={handleImageChange} />
       </section>
 
       {/* Step 2: Item Details */}
-      <section className="bg-white p-6 rounded-lg shadow-md">
+      <section className="bg-white p-8 rounded-lg shadow-md">
         <h2 className="text-xl font-semibold flex items-center gap-2 mb-4">
           <span className="bg-thrift-sage text-white w-7 h-7 rounded-full flex items-center justify-center">2</span>
           Item Details
         </h2>
-        <p className="mb-4 text-gray-600">
+        <p className="mb-6 text-gray-600">
           Provide accurate information about your item to help us determine its resale value.
         </p>
         <ItemDetailsForm details={itemDetails} onChange={handleDetailsChange} />
       </section>
 
       {/* Step 3: Check Eligibility */}
-      <section className="bg-white p-6 rounded-lg shadow-md">
+      <section className="bg-white p-8 rounded-lg shadow-md">
         <h2 className="text-xl font-semibold flex items-center gap-2 mb-4">
           <span className="bg-thrift-sage text-white w-7 h-7 rounded-full flex items-center justify-center">3</span>
           Check Eligibility
         </h2>
-        <p className="mb-4 text-gray-600">
+        <p className="mb-6 text-gray-600">
           Once you've provided all the necessary information, click below to check if your item is eligible for sale.
         </p>
         
@@ -143,7 +143,7 @@ const SellPageContent = () => {
 
         {/* Progress bar */}
         {checkingEligibility && (
-          <div className="mt-6">
+          <div className="mt-8 max-w-lg mx-auto">
             <p className="text-sm text-gray-500 mb-2">Analyzing your item...</p>
             <Progress value={progressValue} className="h-2" />
           </div>

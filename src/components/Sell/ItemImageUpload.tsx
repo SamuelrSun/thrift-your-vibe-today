@@ -48,14 +48,14 @@ const ItemImageUpload = ({ images, onChange }: ItemImageUploadProps) => {
   };
 
   return (
-    <div className="space-y-4">
-      <div className="flex flex-wrap gap-4">
+    <div className="space-y-4 w-full">
+      <div className="flex flex-wrap gap-4 w-full justify-center">
         {previews.map((preview, index) => (
           <div key={index} className="relative group">
             <img 
               src={preview} 
               alt={`Item preview ${index + 1}`} 
-              className="w-24 h-24 object-cover rounded-md border border-gray-200"
+              className="w-28 h-28 object-cover rounded-md border border-gray-200"
             />
             <button
               type="button"
@@ -72,9 +72,9 @@ const ItemImageUpload = ({ images, onChange }: ItemImageUploadProps) => {
           <button
             type="button"
             onClick={triggerFileInput}
-            className="w-24 h-24 border-2 border-dashed border-gray-300 rounded-md flex flex-col items-center justify-center hover:border-thrift-sage transition-colors"
+            className="w-28 h-28 border-2 border-dashed border-gray-300 rounded-md flex flex-col items-center justify-center hover:border-thrift-sage transition-colors"
           >
-            <Image className="w-6 h-6 text-gray-400" />
+            <Image className="w-8 h-8 text-gray-400" />
             <span className="text-xs mt-2 text-gray-500">Add Image</span>
           </button>
         )}
@@ -89,7 +89,7 @@ const ItemImageUpload = ({ images, onChange }: ItemImageUploadProps) => {
         className="hidden"
       />
 
-      <div className="flex justify-start">
+      <div className="flex justify-center w-full mt-4">
         <Button
           type="button"
           onClick={triggerFileInput}
@@ -102,7 +102,7 @@ const ItemImageUpload = ({ images, onChange }: ItemImageUploadProps) => {
         </Button>
       </div>
 
-      <p className="text-xs text-gray-500">
+      <p className="text-xs text-gray-500 text-center">
         Upload up to 5 high-quality images. Each image should be less than 5MB.
       </p>
     </div>
