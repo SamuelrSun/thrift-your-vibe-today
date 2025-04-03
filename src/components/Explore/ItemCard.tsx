@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Heart, ShoppingCart, Check } from 'lucide-react';
 import Button from '../shared/Button';
@@ -55,6 +56,11 @@ const ItemCard = ({ item }: ItemCardProps) => {
     setIsSaved(!isSaved);
   };
 
+  // Create formatted title with brand included
+  const formattedTitle = item.title.toLowerCase().includes(item.brand.toLowerCase()) 
+    ? item.title 
+    : `${item.brand} ${item.title}`;
+
   return (
     <div 
       className={`relative h-[400px] cursor-pointer card-flip ${isFlipped ? 'flipped' : ''}`}
@@ -62,41 +68,32 @@ const ItemCard = ({ item }: ItemCardProps) => {
     >
       <div className="card-front rounded-lg overflow-hidden shadow-md h-full bg-white border border-thrift-lightgray">
         <div className="p-3 border-b border-thrift-lightgray">
-          <h3 className="font-medium text-lg truncate">{item.title}</h3>
+          <h3 className="font-medium text-lg truncate">{formattedTitle}</h3>
         </div>
-        <div className="h-[60%] overflow-hidden">
+        <div className="h-[75%] overflow-hidden">
           <img 
             src={item.imageUrl} 
             alt={item.title} 
             className="w-full h-full object-cover transition-transform hover:scale-105"
           />
         </div>
-        <div className="p-4 h-[25%] flex flex-col justify-between">
-          <div className="flex gap-2 items-center text-sm text-thrift-charcoal/70 mb-2">
-            <span>{item.brand}</span>
-            <span>•</span>
-            <span>{item.size}</span>
-            <span>•</span>
-            <span>{item.condition}</span>
-          </div>
-          <div className="mt-1 pt-2 border-t border-thrift-lightgray flex justify-between items-center">
-            <p className="font-medium text-lg">${item.price}</p>
-            <Button 
-              variant="ghost" 
-              size="icon"
-              onClick={handleSave}
-              className="rounded-full -mr-1"
-            >
-              <Heart 
-                className={`h-5 w-5 ${isSaved ? 'fill-thrift-terracotta text-thrift-terracotta' : ''}`}
-              />
-            </Button>
-          </div>
+        <div className="p-4 h-[12%] border-t border-thrift-lightgray flex justify-between items-center">
+          <p className="font-medium text-lg">${item.price}</p>
+          <Button 
+            variant="ghost" 
+            size="icon"
+            onClick={handleSave}
+            className="rounded-full -mr-1"
+          >
+            <Heart 
+              className={`h-5 w-5 ${isSaved ? 'fill-thrift-terracotta text-thrift-terracotta' : ''}`}
+            />
+          </Button>
         </div>
       </div>
       <div className="card-back rounded-lg overflow-hidden shadow-md h-full bg-white p-5 flex flex-col justify-between border border-thrift-lightgray">
         <div>
-          <h3 className="font-medium text-lg mb-1 truncate">{item.title}</h3>
+          <h3 className="font-medium text-lg mb-1 truncate">{formattedTitle}</h3>
           <div className="flex justify-between mb-3">
             <p className="font-medium">${item.price}</p>
             <p className="text-sm text-thrift-charcoal/70">{item.condition}</p>
