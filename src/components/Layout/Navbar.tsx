@@ -1,11 +1,31 @@
 
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Heart, ShoppingCart, User, Menu, X, Search } from 'lucide-react';
-import Button from '../shared/Button';
+import { Link, useNavigate } from 'react-router-dom';
+import { Heart, ShoppingCart, User, Menu, X, Search, LogOut } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { useAuth } from '@/contexts/AuthContext';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleAuthAction = () => {
+    if (user) {
+      navigate('/profile');
+    } else {
+      navigate('/auth');
+    }
+  };
 
   return (
     <nav className="bg-thrift-cream border-b border-thrift-lightgray sticky top-0 z-50">
@@ -35,11 +55,39 @@ const Navbar = () => {
             <Button variant="ghost" size="icon" className="rounded-full">
               <ShoppingCart className="h-5 w-5" />
             </Button>
-            <Link to="/profile">
-              <Button variant="ghost" size="icon" className="rounded-full">
+            
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon" className="rounded-full">
+                    <User className="h-5 w-5" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuGroup>
+                    <DropdownMenuItem onClick={() => navigate('/profile')}>
+                      <User className="mr-2 h-4 w-4" />
+                      <span>Profile</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => signOut()}>
+                      <LogOut className="mr-2 h-4 w-4" />
+                      <span>Sign out</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuGroup>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Button 
+                variant="ghost" 
+                onClick={handleAuthAction}
+                className="rounded-full flex items-center gap-2"
+              >
                 <User className="h-5 w-5" />
+                <span>Sign In</span>
               </Button>
-            </Link>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -94,11 +142,31 @@ const Navbar = () => {
                 <Button variant="ghost" size="icon" className="rounded-full">
                   <ShoppingCart className="h-5 w-5" />
                 </Button>
-                <Link to="/profile">
-                  <Button variant="ghost" size="icon" className="rounded-full">
+                {user ? (
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="rounded-full"
+                    onClick={() => {
+                      signOut();
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    <LogOut className="h-5 w-5" />
+                  </Button>
+                ) : (
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="rounded-full"
+                    onClick={() => {
+                      navigate('/auth');
+                      setIsMenuOpen(false);
+                    }}
+                  >
                     <User className="h-5 w-5" />
                   </Button>
-                </Link>
+                )}
               </div>
             </div>
           </div>
