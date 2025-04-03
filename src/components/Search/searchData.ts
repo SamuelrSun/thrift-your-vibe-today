@@ -64,7 +64,7 @@ export const dummyItems = [
     price: 65,
     size: 'S',
     condition: 'Like New',
-    imageUrl: 'https://source.unsplash.com/featured/?cashmere,sweater',
+    imageUrl: 'https://www.jcrew.com/s7-img-facade/CB905_NA6157?hei=850&crop=0,0,680,0',
     description: 'Soft cashmere sweater in oatmeal color. Minimal pilling, excellent condition.'
   },
   {
@@ -74,7 +74,7 @@ export const dummyItems = [
     price: 120,
     size: 'L',
     condition: 'Gently Used',
-    imageUrl: 'https://source.unsplash.com/featured/?leather,jacket',
+    imageUrl: 'https://cdn.saksfifthavenue.com/is/image/saks/0400018247844_BLACK?wid=600&hei=800&qlt=90&resMode=sharp2&op_usm=0.9%2C1.0%2C8%2C0',
     description: 'Classic black leather motorcycle jacket with asymmetrical zipper and quilted details.'
   },
   {
@@ -84,7 +84,7 @@ export const dummyItems = [
     price: 38,
     size: 'M',
     condition: 'Like New',
-    imageUrl: 'https://source.unsplash.com/featured/?pleated,skirt',
+    imageUrl: 'https://www.madewell.com/images/NU604_WR1830_ld?wid=1400&hei=1779&fmt=jpeg&fit=crop&qlt=75',
     description: 'Elegant pleated midi skirt in emerald green. Perfect for office or evening wear.'
   },
   {
@@ -94,7 +94,7 @@ export const dummyItems = [
     price: 55,
     size: 'S',
     condition: 'Like New',
-    imageUrl: 'https://source.unsplash.com/featured/?silk,shirt',
+    imageUrl: 'https://cdn.saksfifthavenue.com/is/image/saks/0400013120163_NATUREWHITE?wid=600&hei=800&qlt=90&resMode=sharp2&op_usm=0.9%2C1.0%2C8%2C0',
     description: 'Luxurious silk button-up in cream. Versatile wardrobe essential in excellent condition.'
   },
   {
@@ -104,7 +104,7 @@ export const dummyItems = [
     price: 42,
     size: 'M',
     condition: 'Gently Used',
-    imageUrl: 'https://source.unsplash.com/featured/?linen,blazer',
+    imageUrl: 'https://static.zara.net/assets/public/4a94/de1b/b5af49c58969/7942584a631e/02019770520-a1/02019770520-a1.jpg?ts=1731574480622&w=744&f=auto',
     description: 'Structured linen blazer in sand color. Perfect for summer office attire or casual elevation.'
   },
 ];

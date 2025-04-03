@@ -1,17 +1,7 @@
 
 import React from 'react';
 import ItemCard from '../Explore/ItemCard';
-
-interface Item {
-  id: number;
-  title: string;
-  brand: string;
-  price: number;
-  size: string;
-  condition: string;
-  imageUrl: string;
-  description: string;
-}
+import { Item } from './searchData';
 
 interface SearchResultsProps {
   searchQuery: string;
