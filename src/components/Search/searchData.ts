@@ -109,7 +109,7 @@ export const dummyItems = [
   },
   {
     id: 7,
-    title: 'Linen Blazer',
+    title: 'new thingy',
     brand: 'Zara',
     price: 42,
     size: 'M',
