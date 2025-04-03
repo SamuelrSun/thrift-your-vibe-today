@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Heart, ShoppingCart, User, Menu, X, Search, LogOut } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { useAuth } from '@/contexts/AuthContext';
@@ -20,6 +20,12 @@ const Navbar = () => {
   const { user, signOut } = useAuth();
   const { cartCount } = useCart();
   const navigate = useNavigate();
+  const location = useLocation();
+  
+  // Don't show navbar on auth page
+  if (location.pathname === '/auth') {
+    return null;
+  }
 
   const handleAuthAction = () => {
     if (user) {

@@ -1,9 +1,22 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import AuthForm from "../components/Auth/AuthForm";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Auth = () => {
   const [mode, setMode] = useState<"signin" | "signup">("signin");
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  // If user is already authenticated, redirect to home or the page they were trying to access
+  useEffect(() => {
+    if (user) {
+      const from = location.state?.from || "/";
+      navigate(from, { replace: true });
+    }
+  }, [user, navigate, location.state]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-thrift-cream to-thrift-lightgray py-12 px-4 sm:px-6 lg:px-8">
