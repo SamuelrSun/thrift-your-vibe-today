@@ -1,8 +1,29 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import SearchBar from './SearchBar';
 import FilterPanel from './FilterPanel';
 import ItemCard from '../Explore/ItemCard';
+
+// Thrift phrases that will be randomly selected
+const thriftPhrases = [
+  "What's Thriftin'? ✨",
+  "Finders, Keepers!",
+  "Pre-Loved, Re-Loved",
+  "Wardrobe Wins Await!",
+  "Drip, But Make It Thrift",
+  "Slay, Sustainably 💃",
+  "Old School Cool 😎",
+  "Certified Pre-Owned Drip 💧",
+  "Get in Loser, We're Going Thrifting!",
+  "Thrift Game Strong",
+  "Who Needs Retail?",
+  "Retail Therapy, But Budget-Friendly 🤑",
+  "Drip So Hard, They Think It's Designer 😤",
+  "POV: You Just Scored a Fire Fit",
+  "She's Vintage, Your Honor",
+  "New Fit, Who Dis?",
+  "Not Me Finding the Best Deals 👀"
+];
 
 // Dummy data for demo
 const dummyItems = [
@@ -72,6 +93,13 @@ const SearchPage = () => {
   const [isAIMode, setIsAIMode] = useState(true);
   const [searchResults, setSearchResults] = useState(dummyItems);
   const [searchQuery, setSearchQuery] = useState('');
+  const [randomPhrase, setRandomPhrase] = useState("");
+
+  // Set a random thrift phrase on component mount
+  useEffect(() => {
+    const randomIndex = Math.floor(Math.random() * thriftPhrases.length);
+    setRandomPhrase(thriftPhrases[randomIndex]);
+  }, []);
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
@@ -90,7 +118,7 @@ const SearchPage = () => {
     <div className="container mx-auto px-4 py-8">
       <div className="text-center mb-8">
         <h1 className="text-4xl md:text-5xl font-playfair font-bold mb-2">
-          Thrift Your Heart Out
+          {randomPhrase}
         </h1>
         <p className="text-lg text-thrift-charcoal/80 max-w-2xl mx-auto">
           Discover pre-loved treasures that match your style, budget, and values.
