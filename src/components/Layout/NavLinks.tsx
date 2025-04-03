@@ -1,5 +1,5 @@
 
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 interface NavLinksProps {
   isMobile?: boolean;
@@ -7,6 +7,8 @@ interface NavLinksProps {
 }
 
 const NavLinks = ({ isMobile = false, closeMenu }: NavLinksProps) => {
+  const location = useLocation();
+
   const handleClick = () => {
     if (isMobile && closeMenu) {
       closeMenu();
@@ -18,7 +20,6 @@ const NavLinks = ({ isMobile = false, closeMenu }: NavLinksProps) => {
     { path: "/explore", label: "Explore" },
     { path: "/likes", label: "Likes" },
     { path: "/sell", label: "Sell" },
-    { path: "/about", label: "About" }
   ];
 
   return (
@@ -29,8 +30,8 @@ const NavLinks = ({ isMobile = false, closeMenu }: NavLinksProps) => {
           to={link.path}
           className={
             isMobile
-              ? "font-medium px-3 py-2 hover:bg-thrift-lightgray rounded-md"
-              : "font-medium hover:text-thrift-sage transition-colors"
+              ? `font-medium px-3 py-2 hover:bg-thrift-lightgray rounded-md ${location.pathname === link.path ? 'font-bold' : ''}`
+              : `font-medium hover:text-thrift-sage transition-colors ${location.pathname === link.path ? 'font-bold' : ''}`
           }
           onClick={handleClick}
         >

@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import Button from '../shared/Button';
@@ -80,7 +79,6 @@ const FilterPanel = ({
       </div>
       
       <div className={`space-y-6 ${isExpanded ? 'block' : 'hidden md:block'}`}>
-        {/* Price Range */}
         <div>
           <h4 className="text-sm font-medium mb-3">Price Range</h4>
           <div className="flex items-center space-x-2">
@@ -104,7 +102,6 @@ const FilterPanel = ({
           </div>
         </div>
         
-        {/* Size */}
         <div>
           <h4 className="text-sm font-medium mb-3">Size</h4>
           <div className="flex flex-wrap gap-2">
@@ -124,7 +121,6 @@ const FilterPanel = ({
           </div>
         </div>
         
-        {/* Brand Categories */}
         <div>
           <h4 className="text-sm font-medium mb-3">Brand Categories</h4>
           <div className="space-y-2">
@@ -142,7 +138,6 @@ const FilterPanel = ({
           </div>
         </div>
         
-        {/* Condition */}
         <div>
           <h4 className="text-sm font-medium mb-3">Condition</h4>
           <div className="space-y-2">
@@ -160,7 +155,6 @@ const FilterPanel = ({
           </div>
         </div>
         
-        {/* Categories */}
         <div>
           <h4 className="text-sm font-medium mb-3">Categories</h4>
           <div className="space-y-2">
@@ -178,7 +172,6 @@ const FilterPanel = ({
           </div>
         </div>
         
-        {/* Action Buttons */}
         <div className="flex space-x-2 pt-3 border-t border-thrift-lightgray">
           <Button variant="default" className="w-full" onClick={handleApplyFilters}>Apply Filters</Button>
           <Button 
@@ -186,7 +179,7 @@ const FilterPanel = ({
             className="border-thrift-lightgray text-thrift-charcoal"
             onClick={onClearFilters}
           >
-            Clear All
+            Clear
           </Button>
         </div>
       </div>
