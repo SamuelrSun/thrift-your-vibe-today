@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Heart, ShoppingCart, Check } from 'lucide-react';
 import Button from '../shared/Button';
@@ -61,54 +60,40 @@ const ItemCard = ({ item }: ItemCardProps) => {
       className={`relative h-[400px] cursor-pointer card-flip ${isFlipped ? 'flipped' : ''}`}
       onClick={handleFlip}
     >
-      {/* Front of Card */}
       <div className="card-front rounded-lg overflow-hidden shadow-md h-full bg-white border border-thrift-lightgray">
-        {/* Title at the top */}
         <div className="p-3 border-b border-thrift-lightgray">
           <h3 className="font-medium text-lg truncate">{item.title}</h3>
         </div>
-        
-        {/* Image section */}
-        <div className="h-[55%] overflow-hidden">
+        <div className="h-[60%] overflow-hidden">
           <img 
             src={item.imageUrl} 
             alt={item.title} 
             className="w-full h-full object-cover transition-transform hover:scale-105"
           />
         </div>
-        
-        {/* Details section */}
-        <div className="p-4 h-[30%] flex flex-col justify-between">
-          <div>
-            <div className="flex justify-between items-start">
-              <div className="flex gap-2 items-center text-sm text-thrift-charcoal/70">
-                <span>{item.brand}</span>
-                <span>•</span>
-                <span>{item.size}</span>
-                <span>•</span>
-                <span>{item.condition}</span>
-              </div>
-              <Button 
-                variant="ghost" 
-                size="icon"
-                onClick={handleSave}
-                className="rounded-full -mt-1 -mr-1"
-              >
-                <Heart 
-                  className={`h-5 w-5 ${isSaved ? 'fill-thrift-terracotta text-thrift-terracotta' : ''}`}
-                />
-              </Button>
-            </div>
+        <div className="p-4 h-[25%] flex flex-col justify-between">
+          <div className="flex gap-2 items-center text-sm text-thrift-charcoal/70 mb-2">
+            <span>{item.brand}</span>
+            <span>•</span>
+            <span>{item.size}</span>
+            <span>•</span>
+            <span>{item.condition}</span>
           </div>
-          
-          {/* Price with bottom border */}
-          <div className="mt-3 pt-3 border-t border-thrift-lightgray">
+          <div className="mt-1 pt-2 border-t border-thrift-lightgray flex justify-between items-center">
             <p className="font-medium text-lg">${item.price}</p>
+            <Button 
+              variant="ghost" 
+              size="icon"
+              onClick={handleSave}
+              className="rounded-full -mr-1"
+            >
+              <Heart 
+                className={`h-5 w-5 ${isSaved ? 'fill-thrift-terracotta text-thrift-terracotta' : ''}`}
+              />
+            </Button>
           </div>
         </div>
       </div>
-      
-      {/* Back of Card */}
       <div className="card-back rounded-lg overflow-hidden shadow-md h-full bg-white p-5 flex flex-col justify-between border border-thrift-lightgray">
         <div>
           <h3 className="font-medium text-lg mb-1 truncate">{item.title}</h3>
@@ -122,7 +107,6 @@ const ItemCard = ({ item }: ItemCardProps) => {
             <p className="text-thrift-charcoal/80 line-clamp-3">{item.description}</p>
           </div>
         </div>
-        
         <div className="flex gap-2 mt-4">
           <Button 
             className={`w-full flex items-center justify-center gap-2 ${inCart ? 'bg-thrift-sage/70' : ''}`}
