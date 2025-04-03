@@ -17,6 +17,7 @@ import { LikesProvider } from "./contexts/LikesContext";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
 import Cart from "./pages/Cart";
 import Likes from "./pages/Likes";
+import Sell from "./pages/Sell";
 
 const queryClient = new QueryClient();
 
@@ -38,6 +39,7 @@ const App = () => (
                     <Route path="/explore" element={<Explore />} />
                     <Route path="/auth" element={<Auth />} />
                     <Route path="/likes" element={<Likes />} />
+                    <Route path="/sell" element={<Sell />} />
                     <Route 
                       path="/cart" 
                       element={

@@ -1,117 +1,23 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --background: 45 29% 97%;
-    --foreground: 0 0% 20%;
+/* Existing styles */
 
-    --card: 45 29% 97%;
-    --card-foreground: 0 0% 20%;
-
-    --popover: 45 29% 97%;
-    --popover-foreground: 0 0% 20%;
-
-    --primary: 140 14% 60%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 20 50% 57%;
-    --secondary-foreground: 0 0% 100%;
-
-    --muted: 0 0% 90%;
-    --muted-foreground: 0 0% 60%;
-
-    --accent: 20 50% 57%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 0 0% 85%;
-    --input: 0 0% 85%;
-    --ring: 140 14% 60%;
-
-    --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+/* Add confetti animation */
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
   }
-
-  .dark {
-    --background: 0 0% 10%;
-    --foreground: 0 0% 95%;
-
-    --card: 0 0% 10%;
-    --card-foreground: 0 0% 95%;
-
-    --popover: 0 0% 10%;
-    --popover-foreground: 0 0% 95%;
-
-    --primary: 140 14% 50%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 20 50% 45%;
-    --secondary-foreground: 0 0% 100%;
-
-    --muted: 0 0% 20%;
-    --muted-foreground: 0 0% 70%;
-
-    --accent: 20 50% 45%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 0 0% 20%;
-    --input: 0 0% 20%;
-    --ring: 140 14% 50%;
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
   }
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-
-  body {
-    @apply bg-background text-foreground font-poppins;
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-playfair font-medium;
-  }
-}
-
-.card-flip {
-  perspective: 1000px;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
-}
-
-.card-flip.flipped {
-  transform: rotateY(180deg);
-}
-
-.card-front,
-.card-back {
-  backface-visibility: hidden;
+.animate-confetti {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.card-back {
-  transform: rotateY(180deg);
+  animation: confetti-fall linear forwards;
 }
