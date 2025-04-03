@@ -1,9 +1,10 @@
+
 import { useState, useRef, useEffect } from 'react';
 import PromoBanner from './PromoBanner';
 import ItemCard from './ItemCard';
 import StylePost from './StylePost';
 import { Bell } from 'lucide-react';
-import { dummyProducts } from '../Search/searchData';
+import { dummyItems } from '../Search/searchData';
 
 // Dummy data for style posts
 const dummyPosts = [
@@ -21,15 +22,15 @@ const dummyPosts = [
     similarItems: [
       {
         id: 101,
-        imageUrl: dummyProducts[0].image_url,
-        title: dummyProducts[0].title,
-        price: dummyProducts[0].price
+        imageUrl: dummyItems[0].imageUrl,
+        title: dummyItems[0].title,
+        price: dummyItems[0].price
       },
       {
         id: 102,
-        imageUrl: dummyProducts[1].image_url,
-        title: dummyProducts[1].title,
-        price: dummyProducts[1].price
+        imageUrl: dummyItems[1].imageUrl,
+        title: dummyItems[1].title,
+        price: dummyItems[1].price
       }
     ]
   },
@@ -47,29 +48,29 @@ const dummyPosts = [
     similarItems: [
       {
         id: 103,
-        imageUrl: dummyProducts[2].image_url,
-        title: dummyProducts[2].title,
-        price: dummyProducts[2].price
+        imageUrl: dummyItems[2].imageUrl,
+        title: dummyItems[2].title,
+        price: dummyItems[2].price
       },
       {
         id: 104,
-        imageUrl: dummyProducts[3].image_url,
-        title: dummyProducts[3].title,
-        price: dummyProducts[3].price
+        imageUrl: dummyItems[3].imageUrl,
+        title: dummyItems[3].title,
+        price: dummyItems[3].price
       }
     ]
   }
 ];
 
-// Use product data from search data
-const dummyItems = dummyProducts.slice(0, 4).map(product => ({
+// Use items data from search data
+const exploreItems = dummyItems.slice(0, 4).map(product => ({
   id: product.id,
   title: product.title,
   brand: product.brand,
   price: product.price,
   size: product.size || "M",
   condition: product.condition || "Gently Used",
-  imageUrl: product.image_url,
+  imageUrl: product.imageUrl,
   description: product.description || "Quality secondhand item in great condition."
 }));
 
@@ -82,16 +83,16 @@ const createMixedFeed = () => {
   
   // Pair items to match post heights (two items per style post)
   const itemPairs = [];
-  for (let i = 0; i < dummyItems.length; i += 2) {
-    if (i + 1 < dummyItems.length) {
+  for (let i = 0; i < exploreItems.length; i += 2) {
+    if (i + 1 < exploreItems.length) {
       itemPairs.push({
         type: 'item-pair',
-        contents: [dummyItems[i], dummyItems[i + 1]]
+        contents: [exploreItems[i], exploreItems[i + 1]]
       });
     } else {
       itemPairs.push({
         type: 'item-pair',
-        contents: [dummyItems[i]]
+        contents: [exploreItems[i]]
       });
     }
   }
