@@ -45,7 +45,7 @@ const StylePost = ({ post }: StylePostProps) => {
   };
 
   return (
-    <div className="bg-white rounded-lg overflow-hidden shadow-md">
+    <div className="bg-white rounded-lg overflow-hidden shadow-md h-full flex flex-col">
       {/* Post Header */}
       <div className="flex items-center p-4">
         <div className="h-10 w-10 rounded-full overflow-hidden mr-3">
@@ -61,9 +61,9 @@ const StylePost = ({ post }: StylePostProps) => {
         </div>
       </div>
       
-      {/* Image Carousel */}
-      <div className="relative">
-        <div className="aspect-[4/5] relative overflow-hidden">
+      {/* Image Carousel - Made taller to match two product cards */}
+      <div className="relative flex-grow">
+        <div className="h-full relative overflow-hidden">
           <img 
             src={post.images[currentImageIndex]} 
             alt={`Style post by ${post.username}`} 
@@ -139,7 +139,7 @@ const StylePost = ({ post }: StylePostProps) => {
       </div>
       
       {/* Similar Items */}
-      <div className="p-4 bg-thrift-cream/50">
+      <div className="p-4 bg-thrift-cream/50 mt-auto">
         <button 
           className="text-sm font-medium flex items-center justify-between w-full"
           onClick={() => setShowSimilarItems(!showSimilarItems)}

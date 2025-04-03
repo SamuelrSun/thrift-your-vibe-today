@@ -72,13 +72,13 @@ const ItemDetailsForm = ({ details, onChange }: ItemDetailsFormProps) => {
         />
       </div>
 
-      {/* Condition */}
+      {/* Condition - Modified to be horizontal */}
       <div className="space-y-2">
         <Label className="block text-center">Condition *</Label>
         <RadioGroup 
           value={details.condition} 
           onValueChange={(value) => handleSelectChange('condition', value)}
-          className="flex flex-col items-center space-y-2"
+          className="flex flex-row justify-center items-center space-x-4 max-w-md mx-auto"
         >
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="new" id="new" />
