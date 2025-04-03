@@ -8,9 +8,26 @@ interface FilterOption {
   label: string;
 }
 
-const FilterPanel = () => {
+export interface FilterState {
+  sizes: string[];
+  brands: string[];
+  conditions: string[];
+  categories: string[];
+  priceRange: {
+    min: number | null;
+    max: number | null;
+  };
+}
+
+interface FilterPanelProps {
+  onApplyFilters: (filters: FilterState) => void;
+}
+
+const FilterPanel = ({ onApplyFilters }: FilterPanelProps) => {
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [minPrice, setMinPrice] = useState<string>('');
+  const [maxPrice, setMaxPrice] = useState<string>('');
 
   const sizes: FilterOption[] = [
     { id: 'xs', label: 'XS' },
@@ -53,6 +70,38 @@ const FilterPanel = () => {
     );
   };
 
+  const handleApplyFilters = () => {
+    // Extract filters by category
+    const sizeFilters = activeFilters.filter(id => sizes.some(size => size.id === id));
+    const brandFilters = activeFilters.filter(id => brands.some(brand => brand.id === id));
+    const conditionFilters = activeFilters.filter(id => conditions.some(condition => condition.id === id));
+    const categoryFilters = activeFilters.filter(id => categories.some(category => category.id === id));
+    
+    // Parse price range values
+    const minPriceValue = minPrice ? Number(minPrice) : null;
+    const maxPriceValue = maxPrice ? Number(maxPrice) : null;
+    
+    // Create filter state object
+    const filterState: FilterState = {
+      sizes: sizeFilters,
+      brands: brandFilters,
+      conditions: conditionFilters,
+      categories: categoryFilters,
+      priceRange: {
+        min: minPriceValue,
+        max: maxPriceValue
+      }
+    };
+    
+    onApplyFilters(filterState);
+  };
+
+  const handleClearFilters = () => {
+    setActiveFilters([]);
+    setMinPrice('');
+    setMaxPrice('');
+  };
+
   return (
     <div className="bg-white rounded-lg shadow-md p-5">
       <div className="flex justify-between items-center mb-4">
@@ -74,14 +123,18 @@ const FilterPanel = () => {
             <input 
               type="number" 
               placeholder="$" 
-              className="w-20 border border-thrift-lightgray rounded px-2 py-1"
+              className="w-20 border border-thrift-lightgray rounded px-2 py-1 appearance-none"
+              value={minPrice}
+              onChange={(e) => setMinPrice(e.target.value)}
               min="0"
             />
             <span>to</span>
             <input 
               type="number" 
               placeholder="$" 
-              className="w-20 border border-thrift-lightgray rounded px-2 py-1"
+              className="w-20 border border-thrift-lightgray rounded px-2 py-1 appearance-none"
+              value={maxPrice}
+              onChange={(e) => setMaxPrice(e.target.value)}
               min="0"
             />
           </div>
@@ -163,11 +216,17 @@ const FilterPanel = () => {
         
         {/* Action Buttons */}
         <div className="flex space-x-2 pt-3 border-t border-thrift-lightgray">
-          <Button variant="default" className="w-full">Apply Filters</Button>
+          <Button 
+            variant="default" 
+            className="w-full" 
+            onClick={handleApplyFilters}
+          >
+            Apply Filters
+          </Button>
           <Button 
             variant="outline" 
             className="border-thrift-lightgray text-thrift-charcoal"
-            onClick={() => setActiveFilters([])}
+            onClick={handleClearFilters}
           >
             Clear All
           </Button>
