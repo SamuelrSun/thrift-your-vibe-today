@@ -30,8 +30,8 @@ const NavLinks = ({ isMobile = false, closeMenu }: NavLinksProps) => {
           to={link.path}
           className={
             isMobile
-              ? `font-medium px-3 py-2 hover:bg-thrift-lightgray rounded-md ${location.pathname === link.path ? 'font-bold' : ''}`
-              : `font-medium hover:text-thrift-sage transition-colors ${location.pathname === link.path ? 'font-bold' : ''}`
+              ? `font-medium px-3 py-2 hover:bg-thrift-lightgray rounded-md ${location.pathname === link.path ? 'font-bold' : 'font-normal'}`
+              : `hover:text-thrift-sage transition-colors ${location.pathname === link.path ? 'font-bold' : 'font-normal'}`
           }
           onClick={handleClick}
         >
@@ -43,4 +43,3 @@ const NavLinks = ({ isMobile = false, closeMenu }: NavLinksProps) => {
 };
 
 export default NavLinks;
-
