@@ -43,13 +43,13 @@ const Navbar = () => {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="text-2xl font-playfair font-bold">
+          <Link to={user ? "/search" : "/auth"} className="text-2xl font-playfair font-bold">
             Everybody's Thrift
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link to="/" className="font-medium hover:text-thrift-sage transition-colors">Search</Link>
+            <Link to="/search" className="font-medium hover:text-thrift-sage transition-colors">Search</Link>
             <Link to="/explore" className="font-medium hover:text-thrift-sage transition-colors">Explore</Link>
             <Link to="/likes" className="font-medium hover:text-thrift-sage transition-colors">Likes</Link>
             <Link to="/sell" className="font-medium hover:text-thrift-sage transition-colors">Sell</Link>
@@ -140,7 +140,7 @@ const Navbar = () => {
           <div className="md:hidden pt-4 pb-3 border-t mt-4">
             <div className="flex flex-col space-y-3">
               <Link 
-                to="/" 
+                to="/search" 
                 className="font-medium px-3 py-2 hover:bg-thrift-lightgray rounded-md"
                 onClick={() => setIsMenuOpen(false)}
               >

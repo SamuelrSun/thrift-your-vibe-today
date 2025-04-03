@@ -10,10 +10,10 @@ const Auth = () => {
   const navigate = useNavigate();
   const location = useLocation();
   
-  // If user is already authenticated, redirect to home or the page they were trying to access
+  // If user is already authenticated, redirect to search or the page they were trying to access
   useEffect(() => {
     if (user) {
-      const from = location.state?.from || "/";
+      const from = location.state?.from || "/search";
       navigate(from, { replace: true });
     }
   }, [user, navigate, location.state]);
