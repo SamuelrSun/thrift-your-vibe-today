@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { User, Settings, Heart } from 'lucide-react';
 import ProfileTabs from './ProfileTabs';
@@ -206,7 +207,7 @@ const ProfilePage = () => {
         .catch(error => {
           console.error('Error in profile update:', error);
         })
-        .then(() => {
+        .finally(() => {
           setIsLoading(false);
         });
     }
