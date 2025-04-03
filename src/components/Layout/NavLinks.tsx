@@ -43,3 +43,4 @@ const NavLinks = ({ isMobile = false, closeMenu }: NavLinksProps) => {
 };
 
 export default NavLinks;
+
