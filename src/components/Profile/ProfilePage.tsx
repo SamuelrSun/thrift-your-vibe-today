@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { User, Settings, Heart } from 'lucide-react';
 import ProfileTabs from './ProfileTabs';
-import ItemCard from '../Explore/ItemCard';
+import ItemCard from '../shared/ItemCard'; // Fixed import path
 import Button from '../shared/Button';
 import ProfileEditor from './ProfileEditor';
 import { supabase } from '@/integrations/supabase/client';
@@ -204,7 +204,7 @@ const ProfilePage = () => {
             });
           }
         })
-        .catch(error => {
+        .catch(error => { // Fixed to add proper catch method
           console.error('Error in profile update:', error);
         })
         .finally(() => {

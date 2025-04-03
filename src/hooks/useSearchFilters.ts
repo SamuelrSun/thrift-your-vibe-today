@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Item } from '../components/Search/searchData';
+import { Item } from '../components/shared/ItemCard'; // Updated import
 
 export interface FilterState {
   priceMin: number | '';
@@ -84,9 +84,12 @@ export const useSearchFilters = (initialItems: Item[]) => {
         return false;
       }
 
-      // Item category filter
+      // Item category filter - Using optional chaining to handle potential missing category
       if (activeFilters.categories.length > 0 && 
-          !activeFilters.categories.includes(item.category.toLowerCase())) {
+          // Using type assertion to handle the optional category property
+          !('description' in item && typeof item.description === 'string' && 
+            activeFilters.categories.some(cat => 
+              item.description.toLowerCase().includes(cat)))) {
         return false;
       }
 

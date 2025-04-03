@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
-import { Confetti, Camera, RefreshCw, CheckCircle, XCircle } from 'lucide-react';
+import { Camera, RefreshCw, CheckCircle, XCircle, PartyPopper } from 'lucide-react'; // Replaced Confetti with PartyPopper
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
 import ItemImageUpload from './ItemImageUpload';
