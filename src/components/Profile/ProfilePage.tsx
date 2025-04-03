@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { User, Settings, Heart } from 'lucide-react';
 import ProfileTabs from './ProfileTabs';
@@ -9,7 +8,6 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/components/ui/use-toast';
 
-// Dummy data
 const dummyItems = [
   {
     id: 1,
@@ -99,7 +97,6 @@ const stylePosts = [
   },
 ];
 
-// Profile tabs
 const profileTabs = [
   { id: "listings", label: "My Listings" },
   { id: "selling", label: "Selling Status" },
@@ -147,7 +144,6 @@ const ProfilePage = () => {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(true);
 
-  // Fetch user profile data
   useEffect(() => {
     const fetchProfile = async () => {
       if (!user) return;
@@ -185,7 +181,6 @@ const ProfilePage = () => {
   }, [user, toast]);
 
   const handleProfileUpdate = () => {
-    // Refetch profile data after update
     if (user) {
       setIsLoading(true);
       supabase
@@ -208,13 +203,17 @@ const ProfilePage = () => {
             });
           }
         })
-        .finally(() => setIsLoading(false));
+        .catch(error => {
+          console.error('Error in profile update:', error);
+        })
+        .then(() => {
+          setIsLoading(false);
+        });
     }
   };
 
   return (
     <div className="container mx-auto px-4 py-8">
-      {/* Profile Header */}
       <div className="flex flex-col md:flex-row items-center md:items-start gap-6 mb-8">
         <div className="h-24 w-24 rounded-full bg-thrift-lightgray flex items-center justify-center overflow-hidden">
           {profileData.avatarUrl ? (
@@ -266,16 +265,13 @@ const ProfilePage = () => {
         </div>
       </div>
       
-      {/* Profile Tabs */}
       <ProfileTabs 
         tabs={profileTabs} 
         activeTab={activeTab} 
         onChange={setActiveTab} 
       />
       
-      {/* Tab Content */}
       <div className="py-6">
-        {/* My Listings */}
         {activeTab === "listings" && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {dummyItems.map(item => (
@@ -290,10 +286,8 @@ const ProfilePage = () => {
           </div>
         )}
         
-        {/* Selling Status */}
         {activeTab === "selling" && (
           <div className="space-y-6">
-            {/* Process steps */}
             <div className="flex justify-between items-center">
               <div className="flex flex-col md:flex-row gap-2 md:gap-0 md:space-x-4 mb-6">
                 <div className="flex items-center py-3 px-4 rounded-lg bg-thrift-lightgray text-center">
@@ -323,7 +317,6 @@ const ProfilePage = () => {
               </div>
             </div>
 
-            {/* Status Table */}
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead className="bg-thrift-lightgray/50 text-left">
@@ -362,7 +355,6 @@ const ProfilePage = () => {
           </div>
         )}
         
-        {/* My Style */}
         {activeTab === "style" && (
           <div>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -396,7 +388,6 @@ const ProfilePage = () => {
           </div>
         )}
         
-        {/* Saved Items */}
         {activeTab === "saved" && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {dummyItems.map(item => (
@@ -405,11 +396,9 @@ const ProfilePage = () => {
           </div>
         )}
         
-        {/* Preferences */}
         {activeTab === "preferences" && (
           <div className="max-w-2xl mx-auto">
             <div className="space-y-6">
-              {/* Favorite Brands */}
               <div className="bg-white p-6 rounded-lg shadow-sm">
                 <h3 className="text-lg font-medium mb-3">Favorite Brands</h3>
                 <div className="flex flex-wrap gap-2 mb-4">
@@ -428,7 +417,6 @@ const ProfilePage = () => {
                 </div>
               </div>
               
-              {/* Style Preferences */}
               <div className="bg-white p-6 rounded-lg shadow-sm">
                 <h3 className="text-lg font-medium mb-4">Style Preferences</h3>
                 <div className="space-y-3">
@@ -444,7 +432,6 @@ const ProfilePage = () => {
                 </div>
               </div>
               
-              {/* Size Preferences */}
               <div className="bg-white p-6 rounded-lg shadow-sm">
                 <h3 className="text-lg font-medium mb-4">Size Preferences</h3>
                 <div className="grid grid-cols-2 gap-4">
@@ -482,7 +469,6 @@ const ProfilePage = () => {
                 </div>
               </div>
               
-              {/* Price Range */}
               <div className="bg-white p-6 rounded-lg shadow-sm">
                 <h3 className="text-lg font-medium mb-4">Price Range Preference</h3>
                 <div className="space-y-1 mb-6">
@@ -507,7 +493,6 @@ const ProfilePage = () => {
           </div>
         )}
         
-        {/* Following/Followers */}
         {activeTab === "following" && (
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
             {[1, 2, 3, 4, 5].map((i) => (
@@ -532,7 +517,6 @@ const ProfilePage = () => {
         )}
       </div>
 
-      {/* Profile Editor Dialog */}
       <ProfileEditor
         open={isEditorOpen}
         onClose={() => setIsEditorOpen(false)}
