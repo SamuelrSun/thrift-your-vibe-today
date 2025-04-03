@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Heart, ShoppingCart, User, Menu, X, Search, LogOut } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { useAuth } from '@/contexts/AuthContext';
+import { useCart } from '@/contexts/CartContext';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,6 +18,7 @@ import {
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, signOut } = useAuth();
+  const { cartCount } = useCart();
   const navigate = useNavigate();
 
   const handleAuthAction = () => {
@@ -52,8 +54,18 @@ const Navbar = () => {
             <Button variant="ghost" size="icon" className="rounded-full">
               <Heart className="h-5 w-5" />
             </Button>
-            <Button variant="ghost" size="icon" className="rounded-full">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="rounded-full relative"
+              onClick={() => navigate('/cart')}
+            >
               <ShoppingCart className="h-5 w-5" />
+              {cartCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-thrift-terracotta text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  {cartCount > 99 ? '99+' : cartCount}
+                </span>
+              )}
             </Button>
             
             {user ? (
@@ -139,8 +151,21 @@ const Navbar = () => {
                 <Button variant="ghost" size="icon" className="rounded-full">
                   <Heart className="h-5 w-5" />
                 </Button>
-                <Button variant="ghost" size="icon" className="rounded-full">
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="rounded-full relative"
+                  onClick={() => {
+                    navigate('/cart');
+                    setIsMenuOpen(false);
+                  }}
+                >
                   <ShoppingCart className="h-5 w-5" />
+                  {cartCount > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-thrift-terracotta text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                      {cartCount > 99 ? '99+' : cartCount}
+                    </span>
+                  )}
                 </Button>
                 {user ? (
                   <Button 

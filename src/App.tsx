@@ -12,7 +12,9 @@ import Profile from "./pages/Profile";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 import { AuthProvider } from "./contexts/AuthContext";
+import { CartProvider } from "./contexts/CartContext";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
+import Cart from "./pages/Cart";
 
 const queryClient = new QueryClient();
 
@@ -23,26 +25,29 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <AuthProvider>
-          <div className="flex flex-col min-h-screen">
-            <Navbar />
-            <main className="flex-grow">
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/explore" element={<Explore />} />
-                <Route path="/auth" element={<Auth />} />
-                <Route 
-                  path="/profile" 
-                  element={
-                    <ProtectedRoute>
-                      <Profile />
-                    </ProtectedRoute>
-                  } 
-                />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </main>
-            <Footer />
-          </div>
+          <CartProvider>
+            <div className="flex flex-col min-h-screen">
+              <Navbar />
+              <main className="flex-grow">
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                  <Route path="/explore" element={<Explore />} />
+                  <Route path="/auth" element={<Auth />} />
+                  <Route path="/cart" element={<Cart />} />
+                  <Route 
+                    path="/profile" 
+                    element={
+                      <ProtectedRoute>
+                        <Profile />
+                      </ProtectedRoute>
+                    } 
+                  />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </main>
+              <Footer />
+            </div>
+          </CartProvider>
         </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>

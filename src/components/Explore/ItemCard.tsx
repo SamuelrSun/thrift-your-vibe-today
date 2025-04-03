@@ -1,7 +1,8 @@
 
 import { useState } from 'react';
-import { Heart, ShoppingCart } from 'lucide-react';
+import { Heart, ShoppingCart, Check } from 'lucide-react';
 import Button from '../shared/Button';
+import { useCart } from '@/contexts/CartContext';
 
 interface Item {
   id: number;
@@ -21,14 +22,33 @@ interface ItemCardProps {
 const ItemCard = ({ item }: ItemCardProps) => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
+  const [isAddingToCart, setIsAddingToCart] = useState(false);
+  const { addToCart, isItemInCart } = useCart();
+  
+  const inCart = isItemInCart(item.id);
 
   const handleFlip = () => {
     setIsFlipped(!isFlipped);
   };
 
-  const handleAddToCart = (e: React.MouseEvent) => {
+  const handleAddToCart = async (e: React.MouseEvent) => {
     e.stopPropagation();
-    console.log('Added to cart:', item.title);
+    
+    if (inCart) return;
+    
+    setIsAddingToCart(true);
+    
+    const success = await addToCart({
+      item_id: item.id,
+      title: item.title,
+      brand: item.brand,
+      price: item.price,
+      size: item.size,
+      condition: item.condition,
+      image_url: item.imageUrl
+    });
+    
+    setIsAddingToCart(false);
   };
 
   const handleSave = (e: React.MouseEvent) => {
@@ -91,11 +111,23 @@ const ItemCard = ({ item }: ItemCardProps) => {
         
         <div className="flex gap-2 mt-4">
           <Button 
-            className="w-full flex items-center justify-center gap-2" 
+            className={`w-full flex items-center justify-center gap-2 ${inCart ? 'bg-thrift-sage/70' : ''}`}
             onClick={handleAddToCart}
+            disabled={isAddingToCart || inCart}
           >
-            <ShoppingCart className="h-4 w-4" />
-            Add to Cart
+            {isAddingToCart ? (
+              <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full"></div>
+            ) : inCart ? (
+              <>
+                <Check className="h-4 w-4" />
+                Added!
+              </>
+            ) : (
+              <>
+                <ShoppingCart className="h-4 w-4" />
+                Add to Cart
+              </>
+            )}
           </Button>
           <Button 
             variant="outline" 
