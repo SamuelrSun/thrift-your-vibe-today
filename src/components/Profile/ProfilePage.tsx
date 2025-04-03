@@ -1,9 +1,13 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { User, Settings, Heart } from 'lucide-react';
 import ProfileTabs from './ProfileTabs';
 import ItemCard from '../Explore/ItemCard';
 import Button from '../shared/Button';
+import ProfileEditor from './ProfileEditor';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/contexts/AuthContext';
+import { useToast } from '@/components/ui/use-toast';
 
 // Dummy data
 const dummyItems = [
@@ -132,20 +136,112 @@ const StatusBadge = ({ status }: { status: string }) => {
 
 const ProfilePage = () => {
   const [activeTab, setActiveTab] = useState("listings");
+  const [isEditorOpen, setIsEditorOpen] = useState(false);
+  const [profileData, setProfileData] = useState({
+    firstName: "",
+    lastName: "",
+    bio: "Vintage enthusiast and sustainable fashion advocate. Selling pieces from my personal collection to give them a second life.",
+    avatarUrl: ""
+  });
+  const { user } = useAuth();
+  const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Fetch user profile data
+  useEffect(() => {
+    const fetchProfile = async () => {
+      if (!user) return;
+      
+      try {
+        const { data, error } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('id', user.id)
+          .single();
+        
+        if (error) throw error;
+        
+        if (data) {
+          setProfileData({
+            firstName: data.first_name || "",
+            lastName: data.last_name || "",
+            bio: "Vintage enthusiast and sustainable fashion advocate. Selling pieces from my personal collection to give them a second life.",
+            avatarUrl: data.avatar_url
+          });
+        }
+      } catch (error) {
+        console.error('Error fetching profile:', error);
+        toast({
+          title: "Error",
+          description: "Failed to load profile data",
+          variant: "destructive",
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchProfile();
+  }, [user, toast]);
+
+  const handleProfileUpdate = () => {
+    // Refetch profile data after update
+    if (user) {
+      setIsLoading(true);
+      supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', user.id)
+        .single()
+        .then(({ data, error }) => {
+          if (error) {
+            console.error('Error fetching updated profile:', error);
+            return;
+          }
+          
+          if (data) {
+            setProfileData({
+              firstName: data.first_name || "",
+              lastName: data.last_name || "",
+              bio: "Vintage enthusiast and sustainable fashion advocate. Selling pieces from my personal collection to give them a second life.",
+              avatarUrl: data.avatar_url
+            });
+          }
+        })
+        .finally(() => setIsLoading(false));
+    }
+  };
 
   return (
     <div className="container mx-auto px-4 py-8">
       {/* Profile Header */}
       <div className="flex flex-col md:flex-row items-center md:items-start gap-6 mb-8">
         <div className="h-24 w-24 rounded-full bg-thrift-lightgray flex items-center justify-center overflow-hidden">
-          <User className="h-12 w-12 text-thrift-charcoal/70" />
+          {profileData.avatarUrl ? (
+            <img 
+              src={profileData.avatarUrl} 
+              alt="Profile" 
+              className="h-full w-full object-cover"
+            />
+          ) : (
+            <User className="h-12 w-12 text-thrift-charcoal/70" />
+          )}
         </div>
         
         <div className="flex-grow text-center md:text-left">
           <div className="flex flex-col md:flex-row items-center justify-between mb-4">
-            <h1 className="text-2xl font-playfair font-bold mb-1 md:mb-0">Jessica Hernandez</h1>
+            <h1 className="text-2xl font-playfair font-bold mb-1 md:mb-0">
+              {isLoading ? "Loading..." : 
+                profileData.firstName && profileData.lastName 
+                  ? `${profileData.firstName} ${profileData.lastName}`
+                  : "Your Profile"}
+            </h1>
             <div className="flex gap-2">
-              <Button variant="outline" className="border-thrift-lightgray gap-2">
+              <Button 
+                variant="outline" 
+                className="border-thrift-lightgray gap-2"
+                onClick={() => setIsEditorOpen(true)}
+              >
                 <Settings className="h-4 w-4" />
                 Edit Profile
               </Button>
@@ -165,7 +261,7 @@ const ProfilePage = () => {
           </div>
           
           <p className="text-thrift-charcoal/80 max-w-2xl">
-            Vintage enthusiast and sustainable fashion advocate. Selling pieces from my personal collection to give them a second life.
+            {profileData.bio}
           </p>
         </div>
       </div>
@@ -435,6 +531,14 @@ const ProfilePage = () => {
           </div>
         )}
       </div>
+
+      {/* Profile Editor Dialog */}
+      <ProfileEditor
+        open={isEditorOpen}
+        onClose={() => setIsEditorOpen(false)}
+        currentData={profileData}
+        onProfileUpdated={handleProfileUpdate}
+      />
     </div>
   );
 };
