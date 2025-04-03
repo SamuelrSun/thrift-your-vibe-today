@@ -13,7 +13,7 @@ const dummyItems = [
     price: 45,
     size: 'M',
     condition: 'Gently Used',
-    imageUrl: 'https://source.unsplash.com/featured/?jeans',
+    imageUrl: 'https://source.unsplash.com/featured/?vintage,jeans',
     description: 'Classic vintage Levi\'s 501 jeans in medium wash. Great condition with authentic wear patterns.'
   },
   {
@@ -23,7 +23,7 @@ const dummyItems = [
     price: 65,
     size: 'S',
     condition: 'Like New',
-    imageUrl: 'https://source.unsplash.com/featured/?sweater',
+    imageUrl: 'https://source.unsplash.com/featured/?cashmere,sweater',
     description: 'Soft cashmere sweater in oatmeal color. Minimal pilling, excellent condition.'
   },
   {
@@ -43,7 +43,7 @@ const dummyItems = [
     price: 38,
     size: 'M',
     condition: 'Like New',
-    imageUrl: 'https://source.unsplash.com/featured/?skirt',
+    imageUrl: 'https://source.unsplash.com/featured/?pleated,skirt',
     description: 'Elegant pleated midi skirt in emerald green. Perfect for office or evening wear.'
   },
   {
@@ -63,7 +63,7 @@ const dummyItems = [
     price: 42,
     size: 'M',
     condition: 'Gently Used',
-    imageUrl: 'https://source.unsplash.com/featured/?blazer',
+    imageUrl: 'https://source.unsplash.com/featured/?linen,blazer',
     description: 'Structured linen blazer in sand color. Perfect for summer office attire or casual elevation.'
   },
 ];
