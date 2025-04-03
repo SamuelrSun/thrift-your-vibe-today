@@ -107,16 +107,6 @@ export const dummyItems = [
     imageUrl: 'https://static.zara.net/assets/public/4a94/de1b/b5af49c58969/7942584a631e/02019770520-a1/02019770520-a1.jpg?ts=1731574480622&w=744&f=auto',
     description: 'Structured linen blazer in sand color. Perfect for summer office attire or casual elevation.'
   },
-  {
-    id: 7,
-    title: 'new thingy',
-    brand: 'Zara',
-    price: 42,
-    size: 'M',
-    condition: 'Gently Used',
-    imageUrl: 'https://static.zara.net/assets/public/4a94/de1b/b5af49c58969/7942584a631e/02019770520-a1/02019770520-a1.jpg?ts=1731574480622&w=744&f=auto',
-    description: 'Structured linen blazer in sand color. Perfect for summer office attire or casual elevation.'
-  },
 ];
 
 // Define the Item interface to be used across components
