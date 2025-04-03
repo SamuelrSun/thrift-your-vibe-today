@@ -22,10 +22,10 @@ const ItemDetailsForm = ({ details, onChange }: ItemDetailsFormProps) => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 text-center">
       {/* Brand */}
       <div className="space-y-2">
-        <Label htmlFor="brand">Brand *</Label>
+        <Label htmlFor="brand" className="block text-center">Brand *</Label>
         <Input
           id="brand"
           name="brand"
@@ -33,20 +33,21 @@ const ItemDetailsForm = ({ details, onChange }: ItemDetailsFormProps) => {
           onChange={handleInputChange}
           placeholder="e.g., Nike, Zara, H&M"
           required
+          className="max-w-md mx-auto"
         />
       </div>
 
       {/* Category */}
       <div className="space-y-2">
-        <Label htmlFor="category">Category *</Label>
+        <Label htmlFor="category" className="block text-center">Category *</Label>
         <Select 
           value={details.category} 
           onValueChange={(value) => handleSelectChange('category', value)}
         >
-          <SelectTrigger id="category">
+          <SelectTrigger id="category" className="max-w-md mx-auto bg-background">
             <SelectValue placeholder="Select category" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="bg-white">
             <SelectItem value="tops">Tops</SelectItem>
             <SelectItem value="bottoms">Bottoms</SelectItem>
             <SelectItem value="dresses">Dresses</SelectItem>
@@ -59,7 +60,7 @@ const ItemDetailsForm = ({ details, onChange }: ItemDetailsFormProps) => {
 
       {/* Size */}
       <div className="space-y-2">
-        <Label htmlFor="size">Size *</Label>
+        <Label htmlFor="size" className="block text-center">Size *</Label>
         <Input
           id="size"
           name="size"
@@ -67,16 +68,17 @@ const ItemDetailsForm = ({ details, onChange }: ItemDetailsFormProps) => {
           onChange={handleInputChange}
           placeholder="e.g., S, M, L, 10, 42"
           required
+          className="max-w-md mx-auto"
         />
       </div>
 
       {/* Condition */}
       <div className="space-y-2">
-        <Label>Condition *</Label>
+        <Label className="block text-center">Condition *</Label>
         <RadioGroup 
           value={details.condition} 
           onValueChange={(value) => handleSelectChange('condition', value)}
-          className="flex flex-col space-y-2"
+          className="flex flex-col items-center space-y-2"
         >
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="new" id="new" />
@@ -99,19 +101,20 @@ const ItemDetailsForm = ({ details, onChange }: ItemDetailsFormProps) => {
 
       {/* Color */}
       <div className="space-y-2">
-        <Label htmlFor="color">Color</Label>
+        <Label htmlFor="color" className="block text-center">Color</Label>
         <Input
           id="color"
           name="color"
           value={details.color}
           onChange={handleInputChange}
           placeholder="e.g., Black, Red, Navy Blue"
+          className="max-w-md mx-auto"
         />
       </div>
 
       {/* Price */}
       <div className="space-y-2">
-        <Label htmlFor="price">Expected Price ($) *</Label>
+        <Label htmlFor="price" className="block text-center">Expected Price ($) *</Label>
         <Input
           id="price"
           name="price"
@@ -121,12 +124,13 @@ const ItemDetailsForm = ({ details, onChange }: ItemDetailsFormProps) => {
           onChange={handleInputChange}
           placeholder="Enter your asking price"
           required
+          className="max-w-md mx-auto"
         />
       </div>
 
       {/* Description */}
       <div className="space-y-2">
-        <Label htmlFor="description">Description</Label>
+        <Label htmlFor="description" className="block text-center">Description</Label>
         <Textarea
           id="description"
           name="description"
@@ -134,10 +138,11 @@ const ItemDetailsForm = ({ details, onChange }: ItemDetailsFormProps) => {
           onChange={handleInputChange}
           placeholder="Provide additional details about your item"
           rows={4}
+          className="max-w-md mx-auto"
         />
       </div>
 
-      <p className="text-xs text-gray-500">* Required fields</p>
+      <p className="text-xs text-gray-500 text-center">* Required fields</p>
     </div>
   );
 };

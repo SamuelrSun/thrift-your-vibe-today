@@ -48,7 +48,7 @@ const ItemImageUpload = ({ images, onChange }: ItemImageUploadProps) => {
   };
 
   return (
-    <div className="space-y-4 w-full">
+    <div className="space-y-4 w-full text-center">
       <div className="flex flex-wrap gap-4 w-full justify-center">
         {previews.map((preview, index) => (
           <div key={index} className="relative group">
@@ -72,10 +72,10 @@ const ItemImageUpload = ({ images, onChange }: ItemImageUploadProps) => {
           <button
             type="button"
             onClick={triggerFileInput}
-            className="w-28 h-28 border-2 border-dashed border-gray-300 rounded-md flex flex-col items-center justify-center hover:border-thrift-sage transition-colors"
+            className="w-full h-40 border-2 border-dashed border-gray-300 rounded-md flex flex-col items-center justify-center hover:border-thrift-sage transition-colors mx-4 max-w-xl"
           >
-            <Image className="w-8 h-8 text-gray-400" />
-            <span className="text-xs mt-2 text-gray-500">Add Image</span>
+            <Image className="w-10 h-10 text-gray-400" />
+            <span className="text-sm mt-3 text-gray-500">Add Image</span>
           </button>
         )}
       </div>
