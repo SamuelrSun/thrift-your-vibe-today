@@ -58,22 +58,36 @@ const ItemCard = ({ item }: ItemCardProps) => {
 
   return (
     <div 
-      className={`relative h-[380px] cursor-pointer card-flip ${isFlipped ? 'flipped' : ''}`}
+      className={`relative h-[400px] cursor-pointer card-flip ${isFlipped ? 'flipped' : ''}`}
       onClick={handleFlip}
     >
       {/* Front of Card */}
-      <div className="card-front rounded-lg overflow-hidden shadow-md h-full bg-white">
-        <div className="h-3/4 overflow-hidden">
+      <div className="card-front rounded-lg overflow-hidden shadow-md h-full bg-white border border-thrift-lightgray">
+        {/* Title at the top */}
+        <div className="p-3 border-b border-thrift-lightgray">
+          <h3 className="font-medium text-lg truncate">{item.title}</h3>
+        </div>
+        
+        {/* Image section */}
+        <div className="h-[55%] overflow-hidden">
           <img 
             src={item.imageUrl} 
             alt={item.title} 
             className="w-full h-full object-cover transition-transform hover:scale-105"
           />
         </div>
-        <div className="p-4 h-1/4 flex flex-col justify-between">
+        
+        {/* Details section */}
+        <div className="p-4 h-[30%] flex flex-col justify-between">
           <div>
             <div className="flex justify-between items-start">
-              <h3 className="font-medium text-lg truncate max-w-[80%]">{item.title}</h3>
+              <div className="flex gap-2 items-center text-sm text-thrift-charcoal/70">
+                <span>{item.brand}</span>
+                <span>•</span>
+                <span>{item.size}</span>
+                <span>•</span>
+                <span>{item.condition}</span>
+              </div>
               <Button 
                 variant="ghost" 
                 size="icon"
@@ -85,17 +99,17 @@ const ItemCard = ({ item }: ItemCardProps) => {
                 />
               </Button>
             </div>
-            <p className="text-sm text-thrift-charcoal/70 truncate">{item.brand} • {item.size}</p>
           </div>
-          <div className="mt-1 flex justify-between items-center">
-            <p className="font-medium">${item.price}</p>
-            <p className="text-xs text-thrift-charcoal/70">{item.condition}</p>
+          
+          {/* Price with bottom border */}
+          <div className="mt-3 pt-3 border-t border-thrift-lightgray">
+            <p className="font-medium text-lg">${item.price}</p>
           </div>
         </div>
       </div>
       
       {/* Back of Card */}
-      <div className="card-back rounded-lg overflow-hidden shadow-md h-full bg-white p-5 flex flex-col justify-between">
+      <div className="card-back rounded-lg overflow-hidden shadow-md h-full bg-white p-5 flex flex-col justify-between border border-thrift-lightgray">
         <div>
           <h3 className="font-medium text-lg mb-1 truncate">{item.title}</h3>
           <div className="flex justify-between mb-3">
