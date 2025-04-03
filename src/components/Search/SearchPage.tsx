@@ -59,7 +59,7 @@ const dummyItems = [
     price: 45,
     size: 'M',
     condition: 'Gently Used',
-    imageUrl: 'https://source.unsplash.com/featured/?vintage,jeans',
+    imageUrl: 'https://res.cloudinary.com/yerdle/image/upload/v1675450134/production/partners/8/inventoryItem/3704948/vjuqlkwzcinxfsb7lbeg.jpg',
     description: 'Classic vintage Levi\'s 501 jeans in medium wash. Great condition with authentic wear patterns.'
   },
   {

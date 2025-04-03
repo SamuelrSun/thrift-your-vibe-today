@@ -58,7 +58,7 @@ const ItemCard = ({ item }: ItemCardProps) => {
 
   return (
     <div 
-      className={`relative h-[360px] cursor-pointer card-flip ${isFlipped ? 'flipped' : ''}`}
+      className={`relative h-[380px] cursor-pointer card-flip ${isFlipped ? 'flipped' : ''}`}
       onClick={handleFlip}
     >
       {/* Front of Card */}
