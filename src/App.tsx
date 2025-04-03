@@ -13,8 +13,10 @@ import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 import { AuthProvider } from "./contexts/AuthContext";
 import { CartProvider } from "./contexts/CartContext";
+import { LikesProvider } from "./contexts/LikesContext";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
 import Cart from "./pages/Cart";
+import Likes from "./pages/Likes";
 
 const queryClient = new QueryClient();
 
@@ -26,34 +28,37 @@ const App = () => (
       <BrowserRouter>
         <AuthProvider>
           <CartProvider>
-            <div className="flex flex-col min-h-screen">
-              <Navbar />
-              <main className="flex-grow">
-                <Routes>
-                  <Route path="/" element={<Index />} />
-                  <Route path="/explore" element={<Explore />} />
-                  <Route path="/auth" element={<Auth />} />
-                  <Route 
-                    path="/cart" 
-                    element={
-                      <ProtectedRoute>
-                        <Cart />
-                      </ProtectedRoute>
-                    } 
-                  />
-                  <Route 
-                    path="/profile" 
-                    element={
-                      <ProtectedRoute>
-                        <Profile />
-                      </ProtectedRoute>
-                    } 
-                  />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </main>
-              <Footer />
-            </div>
+            <LikesProvider>
+              <div className="flex flex-col min-h-screen">
+                <Navbar />
+                <main className="flex-grow">
+                  <Routes>
+                    <Route path="/" element={<Index />} />
+                    <Route path="/explore" element={<Explore />} />
+                    <Route path="/auth" element={<Auth />} />
+                    <Route path="/likes" element={<Likes />} />
+                    <Route 
+                      path="/cart" 
+                      element={
+                        <ProtectedRoute>
+                          <Cart />
+                        </ProtectedRoute>
+                      } 
+                    />
+                    <Route 
+                      path="/profile" 
+                      element={
+                        <ProtectedRoute>
+                          <Profile />
+                        </ProtectedRoute>
+                      } 
+                    />
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </main>
+                <Footer />
+              </div>
+            </LikesProvider>
           </CartProvider>
         </AuthProvider>
       </BrowserRouter>

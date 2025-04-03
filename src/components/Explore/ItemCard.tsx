@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Heart, ShoppingCart, Check } from 'lucide-react';
 import Button from '../shared/Button';
 import { useCart } from '@/contexts/CartContext';
+import { useLikes } from '@/contexts/LikesContext';
 
 interface Item {
   id: number;
@@ -21,11 +22,12 @@ interface ItemCardProps {
 
 const ItemCard = ({ item }: ItemCardProps) => {
   const [isFlipped, setIsFlipped] = useState(false);
-  const [isSaved, setIsSaved] = useState(false);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
   const { addToCart, isItemInCart } = useCart();
+  const { likeItem, unlikeItem, isItemLiked } = useLikes();
   
   const inCart = isItemInCart(item.id);
+  const isLiked = isItemLiked(item.id);
 
   const handleFlip = () => {
     setIsFlipped(!isFlipped);
@@ -51,9 +53,23 @@ const ItemCard = ({ item }: ItemCardProps) => {
     setIsAddingToCart(false);
   };
 
-  const handleSave = (e: React.MouseEvent) => {
+  const handleLike = async (e: React.MouseEvent) => {
     e.stopPropagation();
-    setIsSaved(!isSaved);
+    
+    if (isLiked) {
+      await unlikeItem(item.id);
+    } else {
+      await likeItem({
+        item_id: item.id,
+        title: item.title,
+        brand: item.brand,
+        price: item.price,
+        size: item.size,
+        condition: item.condition,
+        image_url: item.imageUrl,
+        description: item.description
+      });
+    }
   };
 
   // Create formatted title with brand included
@@ -82,11 +98,11 @@ const ItemCard = ({ item }: ItemCardProps) => {
           <Button 
             variant="ghost" 
             size="icon"
-            onClick={handleSave}
+            onClick={handleLike}
             className="rounded-full -mr-1"
           >
             <Heart 
-              className={`h-5 w-5 ${isSaved ? 'fill-thrift-terracotta text-thrift-terracotta' : ''}`}
+              className={`h-5 w-5 ${isLiked ? 'fill-thrift-terracotta text-thrift-terracotta' : ''}`}
             />
           </Button>
         </div>
@@ -127,10 +143,10 @@ const ItemCard = ({ item }: ItemCardProps) => {
           <Button 
             variant="outline" 
             className="border-thrift-lightgray"
-            onClick={handleSave}
+            onClick={handleLike}
           >
             <Heart 
-              className={`h-4 w-4 ${isSaved ? 'fill-thrift-terracotta text-thrift-terracotta' : ''}`}
+              className={`h-4 w-4 ${isLiked ? 'fill-thrift-terracotta text-thrift-terracotta' : ''}`}
             />
           </Button>
         </div>

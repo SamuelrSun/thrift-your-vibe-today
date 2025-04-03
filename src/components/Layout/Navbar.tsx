@@ -5,6 +5,7 @@ import { Heart, ShoppingCart, User, Menu, X, Search, LogOut } from 'lucide-react
 import { Button } from "@/components/ui/button";
 import { useAuth } from '@/contexts/AuthContext';
 import { useCart } from '@/contexts/CartContext';
+import { useLikes } from '@/contexts/LikesContext';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,6 +20,8 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, signOut } = useAuth();
   const { cartCount } = useCart();
+  const { likedItems } = useLikes();
+  const likedCount = likedItems.length;
   const navigate = useNavigate();
   const location = useLocation();
   
@@ -48,6 +51,7 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-8">
             <Link to="/" className="font-medium hover:text-thrift-sage transition-colors">Search</Link>
             <Link to="/explore" className="font-medium hover:text-thrift-sage transition-colors">Explore</Link>
+            <Link to="/likes" className="font-medium hover:text-thrift-sage transition-colors">Likes</Link>
             <Link to="/sell" className="font-medium hover:text-thrift-sage transition-colors">Sell</Link>
             <Link to="/about" className="font-medium hover:text-thrift-sage transition-colors">About</Link>
           </div>
@@ -57,8 +61,18 @@ const Navbar = () => {
             <Button variant="ghost" size="icon" className="rounded-full">
               <Search className="h-5 w-5" />
             </Button>
-            <Button variant="ghost" size="icon" className="rounded-full">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="rounded-full relative"
+              onClick={() => navigate('/likes')}
+            >
               <Heart className="h-5 w-5" />
+              {likedCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-thrift-terracotta text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  {likedCount > 99 ? '99+' : likedCount}
+                </span>
+              )}
             </Button>
             <Button 
               variant="ghost" 
@@ -140,6 +154,13 @@ const Navbar = () => {
                 Explore
               </Link>
               <Link 
+                to="/likes" 
+                className="font-medium px-3 py-2 hover:bg-thrift-lightgray rounded-md"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Likes
+              </Link>
+              <Link 
                 to="/sell" 
                 className="font-medium px-3 py-2 hover:bg-thrift-lightgray rounded-md"
                 onClick={() => setIsMenuOpen(false)}
@@ -154,8 +175,21 @@ const Navbar = () => {
                 About
               </Link>
               <div className="flex space-x-3 px-3 pt-3">
-                <Button variant="ghost" size="icon" className="rounded-full">
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="rounded-full relative"
+                  onClick={() => {
+                    navigate('/likes');
+                    setIsMenuOpen(false);
+                  }}
+                >
                   <Heart className="h-5 w-5" />
+                  {likedCount > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-thrift-terracotta text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                      {likedCount > 99 ? '99+' : likedCount}
+                    </span>
+                  )}
                 </Button>
                 <Button 
                   variant="ghost" 

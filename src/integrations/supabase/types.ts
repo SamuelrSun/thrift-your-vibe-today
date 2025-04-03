@@ -54,6 +54,48 @@ export type Database = {
         }
         Relationships: []
       }
+      liked_items: {
+        Row: {
+          brand: string
+          condition: string
+          created_at: string
+          description: string
+          id: string
+          image_url: string
+          item_id: number
+          price: number
+          size: string
+          title: string
+          user_id: string
+        }
+        Insert: {
+          brand: string
+          condition: string
+          created_at?: string
+          description: string
+          id?: string
+          image_url: string
+          item_id: number
+          price: number
+          size: string
+          title: string
+          user_id: string
+        }
+        Update: {
+          brand?: string
+          condition?: string
+          created_at?: string
+          description?: string
+          id?: string
+          image_url?: string
+          item_id?: number
+          price?: number
+          size?: string
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
