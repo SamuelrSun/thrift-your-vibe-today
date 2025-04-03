@@ -1,16 +1,17 @@
 
 import { useState } from 'react';
-import { Search } from 'lucide-react';
+import { Search, X } from 'lucide-react';
 import Button from '../shared/Button';
 
 interface SearchBarProps {
   isAIMode: boolean;
   onToggleMode: () => void;
   onSearch: (query: string) => void;
+  onClear: () => void;
   tryPhrases?: string[];
 }
 
-const SearchBar = ({ isAIMode, onToggleMode, onSearch, tryPhrases = [] }: SearchBarProps) => {
+const SearchBar = ({ isAIMode, onToggleMode, onSearch, onClear, tryPhrases = [] }: SearchBarProps) => {
   const [query, setQuery] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -21,6 +22,11 @@ const SearchBar = ({ isAIMode, onToggleMode, onSearch, tryPhrases = [] }: Search
   const handleTryPhraseClick = (phrase: string) => {
     setQuery(phrase);
     onSearch(phrase);
+  };
+
+  const handleClear = () => {
+    setQuery('');
+    onClear();
   };
 
   return (
@@ -60,6 +66,16 @@ const SearchBar = ({ isAIMode, onToggleMode, onSearch, tryPhrases = [] }: Search
             placeholder={isAIMode ? "Describe what you're looking for..." : "Search items..."}
             className="w-full pl-12 pr-24 py-4 border-2 border-thrift-lightgray rounded-full focus:outline-none focus:border-thrift-sage transition-colors"
           />
+          {query && (
+            <button 
+              type="button"
+              onClick={handleClear}
+              className="absolute right-[90px] top-1/2 transform -translate-y-1/2 p-2 text-gray-500 hover:text-gray-700"
+              aria-label="Clear search"
+            >
+              <X className="h-5 w-5" />
+            </button>
+          )}
           <Button 
             type="submit" 
             className="absolute right-2 top-1/2 transform -translate-y-1/2 rounded-full"
@@ -74,7 +90,7 @@ const SearchBar = ({ isAIMode, onToggleMode, onSearch, tryPhrases = [] }: Search
           <button 
             key={index}
             onClick={() => handleTryPhraseClick(phrase)}
-            className="px-3 py-1 text-xs bg-gray-100 text-thrift-charcoal/80 rounded-full hover:bg-gray-200 transition-colors"
+            className="px-3 py-1 text-xs bg-gray-200 text-thrift-charcoal/90 rounded-full hover:bg-gray-300 transition-colors border border-gray-300"
           >
             {phrase}
           </button>

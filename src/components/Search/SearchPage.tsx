@@ -143,6 +143,11 @@ const SearchPage = () => {
     ));
   };
 
+  const handleClearSearch = () => {
+    setSearchQuery('');
+    setSearchResults(dummyItems);
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="text-center mb-8">
@@ -159,6 +164,7 @@ const SearchPage = () => {
           isAIMode={isAIMode}
           onToggleMode={() => setIsAIMode(!isAIMode)}
           onSearch={handleSearch}
+          onClear={handleClearSearch}
           tryPhrases={currentTryPhrases}
         />
       </div>
