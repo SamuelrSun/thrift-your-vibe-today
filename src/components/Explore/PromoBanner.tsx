@@ -38,11 +38,12 @@ const PromoBanner = () => {
           setTimeRemaining(null);
           clearInterval(timer);
         } else {
-          const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          // Calculate total hours instead of remainder hours
+          const totalHours = Math.floor(distance / (1000 * 60 * 60));
           const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
           const seconds = Math.floor((distance % (1000 * 60)) / 1000);
           
-          setTimeRemaining({ hours, minutes, seconds });
+          setTimeRemaining({ hours: totalHours, minutes, seconds });
         }
       }, 1000);
       
