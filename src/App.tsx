@@ -33,7 +33,7 @@ const App = () => (
                 <Navbar />
                 <main className="flex-grow">
                   <Routes>
-                    <Route path="/" element={<Navigate to="/auth" replace />} />
+                    <Route path="/" element={<Navigate to="/search" replace />} />
                     <Route path="/search" element={<Index />} />
                     <Route path="/auth" element={<Auth />} />
                     <Route path="/likes" element={<Likes />} />
