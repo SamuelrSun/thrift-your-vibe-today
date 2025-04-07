@@ -7,17 +7,18 @@ export const banners = [
     id: 1,
     title: "Pop-up on Trousdale Crosswalk",
     description: "Our first pop-up will be this Thursday, April 10th from 8am-4pm!",
+    contactInfo: "everybodysthrift@gmail.com", // Added contact email
     imageUrl: "https://source.unsplash.com/featured/?newyork,fashion",
     buttonText: "Get Details",
     buttonLink: "/events/trousdale-popup",
-    color: "bg-gradient-to-r from-thrift-sage/10 to-thrift-sage/20", // Soft green gradient
-    borderColor: "border-thrift-sage", // Thrift sage border
+    color: "bg-gradient-to-r from-thrift-sage/10 to-thrift-sage/20", 
+    borderColor: "border-thrift-sage",
     textColor: "text-thrift-charcoal",
     icon: Calendar,
     iconLabel: "Upcoming Event",
     countdown: {
       active: true,
-      endDate: new Date('2025-04-10T16:00:00'), // April 10th, 4:00 PM
+      endDate: new Date('2025-04-10T16:00:00'), 
       displayText: "Thursday, April 10th"
     }
   },
@@ -28,8 +29,8 @@ export const banners = [
     contactInfo: "everybodysthrift@gmail.com",
     buttonText: "Learn More",
     buttonLink: "/consignment",
-    color: "bg-gradient-to-r from-thrift-sage/10 to-thrift-sage/20", // Soft green gradient
-    borderColor: "border-thrift-sage", // Thrift sage border
+    color: "bg-gradient-to-r from-thrift-sage/10 to-thrift-sage/20", 
+    borderColor: "border-thrift-sage", 
     textColor: "text-thrift-charcoal",
     icon: SwatchBook,
     iconLabel: "Consignment Service",
