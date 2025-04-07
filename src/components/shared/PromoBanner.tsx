@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Clock, Calendar } from 'lucide-react';
+import { Clock, Calendar, Circle, CircleDot } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
@@ -21,6 +21,22 @@ const banners = [
       active: true,
       endDate: new Date('2025-04-10T16:00:00'), // April 10th, 4:00 PM
       displayText: "Thursday, April 10th"
+    }
+  },
+  {
+    id: 2,
+    title: "Vintage Denim Sale",
+    description: "Discover our hand-picked collection of vintage denim next weekend!",
+    imageUrl: "https://source.unsplash.com/featured/?denim,vintage",
+    buttonText: "Save the Date",
+    buttonLink: "/events/denim-sale",
+    color: "bg-gradient-to-r from-thrift-sage/10 to-thrift-sage/20", // Soft green gradient
+    borderColor: "border-thrift-sage", // Thrift sage border
+    textColor: "text-thrift-charcoal",
+    countdown: {
+      active: true,
+      endDate: new Date('2025-04-18T10:00:00'), // April 18th, 10:00 AM
+      displayText: "Friday, April 18th"
     }
   },
 ];
@@ -56,62 +72,83 @@ const PromoBanner = () => {
       setTimeRemaining(null);
     }
   }, [currentBannerIndex]);
+
+  // Function to change banner
+  const goToBanner = (index: number) => {
+    setCurrentBannerIndex(index);
+  };
   
   const currentBanner = banners[currentBannerIndex];
   
   return (
     <Card className={`mb-6 overflow-hidden ${currentBanner.borderColor} border shadow-sm`}>
-      <CardContent className="p-0">
-        <div className={`${currentBanner.color} ${currentBanner.textColor}`}>
-          <div className="flex flex-col md:flex-row items-center p-4">
-            <div className="flex-1 text-left mb-4 md:mb-0">
-              <div className="flex items-center gap-2 mb-1">
-                <Calendar className="h-4 w-4 text-thrift-sage" />
-                <span className="text-xs font-medium uppercase tracking-wider text-thrift-sage">
-                  Upcoming Event
-                </span>
-              </div>
-              <h2 className="text-xl sm:text-2xl font-playfair font-bold">
-                {currentBanner.title}
-              </h2>
-              <p className="text-sm sm:text-base mt-1 opacity-90">
-                {currentBanner.description}
-              </p>
+      <CardContent className={`p-0 ${currentBanner.color} ${currentBanner.textColor}`}>
+        <div className="flex flex-col md:flex-row items-center p-6">
+          <div className="flex-1 text-left mb-4 md:mb-0">
+            <div className="flex items-center gap-2 mb-1">
+              <Calendar className="h-4 w-4 text-thrift-sage" />
+              <span className="text-xs font-medium uppercase tracking-wider text-thrift-sage">
+                Upcoming Event
+              </span>
             </div>
-            
-            <div className="flex flex-col sm:flex-row items-center gap-4">
-              {timeRemaining && (
-                <div className="flex flex-col items-center sm:items-start">
-                  <div className="flex items-center gap-1 mb-1.5">
-                    <Clock className="h-4 w-4 text-thrift-charcoal/70" />
-                    <span className="text-xs font-medium">Coming soon:</span>
+            <h2 className="text-xl sm:text-2xl font-playfair font-bold">
+              {currentBanner.title}
+            </h2>
+            <p className="text-sm sm:text-base mt-1 opacity-90">
+              {currentBanner.description}
+            </p>
+          </div>
+          
+          <div className="flex flex-col sm:flex-row items-center gap-4">
+            {timeRemaining && (
+              <div className="flex flex-col items-center sm:items-start">
+                <div className="flex items-center gap-1 mb-1.5">
+                  <Clock className="h-4 w-4 text-thrift-charcoal/70" />
+                  <span className="text-xs font-medium">Coming soon:</span>
+                </div>
+                <div className="flex gap-2 text-sm">
+                  <div className="flex flex-col items-center bg-white/60 backdrop-blur-sm px-2 py-1 rounded shadow-sm">
+                    <span className="text-lg font-bold">{timeRemaining.hours}</span>
+                    <span className="text-xs">hrs</span>
                   </div>
-                  <div className="flex gap-2 text-sm">
-                    <div className="flex flex-col items-center bg-white/60 backdrop-blur-sm px-2 py-1 rounded shadow-sm">
-                      <span className="text-lg font-bold">{timeRemaining.hours}</span>
-                      <span className="text-xs">hrs</span>
-                    </div>
-                    <div className="flex flex-col items-center bg-white/60 backdrop-blur-sm px-2 py-1 rounded shadow-sm">
-                      <span className="text-lg font-bold">{timeRemaining.minutes}</span>
-                      <span className="text-xs">min</span>
-                    </div>
-                    <div className="flex flex-col items-center bg-white/60 backdrop-blur-sm px-2 py-1 rounded shadow-sm">
-                      <span className="text-lg font-bold">{timeRemaining.seconds}</span>
-                      <span className="text-xs">sec</span>
-                    </div>
+                  <div className="flex flex-col items-center bg-white/60 backdrop-blur-sm px-2 py-1 rounded shadow-sm">
+                    <span className="text-lg font-bold">{timeRemaining.minutes}</span>
+                    <span className="text-xs">min</span>
+                  </div>
+                  <div className="flex flex-col items-center bg-white/60 backdrop-blur-sm px-2 py-1 rounded shadow-sm">
+                    <span className="text-lg font-bold">{timeRemaining.seconds}</span>
+                    <span className="text-xs">sec</span>
                   </div>
                 </div>
-              )}
-              
-              <Button
-                variant="secondary"
-                size="sm"
-                className="bg-thrift-sage hover:bg-thrift-sage/90 text-white shadow-sm"
-              >
-                {currentBanner.buttonText}
-              </Button>
-            </div>
+              </div>
+            )}
+            
+            <Button
+              variant="secondary"
+              size="sm"
+              className="bg-thrift-sage hover:bg-thrift-sage/90 text-white shadow-sm"
+            >
+              {currentBanner.buttonText}
+            </Button>
           </div>
+        </div>
+        
+        {/* Banner indicators */}
+        <div className="flex justify-center items-center gap-2 pb-4">
+          {banners.map((banner, index) => (
+            <button
+              key={banner.id}
+              onClick={() => goToBanner(index)}
+              className="focus:outline-none"
+              aria-label={`View banner ${index + 1}`}
+            >
+              {index === currentBannerIndex ? (
+                <CircleDot className="h-4 w-4 text-thrift-sage" />
+              ) : (
+                <Circle className="h-4 w-4 text-thrift-sage/50 hover:text-thrift-sage/70 transition-colors" />
+              )}
+            </button>
+          ))}
         </div>
       </CardContent>
     </Card>
