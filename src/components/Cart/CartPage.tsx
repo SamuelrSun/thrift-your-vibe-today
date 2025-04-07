@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useCart } from "@/contexts/CartContext";
 import { useAuth } from "@/contexts/AuthContext";
@@ -14,10 +13,9 @@ const CartPage = () => {
   const { user } = useAuth();
   const [isProcessing, setIsProcessing] = useState(false);
 
-  // Calculate total price
+  // Calculate total price without tax
   const subtotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
-  const taxEstimate = subtotal * 0.08; // 8% tax
-  const totalPrice = subtotal + taxEstimate;
+  const totalPrice = subtotal;
 
   const handleQuantityChange = (itemId: string, newQuantity: number) => {
     if (newQuantity >= 1) {
@@ -161,7 +159,6 @@ const CartPage = () => {
         <div className="lg:w-1/3">
           <OrderSummary
             subtotal={subtotal}
-            taxEstimate={taxEstimate}
             totalPrice={totalPrice}
             onCheckout={handleCheckout}
             isProcessing={isProcessing}

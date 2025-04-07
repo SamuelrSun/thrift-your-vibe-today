@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -11,7 +10,6 @@ import { toast } from "@/hooks/use-toast";
 
 interface OrderSummaryProps {
   subtotal: number;
-  taxEstimate: number;
   totalPrice: number;
   onCheckout: () => void;
   isProcessing: boolean;
@@ -20,7 +18,6 @@ interface OrderSummaryProps {
 
 const OrderSummary = ({
   subtotal,
-  taxEstimate,
   totalPrice,
   onCheckout,
   isProcessing,
@@ -39,14 +36,12 @@ const OrderSummary = ({
   };
 
   const validateEmail = (email: string) => {
-    // Simple USC email validation
     return email.endsWith('@usc.edu');
   };
 
   const handleSubmitPayment = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Form validation
     if (!fullName.trim()) {
       toast({ 
         title: "Missing information", 
@@ -74,16 +69,12 @@ const OrderSummary = ({
       return;
     }
 
-    // Simulate sending the data
     onCheckout();
     
-    // In a real implementation, we would send the data to an API endpoint
-    // Simulate sending email to srwang@usc.edu with the order details
     console.log(`Sending order details to srwang@usc.edu`);
     console.log(`Customer: ${fullName} (${email})`);
     console.log(`Total amount: $${totalPrice?.toFixed(2) || '0.00'}`);
     
-    // This is simulated for now
     setTimeout(() => {
       setIsSuccess(true);
       onClearCart();
@@ -118,11 +109,6 @@ const OrderSummary = ({
         <div className="flex justify-between">
           <span>Subtotal</span>
           <span>${subtotal?.toFixed(2) || '0.00'}</span>
-        </div>
-        
-        <div className="flex justify-between">
-          <span>Tax estimate</span>
-          <span>${taxEstimate?.toFixed(2) || '0.00'}</span>
         </div>
         
         <Separator className="my-2" />
