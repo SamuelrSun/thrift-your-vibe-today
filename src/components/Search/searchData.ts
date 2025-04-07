@@ -1,4 +1,3 @@
-
 // Item interface definition to ensure consistency
 export interface Item {
   id: number;
@@ -34,13 +33,13 @@ export const inventory: Item[] = [
   },
   {
     id: 2,
-    title: 'Cashmere Sweater',
-    brand: 'J.Crew',
-    price: 65,
+    title: 'Leather Jacket',
+    brand: 'Croft & Barrow',
+    price: 99,
     size: 'S',
-    condition: 'Like New',
-    imageUrl: 'https://www.jcrew.com/s7-img-facade/CB905_NA6157?hei=850&crop=0,0,680,0',
-    description: 'Soft cashmere sweater in oatmeal color. Minimal pilling, excellent condition.'
+    condition: 'Gently Used',
+    imageUrl: '/croft.png',
+    description: 'Classic Croft & Barrow leather jacket with timeless design. Excellent condition with minimal wear, perfect for any casual outfit.'
   },
   {
     id: 3,
