@@ -28,7 +28,7 @@ export const inventory: Item[] = [
     price: 99,
     size: 'L',
     condition: 'Used',
-    imageUrl: 'https://res.cloudinary.com/yerdle/image/upload/v1675450134/production/partners/8/inventoryItem/3704948/vjuqlkwzcinxfsb7lbeg.jpg',
+    imageUrl: 'file:///Users/samuel_wang/Downloads/itp104-submissions-SamuelrWang/img/IMG_0458.JPG',
     description: 'Classic vintage Levi\'s 501 jeans in medium wash. Great condition with authentic wear patterns.'
   },
   {
