@@ -14,7 +14,8 @@ const banners = [
     imageUrl: "https://source.unsplash.com/featured/?newyork,fashion",
     buttonText: "Get Details",
     buttonLink: "/events/trousdale-popup",
-    color: "bg-gradient-to-r from-amber-50 to-amber-100",
+    color: "bg-gradient-to-r from-thrift-sage/10 to-thrift-sage/20", // Soft green gradient
+    borderColor: "border-thrift-sage", // Thrift sage border
     textColor: "text-thrift-charcoal",
     countdown: {
       active: true,
@@ -59,14 +60,14 @@ const PromoBanner = () => {
   const currentBanner = banners[currentBannerIndex];
   
   return (
-    <Card className="mb-6 overflow-hidden border border-amber-200 shadow-sm">
+    <Card className={`mb-6 overflow-hidden ${currentBanner.borderColor} border shadow-sm`}>
       <CardContent className="p-0">
         <div className={`${currentBanner.color} ${currentBanner.textColor}`}>
           <div className="flex flex-col md:flex-row items-center p-4">
             <div className="flex-1 text-left mb-4 md:mb-0">
               <div className="flex items-center gap-2 mb-1">
-                <Calendar className="h-4 w-4 text-thrift-terracotta" />
-                <span className="text-xs font-medium uppercase tracking-wider text-thrift-terracotta">
+                <Calendar className="h-4 w-4 text-thrift-sage" />
+                <span className="text-xs font-medium uppercase tracking-wider text-thrift-sage">
                   Upcoming Event
                 </span>
               </div>
@@ -103,9 +104,9 @@ const PromoBanner = () => {
               )}
               
               <Button
-                variant="default"
+                variant="secondary"
                 size="sm"
-                className="bg-thrift-terracotta hover:bg-thrift-terracotta/90 text-white shadow-sm"
+                className="bg-thrift-sage hover:bg-thrift-sage/90 text-white shadow-sm"
               >
                 {currentBanner.buttonText}
               </Button>
