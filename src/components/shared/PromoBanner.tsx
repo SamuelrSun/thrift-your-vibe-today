@@ -1,7 +1,9 @@
 
 import { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import Button from './Button';
+import { ChevronLeft, ChevronRight, Clock, Calendar } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
 
 // Banner data
 const banners = [
@@ -12,7 +14,8 @@ const banners = [
     imageUrl: "https://source.unsplash.com/featured/?newyork,fashion",
     buttonText: "Get Details",
     buttonLink: "/events/trousdale-popup",
-    color: "bg-gradient-to-r from-red-400 to-amber-400",
+    color: "bg-gradient-to-r from-amber-50 to-amber-100",
+    textColor: "text-thrift-charcoal",
     countdown: {
       active: true,
       endDate: new Date('2025-04-10T16:00:00'), // April 10th, 4:00 PM
@@ -56,57 +59,62 @@ const PromoBanner = () => {
   const currentBanner = banners[currentBannerIndex];
   
   return (
-    <div className="relative w-full overflow-hidden rounded-xl h-[200px] sm:h-[220px] md:h-[250px] mb-6">
-      <div 
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${currentBanner.imageUrl})` }}
-      >
-        <div className={`absolute inset-0 opacity-80 ${currentBanner.color}`}></div>
-      </div>
-      
-      <div className="relative z-10 h-full flex items-center justify-center p-4 sm:p-6 text-white">
-        <div className="w-full flex justify-between items-center">
-          <div className="flex-1 pr-4">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-playfair font-bold mb-2 max-w-xl">
-              {currentBanner.title}
-            </h2>
-            <p className="text-md sm:text-lg opacity-90 max-w-xl mb-3 sm:mb-4">
-              {currentBanner.description}
-            </p>
-          </div>
-          
-          <div className="flex flex-col items-end">
-            {timeRemaining && (
-              <div className="mb-3 sm:mb-4 text-right">
-                <p className="text-xs sm:text-sm mb-1 uppercase tracking-wider">Countdown:</p>
-                <div className="flex gap-3 text-md sm:text-lg font-medium">
-                  <div className="flex flex-col items-center bg-black/20 px-3 py-1.5 rounded">
-                    <span className="text-xl font-bold">{timeRemaining.hours}</span>
-                    <span className="text-xs">hours</span>
+    <Card className="mb-6 overflow-hidden border border-amber-200 shadow-sm">
+      <CardContent className="p-0">
+        <div className={`${currentBanner.color} ${currentBanner.textColor}`}>
+          <div className="flex flex-col md:flex-row items-center p-4">
+            <div className="flex-1 text-left mb-4 md:mb-0">
+              <div className="flex items-center gap-2 mb-1">
+                <Calendar className="h-4 w-4 text-thrift-terracotta" />
+                <span className="text-xs font-medium uppercase tracking-wider text-thrift-terracotta">
+                  Upcoming Event
+                </span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-playfair font-bold">
+                {currentBanner.title}
+              </h2>
+              <p className="text-sm sm:text-base mt-1 opacity-90">
+                {currentBanner.description}
+              </p>
+            </div>
+            
+            <div className="flex flex-col sm:flex-row items-center gap-4">
+              {timeRemaining && (
+                <div className="flex flex-col items-center sm:items-start">
+                  <div className="flex items-center gap-1 mb-1.5">
+                    <Clock className="h-4 w-4 text-thrift-charcoal/70" />
+                    <span className="text-xs font-medium">Coming soon:</span>
                   </div>
-                  <div className="flex flex-col items-center bg-black/20 px-3 py-1.5 rounded">
-                    <span className="text-xl font-bold">{timeRemaining.minutes}</span>
-                    <span className="text-xs">mins</span>
-                  </div>
-                  <div className="flex flex-col items-center bg-black/20 px-3 py-1.5 rounded">
-                    <span className="text-xl font-bold">{timeRemaining.seconds}</span>
-                    <span className="text-xs">secs</span>
+                  <div className="flex gap-2 text-sm">
+                    <div className="flex flex-col items-center bg-white/60 backdrop-blur-sm px-2 py-1 rounded shadow-sm">
+                      <span className="text-lg font-bold">{timeRemaining.hours}</span>
+                      <span className="text-xs">hrs</span>
+                    </div>
+                    <div className="flex flex-col items-center bg-white/60 backdrop-blur-sm px-2 py-1 rounded shadow-sm">
+                      <span className="text-lg font-bold">{timeRemaining.minutes}</span>
+                      <span className="text-xs">min</span>
+                    </div>
+                    <div className="flex flex-col items-center bg-white/60 backdrop-blur-sm px-2 py-1 rounded shadow-sm">
+                      <span className="text-lg font-bold">{timeRemaining.seconds}</span>
+                      <span className="text-xs">sec</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
-            
-            <Button
-              className="bg-white text-gray-800 hover:bg-white/90 text-sm"
-            >
-              {currentBanner.buttonText}
-            </Button>
+              )}
+              
+              <Button
+                variant="default"
+                size="sm"
+                className="bg-thrift-terracotta hover:bg-thrift-terracotta/90 text-white shadow-sm"
+              >
+                {currentBanner.buttonText}
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 };
 
 export default PromoBanner;
-

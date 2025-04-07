@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import SearchBar from './SearchBar';
 import FilterPanel from './FilterPanel';
@@ -61,11 +60,6 @@ const SearchPage = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      {/* Add PromoBanner above the SearchHeader */}
-      <div className="mb-6">
-        <PromoBanner />
-      </div>
-      
       <SearchHeader phrase={randomPhrase} />
       
       <div className="mb-10">
@@ -73,6 +67,10 @@ const SearchPage = () => {
           onSearch={handleSearch}
           onClear={handleClearSearch}
         />
+      </div>
+      
+      <div className="mb-6">
+        <PromoBanner />
       </div>
       
       <div className="flex flex-col md:flex-row gap-8">
