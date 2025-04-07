@@ -1,7 +1,6 @@
-
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import Button from './Button';
+import { Button } from '../ui/button';
 
 // Banner data
 const banners = [
@@ -65,7 +64,7 @@ const PromoBanner = () => {
       </div>
       
       <div className="relative z-10 h-full flex flex-col justify-center p-4 sm:p-6 text-white">
-        <div className="flex flex-col">
+        <div className="flex flex-col items-center text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-playfair font-bold mb-2 max-w-xl">
             {currentBanner.title}
           </h2>
@@ -73,9 +72,9 @@ const PromoBanner = () => {
             {currentBanner.description}
           </p>
           
-          <div className="flex flex-col items-end">
+          <div className="flex flex-col items-center">
             {timeRemaining && (
-              <div className="mb-3 sm:mb-4 text-right">
+              <div className="mb-3 sm:mb-4 text-center">
                 <p className="text-xs sm:text-sm mb-1 uppercase tracking-wider">Countdown:</p>
                 <div className="flex gap-3 text-md sm:text-lg font-medium">
                   <div className="flex flex-col items-center bg-black/20 px-3 py-1.5 rounded">
