@@ -5,20 +5,11 @@ interface BannerControlsProps {
   banners: any[];
   current: number;
   onBannerSelect: (index: number) => void;
-  className?: string;
 }
 
-const BannerControls = ({ 
-  banners, 
-  current, 
-  onBannerSelect, 
-  className 
-}: BannerControlsProps) => {
+const BannerControls = ({ banners, current, onBannerSelect }: BannerControlsProps) => {
   return (
-    <div className={cn(
-      "flex justify-center gap-2 py-2 w-full",
-      className
-    )}>
+    <div className="absolute bottom-1 left-0 right-0 flex justify-center gap-2 py-2">
       {banners.map((_, index) => (
         <button
           key={index}

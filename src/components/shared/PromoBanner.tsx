@@ -1,3 +1,4 @@
+
 import { useState, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
@@ -23,6 +24,7 @@ const PromoBanner = () => {
     }, 7000); // Toggle every 7 seconds
   };
   
+  // Effect to handle autoplay
   useState(() => {
     startAutoplay();
     
@@ -33,6 +35,7 @@ const PromoBanner = () => {
     };
   });
   
+  // Effect to handle carousel events
   useState(() => {
     if (!api) return;
     
@@ -88,14 +91,11 @@ const PromoBanner = () => {
           ))}
         </CarouselContent>
         
-        <div className="relative w-full">
-          <BannerControls 
-            banners={banners} 
-            current={current} 
-            onBannerSelect={handleBannerSelect} 
-            className="absolute bottom-0 left-0 right-0 bg-gradient-to-r from-thrift-sage/10 to-thrift-sage/20"
-          />
-        </div>
+        <BannerControls 
+          banners={banners} 
+          current={current} 
+          onBannerSelect={handleBannerSelect} 
+        />
         
         <BannerNavigation 
           onPrevious={() => handleManualNavigation('prev')} 
