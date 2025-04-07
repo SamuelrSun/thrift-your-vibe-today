@@ -1,3 +1,4 @@
+
 // Item interface definition to ensure consistency
 export interface Item {
   id: number;
@@ -28,7 +29,7 @@ export const inventory: Item[] = [
     price: 99,
     size: 'L',
     condition: 'Used',
-    imageUrl: '/lovable-uploads/1cd5e4f0-9f59-429b-89a6-f3764dda014b.png',
+    imageUrl: '/img/tide.jpg',
     description: 'Vintage Tide Racing Downy leather jacket in blue and orange. Great condition with authentic racing wear patterns and iconic Tide branding.'
   },
   {
