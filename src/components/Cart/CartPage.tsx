@@ -1,16 +1,15 @@
+
 import { useState } from "react";
 import { useCart } from "@/contexts/CartContext";
-import { useAuth } from "@/contexts/AuthContext";
-import { Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
+import { ShoppingBag } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { Card } from "@/components/ui/card";
 import OrderSummary from "./OrderSummary";
+import { Card } from "@/components/ui/card";
+import { Minus, Plus, Trash2 } from "lucide-react";
 
 const CartPage = () => {
   const { cartItems, cartCount, isLoading, updateQuantity, removeFromCart, clearCart } = useCart();
-  const { user } = useAuth();
   const [isProcessing, setIsProcessing] = useState(false);
 
   // Calculate total price without tax
@@ -41,22 +40,6 @@ const CartPage = () => {
   }
 
   // Empty cart state
-  if (!user) {
-    return (
-      <div className="container mx-auto px-4 py-12 text-center">
-        <div className="max-w-md mx-auto">
-          <ShoppingBag className="mx-auto h-12 w-12 text-thrift-sage/70 mb-4" />
-          <h2 className="text-2xl font-playfair font-bold mb-2">Sign in to view your cart</h2>
-          <p className="text-thrift-charcoal/70 mb-8">Sign in to save items to your cart and continue shopping.</p>
-          <Link to="/auth">
-            <Button>Sign In</Button>
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
-  // Empty cart for signed in user
   if (cartCount === 0) {
     return (
       <div className="container mx-auto px-4 py-12 text-center">
