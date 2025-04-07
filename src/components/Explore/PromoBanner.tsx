@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Button from '../shared/Button';
@@ -23,7 +22,7 @@ const banners = [
 
 const PromoBanner = () => {
   const [currentBannerIndex, setCurrentBannerIndex] = useState(0);
-  const [timeRemaining, setTimeRemaining] = useState<{days: number, hours: number, minutes: number} | null>(null);
+  const [timeRemaining, setTimeRemaining] = useState<{hours: number, minutes: number, seconds: number} | null>(null);
   
   // Update countdown timer
   useEffect(() => {
@@ -38,11 +37,11 @@ const PromoBanner = () => {
           setTimeRemaining(null);
           clearInterval(timer);
         } else {
-          const days = Math.floor(distance / (1000 * 60 * 60 * 24));
           const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
           const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((distance % (1000 * 60)) / 1000);
           
-          setTimeRemaining({ days, hours, minutes });
+          setTimeRemaining({ hours, minutes, seconds });
         }
       }, 1000);
       
@@ -76,16 +75,16 @@ const PromoBanner = () => {
             <p className="text-xs sm:text-sm mb-1 uppercase tracking-wider">Countdown:</p>
             <div className="flex gap-3 text-md sm:text-lg font-medium">
               <div className="flex flex-col items-center bg-black/20 px-3 py-1.5 rounded">
-                <span className="text-xl font-bold">{timeRemaining.days}</span>
-                <span className="text-xs">days</span>
-              </div>
-              <div className="flex flex-col items-center bg-black/20 px-3 py-1.5 rounded">
                 <span className="text-xl font-bold">{timeRemaining.hours}</span>
                 <span className="text-xs">hours</span>
               </div>
               <div className="flex flex-col items-center bg-black/20 px-3 py-1.5 rounded">
                 <span className="text-xl font-bold">{timeRemaining.minutes}</span>
                 <span className="text-xs">mins</span>
+              </div>
+              <div className="flex flex-col items-center bg-black/20 px-3 py-1.5 rounded">
+                <span className="text-xl font-bold">{timeRemaining.seconds}</span>
+                <span className="text-xs">secs</span>
               </div>
             </div>
           </div>
