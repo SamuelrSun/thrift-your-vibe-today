@@ -36,7 +36,7 @@ export const inventory: Item[] = [
     title: 'Leather Jacket',
     brand: 'Croft & Barrow',
     price: 99,
-    size: 'S',
+    size: 'L',
     condition: 'Gently Used',
     imageUrl: '/croft.png',
     description: 'Classic Croft & Barrow leather jacket with timeless design. Excellent condition with minimal wear, perfect for any casual outfit.'
@@ -45,11 +45,11 @@ export const inventory: Item[] = [
     id: 3,
     title: 'Adidas Navy Puffer Jacket',
     brand: 'Adidas',
-    price: 120,
-    size: 'L',
+    price: 47,
+    size: 'M',
     condition: 'Gently Used',
-    imageUrl: 'https://cdn.saksfifthavenue.com/is/image/saks/0400018247844_BLACK?wid=600&hei=800&qlt=90&resMode=sharp2&op_usm=0.9%2C1.0%2C8%2C0',
-    description: 'Classic black leather motorcycle jacket with asymmetrical zipper and quilted details.'
+    imageUrl: '/MJ00010001.png',
+    description: 'Sleek navy Adidas puffer jacket with iconic white triple stripes, a high collar, and a cozy quilted design perfect for staying warm in style.'
   },
   {
     id: 4,
