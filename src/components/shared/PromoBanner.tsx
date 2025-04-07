@@ -79,7 +79,7 @@ const PromoBanner = () => {
           {banners.map((banner, index) => (
             <CarouselItem key={banner.id} className="w-full">
               <Card className={`${banner.borderColor} border shadow-sm w-full overflow-hidden`}>
-                <CardContent className="p-0">
+                <CardContent className={`p-0 ${banner.color} ${banner.textColor} w-full min-h-full`}>
                   <BannerContent 
                     banner={banner} 
                     currentIndex={current} 
