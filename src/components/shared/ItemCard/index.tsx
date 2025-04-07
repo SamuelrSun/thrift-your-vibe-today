@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Heart, ShoppingCart, Check } from 'lucide-react';
 import Button from '../../shared/Button';
@@ -82,6 +83,9 @@ const ItemCard = ({ item }: ItemCardProps) => {
     ? item.title 
     : `${item.brand} ${item.title}`;
 
+  // Define a fallback image for when the main image fails to load
+  const imageSrc = imageError ? '/placeholder.svg' : item.imageUrl;
+
   return (
     <div 
       className={`relative h-[400px] cursor-pointer perspective-1000 ${isFlipped ? 'flipped' : ''}`}
@@ -95,7 +99,7 @@ const ItemCard = ({ item }: ItemCardProps) => {
             </div>
             <div className="h-[75%] overflow-hidden">
               <img 
-                src={item.imageUrl} 
+                src={imageSrc} 
                 alt={item.title} 
                 onError={handleImageError}
                 className="w-full h-full object-cover transition-transform hover:scale-105"

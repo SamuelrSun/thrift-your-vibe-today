@@ -6,6 +6,7 @@ const Index = () => {
   const [key, setKey] = useState(Date.now());
   
   useEffect(() => {
+    // Force re-render of the search page when component mounts
     setKey(Date.now());
   }, []);
 
