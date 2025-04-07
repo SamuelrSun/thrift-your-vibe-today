@@ -28,7 +28,7 @@ interface BannerContentProps {
 
 const BannerContent = ({ banner, currentIndex, index }: BannerContentProps) => {
   return (
-    <div className={`${banner.color} ${banner.textColor} py-4 w-full min-h-full`}>
+    <div className={`py-4 w-full min-h-full`}>
       <div className="flex flex-col md:flex-row items-center px-4">
         <div className="flex-1 text-left mb-4 md:mb-0">
           <div className="flex items-center gap-2 mb-1">
