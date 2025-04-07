@@ -65,38 +65,42 @@ const PromoBanner = () => {
       </div>
       
       <div className="relative z-10 h-full flex flex-col justify-center p-4 sm:p-6 text-white">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-playfair font-bold mb-2 max-w-xl">
-          {currentBanner.title}
-        </h2>
-        <p className="text-md sm:text-lg opacity-90 max-w-xl mb-3 sm:mb-4">
-          {currentBanner.description}
-        </p>
-        
-        {timeRemaining && (
-          <div className="mb-3 sm:mb-4">
-            <p className="text-xs sm:text-sm mb-1 uppercase tracking-wider">Countdown:</p>
-            <div className="flex gap-3 text-md sm:text-lg font-medium">
-              <div className="flex flex-col items-center bg-black/20 px-3 py-1.5 rounded">
-                <span className="text-xl font-bold">{timeRemaining.hours}</span>
-                <span className="text-xs">hours</span>
+        <div className="flex flex-col">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-playfair font-bold mb-2 max-w-xl">
+            {currentBanner.title}
+          </h2>
+          <p className="text-md sm:text-lg opacity-90 max-w-xl mb-3 sm:mb-4">
+            {currentBanner.description}
+          </p>
+          
+          <div className="flex flex-col items-end">
+            {timeRemaining && (
+              <div className="mb-3 sm:mb-4 text-right">
+                <p className="text-xs sm:text-sm mb-1 uppercase tracking-wider">Countdown:</p>
+                <div className="flex gap-3 text-md sm:text-lg font-medium">
+                  <div className="flex flex-col items-center bg-black/20 px-3 py-1.5 rounded">
+                    <span className="text-xl font-bold">{timeRemaining.hours}</span>
+                    <span className="text-xs">hours</span>
+                  </div>
+                  <div className="flex flex-col items-center bg-black/20 px-3 py-1.5 rounded">
+                    <span className="text-xl font-bold">{timeRemaining.minutes}</span>
+                    <span className="text-xs">mins</span>
+                  </div>
+                  <div className="flex flex-col items-center bg-black/20 px-3 py-1.5 rounded">
+                    <span className="text-xl font-bold">{timeRemaining.seconds}</span>
+                    <span className="text-xs">secs</span>
+                  </div>
+                </div>
               </div>
-              <div className="flex flex-col items-center bg-black/20 px-3 py-1.5 rounded">
-                <span className="text-xl font-bold">{timeRemaining.minutes}</span>
-                <span className="text-xs">mins</span>
-              </div>
-              <div className="flex flex-col items-center bg-black/20 px-3 py-1.5 rounded">
-                <span className="text-xl font-bold">{timeRemaining.seconds}</span>
-                <span className="text-xs">secs</span>
-              </div>
-            </div>
+            )}
+            
+            <Button
+              className="bg-white text-gray-800 hover:bg-white/90 text-sm"
+            >
+              {currentBanner.buttonText}
+            </Button>
           </div>
-        )}
-        
-        <Button
-          className="bg-white text-gray-800 hover:bg-white/90 self-start text-sm"
-        >
-          {currentBanner.buttonText}
-        </Button>
+        </div>
       </div>
     </div>
   );
