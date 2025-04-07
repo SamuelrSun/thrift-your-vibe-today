@@ -7,8 +7,8 @@ import Button from '../shared/Button';
 const banners = [
   {
     id: 1,
-    title: "Pop-up on Trousdale!",
-    description: "Join us for our first pop up this Thursday",
+    title: "Pop-up on Trousdale Crosswalk!",
+    description: "Join us for our first pop up this Thursday April 10th from 8am-4pm",
     imageUrl: "https://source.unsplash.com/featured/?newyork,fashion",
     buttonText: "Get Details",
     buttonLink: "/events/trousdale-popup",
@@ -16,7 +16,7 @@ const banners = [
     countdown: {
       active: true,
       endDate: new Date('2025-04-10T16:00:00'), // April 10th, 4:00 PM
-      displayText: "Thursday, April 10th from 8am-4pm"
+      displayText: "Thursday, April 10th"
     }
   },
 ];
@@ -71,11 +71,22 @@ const PromoBanner = () => {
           {currentBanner.description}
         </p>
         
-        {currentBanner.countdown.active && (
+        {timeRemaining && (
           <div className="mb-3 sm:mb-4">
-            <p className="text-xs sm:text-sm mb-1 uppercase tracking-wider">When:</p>
-            <div className="text-md sm:text-lg font-medium">
-              {currentBanner.countdown.displayText}
+            <p className="text-xs sm:text-sm mb-1 uppercase tracking-wider">Countdown:</p>
+            <div className="flex gap-3 text-md sm:text-lg font-medium">
+              <div className="flex flex-col items-center bg-black/20 px-3 py-1.5 rounded">
+                <span className="text-xl font-bold">{timeRemaining.days}</span>
+                <span className="text-xs">days</span>
+              </div>
+              <div className="flex flex-col items-center bg-black/20 px-3 py-1.5 rounded">
+                <span className="text-xl font-bold">{timeRemaining.hours}</span>
+                <span className="text-xs">hours</span>
+              </div>
+              <div className="flex flex-col items-center bg-black/20 px-3 py-1.5 rounded">
+                <span className="text-xl font-bold">{timeRemaining.minutes}</span>
+                <span className="text-xs">mins</span>
+              </div>
             </div>
           </div>
         )}
