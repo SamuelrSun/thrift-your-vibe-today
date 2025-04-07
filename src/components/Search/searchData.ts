@@ -23,7 +23,7 @@ export interface Item {
 export const inventory: Item[] = [
   {
     id: 1,
-    title: 'Tide x Downy Leather Jacket',
+    title: 'TidexDowny Leather Jacket',
     brand: 'Tide',
     price: 99,
     size: 'L',
