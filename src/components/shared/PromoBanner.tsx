@@ -64,14 +64,16 @@ const PromoBanner = () => {
         <div className={`absolute inset-0 opacity-80 ${currentBanner.color}`}></div>
       </div>
       
-      <div className="relative z-10 h-full flex flex-col justify-center p-4 sm:p-6 text-white">
-        <div className="flex flex-col">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-playfair font-bold mb-2 max-w-xl">
-            {currentBanner.title}
-          </h2>
-          <p className="text-md sm:text-lg opacity-90 max-w-xl mb-3 sm:mb-4">
-            {currentBanner.description}
-          </p>
+      <div className="relative z-10 h-full flex items-center justify-center p-4 sm:p-6 text-white">
+        <div className="w-full flex justify-between items-center">
+          <div className="flex-1 pr-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-playfair font-bold mb-2 max-w-xl">
+              {currentBanner.title}
+            </h2>
+            <p className="text-md sm:text-lg opacity-90 max-w-xl mb-3 sm:mb-4">
+              {currentBanner.description}
+            </p>
+          </div>
           
           <div className="flex flex-col items-end">
             {timeRemaining && (
@@ -107,3 +109,4 @@ const PromoBanner = () => {
 };
 
 export default PromoBanner;
+
