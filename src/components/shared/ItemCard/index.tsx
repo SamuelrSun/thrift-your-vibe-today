@@ -1,5 +1,4 @@
-
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Heart, ShoppingCart, Check } from 'lucide-react';
 import Button from '../../shared/Button';
 import { useCart } from '@/contexts/CartContext';
@@ -23,6 +22,8 @@ interface ItemCardProps {
 const ItemCard = ({ item }: ItemCardProps) => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
+  const [imageError, setImageError] = useState(false);
+
   const { addToCart, isItemInCart } = useCart();
   const { likeItem, unlikeItem, isItemLiked } = useLikes();
   
@@ -72,7 +73,11 @@ const ItemCard = ({ item }: ItemCardProps) => {
     }
   };
 
-  // Create formatted title with brand included
+  const handleImageError = () => {
+    console.error(`Failed to load image for item: ${item.title}`);
+    setImageError(true);
+  };
+
   const formattedTitle = item.title.toLowerCase().includes(item.brand.toLowerCase()) 
     ? item.title 
     : `${item.brand} ${item.title}`;
@@ -92,6 +97,7 @@ const ItemCard = ({ item }: ItemCardProps) => {
               <img 
                 src={item.imageUrl} 
                 alt={item.title} 
+                onError={handleImageError}
                 className="w-full h-full object-cover transition-transform hover:scale-105"
               />
             </div>
