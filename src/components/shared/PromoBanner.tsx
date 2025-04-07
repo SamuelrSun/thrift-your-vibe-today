@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight, Clock, Calendar, Mail, SwatchBook } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -134,7 +135,7 @@ const PromoBanner = () => {
             <CarouselItem key={banner.id} className="w-full">
               <Card className={`${banner.borderColor} border shadow-sm w-full overflow-hidden`}>
                 <CardContent className="p-0">
-                  <div className={`${banner.color} ${banner.textColor} py-4`}>
+                  <div className={`${banner.color} ${banner.textColor} py-4 h-full`}>
                     <div className="flex flex-col md:flex-row items-center px-4">
                       <div className="flex-1 text-left mb-4 md:mb-0">
                         <div className="flex items-center gap-2 mb-1">
