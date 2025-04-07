@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
@@ -8,7 +7,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand Column */}
           <div className="col-span-1">
-            <h3 className="text-xl font-bold mb-4 font-playfair">Everybody's Thrift</h3>
+            <h3 className="text-xl font-bold mb-4 font-playfair">ThriftSC</h3>
             <p className="text-sm text-gray-300 mb-4 max-w-xs">
               Elevating secondhand fashion through curated experiences and sustainable practices.
             </p>
@@ -68,7 +67,7 @@ const Footer = () => {
         
         <div className="mt-12 pt-6 border-t border-gray-700 text-sm text-gray-400">
           <div className="flex flex-col md:flex-row justify-between">
-            <p>&copy; {new Date().getFullYear()} Everybody's Thrift. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} ThriftSC. All rights reserved.</p>
             <div className="flex mt-4 md:mt-0 space-x-6">
               <Link to="/privacy" className="hover:text-white transition-colors">Privacy</Link>
               <Link to="/terms" className="hover:text-white transition-colors">Terms</Link>

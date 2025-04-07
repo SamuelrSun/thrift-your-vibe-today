@@ -28,7 +28,7 @@ const Auth = () => {
             </h2>
             <p className="mt-2 text-gray-500">
               {mode === "signin" 
-                ? "Sign in to continue to Everybody's Thrift" 
+                ? "Sign in to continue to ThriftSC" 
                 : "Join our sustainable fashion community"}
             </p>
           </div>

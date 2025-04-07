@@ -21,7 +21,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to={user ? "/search" : "/auth"} className="text-2xl font-playfair font-bold">
-            Everybody's Thrift
+            ThriftSC
           </Link>
 
           {/* Desktop Navigation */}

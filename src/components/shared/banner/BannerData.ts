@@ -7,7 +7,7 @@ export const banners = [
     id: 1,
     title: "Pop-up on Trousdale Crosswalk",
     description: "Our first pop-up will be this Thursday, April 10th from 8am-4pm!",
-    contactInfo: "everybodysthrift@gmail.com", // Added contact email
+    contactInfo: "info@thriftsc.com", // Updated email
     imageUrl: "https://source.unsplash.com/featured/?newyork,fashion",
     buttonText: "Get Details",
     buttonLink: "/events/trousdale-popup",
@@ -26,7 +26,7 @@ export const banners = [
     id: 2,
     title: "Want cash for your closet cleanout?",
     description: "We'll pick up your clothes and sell them for you.",
-    contactInfo: "everybodysthrift@gmail.com",
+    contactInfo: "info@thriftsc.com", // Updated email
     buttonText: "Learn More",
     buttonLink: "/consignment",
     color: "bg-gradient-to-r from-thrift-sage/10 to-thrift-sage/20", 
