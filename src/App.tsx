@@ -7,7 +7,6 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Layout/Navbar";
 import Footer from "./components/Layout/Footer";
 import Index from "./pages/Index";
-import Explore from "./pages/Explore";
 import Profile from "./pages/Profile";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
@@ -36,7 +35,6 @@ const App = () => (
                   <Routes>
                     <Route path="/" element={<Navigate to="/auth" replace />} />
                     <Route path="/search" element={<Index />} />
-                    <Route path="/explore" element={<Explore />} />
                     <Route path="/auth" element={<Auth />} />
                     <Route path="/likes" element={<Likes />} />
                     <Route path="/sell" element={<Sell />} />

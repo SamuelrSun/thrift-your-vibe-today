@@ -17,7 +17,6 @@ const NavLinks = ({ isMobile = false, closeMenu }: NavLinksProps) => {
 
   const commonLinks = [
     { path: "/search", label: "Search" },
-    { path: "/explore", label: "Explore" },
     { path: "/likes", label: "Likes" },
     { path: "/sell", label: "Sell" },
   ];

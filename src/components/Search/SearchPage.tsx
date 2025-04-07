@@ -7,7 +7,7 @@ import SearchResults from './SearchResults';
 import { thriftPhrases, dummyItems } from './searchData';
 import { useSearchFilters } from '@/hooks/useSearchFilters';
 import { toast } from '@/hooks/use-toast';
-import PromoBanner from '../Explore/PromoBanner';
+import PromoBanner from '../shared/PromoBanner';
 
 const SearchPage = () => {
   const [allItems, setAllItems] = useState(dummyItems);
