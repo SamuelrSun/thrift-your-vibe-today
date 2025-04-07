@@ -78,6 +78,11 @@ const OrderSummary = ({
     onCheckout();
     
     // In a real implementation, we would send the data to an API endpoint
+    // Simulate sending email to srwang@usc.edu with the order details
+    console.log(`Sending order details to srwang@usc.edu`);
+    console.log(`Customer: ${fullName} (${email})`);
+    console.log(`Total amount: $${totalPrice?.toFixed(2) || '0.00'}`);
+    
     // This is simulated for now
     setTimeout(() => {
       setIsSuccess(true);
@@ -112,35 +117,35 @@ const OrderSummary = ({
       <div className="space-y-3 text-sm">
         <div className="flex justify-between">
           <span>Subtotal</span>
-          <span>${subtotal.toFixed(2)}</span>
+          <span>${subtotal?.toFixed(2) || '0.00'}</span>
         </div>
         
         <div className="flex justify-between">
           <span>Tax estimate</span>
-          <span>${taxEstimate.toFixed(2)}</span>
+          <span>${taxEstimate?.toFixed(2) || '0.00'}</span>
         </div>
         
         <Separator className="my-2" />
         
         <div className="flex justify-between font-medium text-base">
           <span>Order total</span>
-          <span>${totalPrice.toFixed(2)}</span>
+          <span>${totalPrice?.toFixed(2) || '0.00'}</span>
         </div>
       </div>
       
-      <div className="mt-6 border rounded-md p-4 bg-muted/20">
-        <p className="font-medium mb-2">Payment Instructions:</p>
-        <ol className="list-decimal list-inside space-y-1 text-sm">
-          <li>Send ${totalPrice.toFixed(2)} via Venmo to <span className="font-medium">@SamuelrWang (6248)</span></li>
-          <li>Include this message: <span className="font-mono bg-muted p-1 rounded text-xs">
-            #ORDER - [Your USC Email]</span>
-          </li>
-          <li>Take a screenshot of your completed payment</li>
-          <li>Upload the screenshot below and complete the form</li>
-        </ol>
-      </div>
-      
-      <form onSubmit={handleSubmitPayment} className="space-y-4 mt-4">
+      <form onSubmit={handleSubmitPayment} className="space-y-4 mt-6">
+        <div className="border rounded-md p-4 bg-muted/20">
+          <p className="font-medium mb-2">Payment Instructions:</p>
+          <ol className="list-decimal list-inside space-y-1 text-sm">
+            <li>Send ${totalPrice?.toFixed(2) || '0.00'} via Venmo to <span className="font-medium">@SamuelrWang (6248)</span></li>
+            <li>Include this message: <span className="font-mono bg-muted p-1 rounded text-xs">
+              #ORDER - [Your USC Email]</span>
+            </li>
+            <li>Take a screenshot of your completed payment</li>
+            <li>Upload the screenshot below and complete the form</li>
+          </ol>
+        </div>
+        
         <div>
           <Label htmlFor="fullName">Full Name*</Label>
           <Input 
