@@ -96,6 +96,42 @@ export type Database = {
         }
         Relationships: []
       }
+      production_logs: {
+        Row: {
+          created_at: string
+          id: string
+          location: string | null
+          notes: string | null
+          production_date: string
+          quantity: number
+          recipe_id: number
+          recipe_title: string
+          supervisor: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          location?: string | null
+          notes?: string | null
+          production_date: string
+          quantity: number
+          recipe_id: number
+          recipe_title: string
+          supervisor: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          location?: string | null
+          notes?: string | null
+          production_date?: string
+          quantity?: number
+          recipe_id?: number
+          recipe_title?: string
+          supervisor?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null

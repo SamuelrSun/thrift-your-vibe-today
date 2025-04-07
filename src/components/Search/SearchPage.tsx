@@ -4,17 +4,15 @@ import SearchBar from './SearchBar';
 import FilterPanel from './FilterPanel';
 import SearchHeader from './SearchHeader';
 import SearchResults from './SearchResults';
-import { thriftPhrases, tryPhrases, getRandomPhrases, dummyItems } from './searchData';
+import { thriftPhrases, dummyItems } from './searchData';
 import { useSearchFilters } from '@/hooks/useSearchFilters';
 import { toast } from '@/hooks/use-toast';
 
 const SearchPage = () => {
-  const [isAIMode, setIsAIMode] = useState(true);
   const [allItems, setAllItems] = useState(dummyItems);
   const [filteredItems, setFilteredItems] = useState(dummyItems);
   const [searchQuery, setSearchQuery] = useState('');
   const [randomPhrase, setRandomPhrase] = useState("");
-  const [currentTryPhrases, setCurrentTryPhrases] = useState<string[]>([]);
   
   const {
     activeFilters,
@@ -24,19 +22,14 @@ const SearchPage = () => {
     applyFilters
   } = useSearchFilters(dummyItems);
 
-  // Set a random thrift phrase and try phrases on component mount
+  // Set a random thrift phrase on component mount
   useEffect(() => {
     const randomIndex = Math.floor(Math.random() * thriftPhrases.length);
     setRandomPhrase(thriftPhrases[randomIndex]);
-    
-    // Get 2 random try phrases
-    setCurrentTryPhrases(getRandomPhrases(tryPhrases, 2));
   }, []);
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
-    // In a real app, we would make an API call here
-    console.log('Searching for:', query, 'using AI mode:', isAIMode);
     
     // Filter based on search query
     const queryResults = dummyItems.filter(item => 
@@ -71,11 +64,8 @@ const SearchPage = () => {
       
       <div className="mb-10">
         <SearchBar 
-          isAIMode={isAIMode}
-          onToggleMode={() => setIsAIMode(!isAIMode)}
           onSearch={handleSearch}
           onClear={handleClearSearch}
-          tryPhrases={currentTryPhrases}
         />
       </div>
       
@@ -95,7 +85,6 @@ const SearchPage = () => {
         <SearchResults 
           searchQuery={searchQuery}
           searchResults={filteredItems}
-          isAIMode={isAIMode}
         />
       </div>
     </div>
