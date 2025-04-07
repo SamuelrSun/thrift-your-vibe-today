@@ -29,7 +29,7 @@ export const inventory: Item[] = [
     price: 99,
     size: 'L',
     condition: 'Used',
-    imageUrl: '/tide-jacket.jpg',
+    imageUrl: '/lovable-uploads/a2514957-54c0-4f1e-83c7-412e54ea540f.png',
     description: 'Vintage Tide Racing Downy leather jacket in blue and orange. Great condition with authentic racing wear patterns and iconic Tide branding.'
   },
   {
