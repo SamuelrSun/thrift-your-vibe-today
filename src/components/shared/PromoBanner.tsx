@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Clock, Calendar } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Clock, Calendar, CircleDot, Circle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
@@ -21,6 +21,22 @@ const banners = [
       active: true,
       endDate: new Date('2025-04-10T16:00:00'), // April 10th, 4:00 PM
       displayText: "Thursday, April 10th"
+    }
+  },
+  {
+    id: 2,
+    title: "Vintage Sale at McCarthy Quad",
+    description: "Bring your student ID for an extra 10% off all vintage items!",
+    imageUrl: "https://source.unsplash.com/featured/?vintage,clothes",
+    buttonText: "Save the Date",
+    buttonLink: "/events/mccarthy-sale",
+    color: "bg-gradient-to-r from-thrift-terracotta/10 to-thrift-terracotta/20", // Soft terracotta gradient
+    borderColor: "border-thrift-terracotta", // Thrift terracotta border
+    textColor: "text-thrift-charcoal",
+    countdown: {
+      active: true,
+      endDate: new Date('2025-04-15T17:00:00'), // April 15th, 5:00 PM
+      displayText: "Tuesday, April 15th"
     }
   },
 ];
@@ -58,6 +74,18 @@ const PromoBanner = () => {
   }, [currentBannerIndex]);
   
   const currentBanner = banners[currentBannerIndex];
+  
+  const nextBanner = () => {
+    setCurrentBannerIndex((prev) => (prev + 1) % banners.length);
+  };
+  
+  const prevBanner = () => {
+    setCurrentBannerIndex((prev) => (prev - 1 + banners.length) % banners.length);
+  };
+  
+  const goToBanner = (index: number) => {
+    setCurrentBannerIndex(index);
+  };
   
   return (
     <Card className={`mb-6 overflow-hidden ${currentBanner.borderColor} border shadow-sm`}>
@@ -111,6 +139,24 @@ const PromoBanner = () => {
                 {currentBanner.buttonText}
               </Button>
             </div>
+          </div>
+          
+          {/* Banner Indicators */}
+          <div className="flex justify-center items-center gap-2 pb-3">
+            {banners.map((banner, index) => (
+              <button 
+                key={banner.id}
+                onClick={() => goToBanner(index)}
+                className="focus:outline-none transition-colors"
+                aria-label={`Go to banner ${index + 1}`}
+              >
+                {index === currentBannerIndex ? (
+                  <CircleDot className="h-5 w-5 text-thrift-sage" />
+                ) : (
+                  <Circle className="h-5 w-5 text-gray-400 hover:text-thrift-sage/70" />
+                )}
+              </button>
+            ))}
           </div>
         </div>
       </CardContent>
