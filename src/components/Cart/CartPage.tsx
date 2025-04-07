@@ -5,9 +5,9 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Card } from "@/components/ui/card";
+import OrderSummary from "./OrderSummary";
 
 const CartPage = () => {
   const { cartItems, cartCount, isLoading, updateQuantity, removeFromCart, clearCart } = useCart();
@@ -28,10 +28,9 @@ const CartPage = () => {
 
   const handleCheckout = () => {
     setIsProcessing(true);
-    // Simulate checkout process
+    // Simulate checkout process - in real implementation this would be handled by OrderSummary
     setTimeout(() => {
       setIsProcessing(false);
-      alert("Checkout functionality will be implemented in a future update!");
     }, 1500);
   };
 
@@ -161,57 +160,15 @@ const CartPage = () => {
 
         {/* Order Summary */}
         <div className="lg:w-1/3">
-          <Card className="p-5">
-            <h2 className="text-xl font-medium mb-4">Order Summary</h2>
-            
-            <div className="space-y-3 text-sm">
-              <div className="flex justify-between">
-                <span>Subtotal</span>
-                <span>${subtotal.toFixed(2)}</span>
-              </div>
-              
-              <div className="flex justify-between">
-                <span>Shipping estimate</span>
-                <span>${shippingEstimate.toFixed(2)}</span>
-              </div>
-              
-              <div className="flex justify-between">
-                <span>Tax estimate</span>
-                <span>${taxEstimate.toFixed(2)}</span>
-              </div>
-              
-              <Separator className="my-2" />
-              
-              <div className="flex justify-between font-medium text-base">
-                <span>Order total</span>
-                <span>${totalPrice.toFixed(2)}</span>
-              </div>
-            </div>
-            
-            <Button 
-              className="w-full mt-6" 
-              onClick={handleCheckout}
-              disabled={isProcessing}
-            >
-              {isProcessing ? (
-                <>
-                  <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2"></div>
-                  Processing...
-                </>
-              ) : (
-                'Proceed to Checkout'
-              )}
-            </Button>
-            
-            <div className="mt-4 text-center">
-              <Link 
-                to="/explore" 
-                className="text-sm text-thrift-sage hover:underline"
-              >
-                Continue Shopping
-              </Link>
-            </div>
-          </Card>
+          <OrderSummary
+            subtotal={subtotal}
+            shippingEstimate={shippingEstimate}
+            taxEstimate={taxEstimate}
+            totalPrice={totalPrice}
+            onCheckout={handleCheckout}
+            isProcessing={isProcessing}
+            onClearCart={clearCart}
+          />
         </div>
       </div>
     </div>

@@ -85,6 +85,7 @@ const SearchPage = () => {
         <SearchResults 
           searchQuery={searchQuery}
           searchResults={filteredItems}
+          isAIMode={false}
         />
       </div>
     </div>
