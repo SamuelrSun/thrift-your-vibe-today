@@ -24,7 +24,7 @@ export const inventory: Item[] = [
   {
     id: 1,
     title: 'TidexDowny Leather Jacket',
-    brand: 'Tide,
+    brand: 'Tide',
     price: 99,
     size: 'L',
     condition: 'Used',
