@@ -16,9 +16,8 @@ const CartPage = () => {
 
   // Calculate total price
   const subtotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
-  const shippingEstimate = cartCount > 0 ? 5.99 : 0;
   const taxEstimate = subtotal * 0.08; // 8% tax
-  const totalPrice = subtotal + shippingEstimate + taxEstimate;
+  const totalPrice = subtotal + taxEstimate;
 
   const handleQuantityChange = (itemId: string, newQuantity: number) => {
     if (newQuantity >= 1) {
@@ -28,7 +27,7 @@ const CartPage = () => {
 
   const handleCheckout = () => {
     setIsProcessing(true);
-    // Simulate checkout process - in real implementation this would be handled by OrderSummary
+    // Simulate checkout process - in real implementation this would handle server-side logic
     setTimeout(() => {
       setIsProcessing(false);
     }, 1500);
@@ -162,7 +161,6 @@ const CartPage = () => {
         <div className="lg:w-1/3">
           <OrderSummary
             subtotal={subtotal}
-            shippingEstimate={shippingEstimate}
             taxEstimate={taxEstimate}
             totalPrice={totalPrice}
             onCheckout={handleCheckout}
