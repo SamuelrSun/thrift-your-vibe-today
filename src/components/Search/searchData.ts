@@ -28,8 +28,8 @@ export const inventory: Item[] = [
     price: 99,
     size: 'L',
     condition: 'Used',
-    imageUrl: 'file:///Users/samuel_wang/Downloads/itp104-submissions-SamuelrWang/img/IMG_0458.JPG',
-    description: 'Classic vintage Levi\'s 501 jeans in medium wash. Great condition with authentic wear patterns.'
+    imageUrl: '/lovable-uploads/1cd5e4f0-9f59-429b-89a6-f3764dda014b.png',
+    description: 'Vintage Tide Racing Downy leather jacket in blue and orange. Great condition with authentic racing wear patterns and iconic Tide branding.'
   },
   {
     id: 2,
@@ -81,7 +81,6 @@ export const inventory: Item[] = [
     imageUrl: 'https://static.zara.net/assets/public/4a94/de1b/b5af49c58969/7942584a631e/02019770520-a1/02019770520-a1.jpg?ts=1731574480622&w=744&f=auto',
     description: 'Structured linen blazer in sand color. Perfect for summer office attire or casual elevation.'
   },
-  // Add more items here following the same format...
 ];
 
 // Export dummyItems for backward compatibility with existing code
