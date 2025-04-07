@@ -7,8 +7,8 @@ import Button from './Button';
 const banners = [
   {
     id: 1,
-    title: "Pop-up on Trousdale Crosswalk!",
-    description: "Join us for our first pop up this Thursday April 10th from 8am-4pm",
+    title: "Pop-up on Trousdale Crosswalk",
+    description: "We hope to see you at our first pop up this Thursday, April 10th from 8am-4pm!",
     imageUrl: "https://source.unsplash.com/featured/?newyork,fashion",
     buttonText: "Get Details",
     buttonLink: "/events/trousdale-popup",
