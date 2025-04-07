@@ -10,7 +10,7 @@ const banners = [
   {
     id: 1,
     title: "Pop-up on Trousdale Crosswalk",
-    description: "Our first pop up will be this Thursday, April 10th from 8am-4pm!",
+    description: "Our first pop-up will be this Thursday, April 10th from 8am-4pm!",
     imageUrl: "https://source.unsplash.com/featured/?newyork,fashion",
     buttonText: "Get Details",
     buttonLink: "/events/trousdale-popup",
