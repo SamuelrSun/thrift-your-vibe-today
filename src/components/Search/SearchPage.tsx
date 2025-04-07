@@ -7,6 +7,7 @@ import SearchResults from './SearchResults';
 import { thriftPhrases, dummyItems } from './searchData';
 import { useSearchFilters } from '@/hooks/useSearchFilters';
 import { toast } from '@/hooks/use-toast';
+import PromoBanner from '../Explore/PromoBanner';
 
 const SearchPage = () => {
   const [allItems, setAllItems] = useState(dummyItems);
@@ -60,6 +61,11 @@ const SearchPage = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
+      {/* Add PromoBanner above the SearchHeader */}
+      <div className="mb-6">
+        <PromoBanner />
+      </div>
+      
       <SearchHeader phrase={randomPhrase} />
       
       <div className="mb-10">

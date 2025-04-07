@@ -55,7 +55,7 @@ const PromoBanner = () => {
   const currentBanner = banners[currentBannerIndex];
   
   return (
-    <div className="relative w-full overflow-hidden rounded-xl h-[300px] sm:h-[350px] md:h-[400px]">
+    <div className="relative w-full overflow-hidden rounded-xl h-[200px] sm:h-[220px] md:h-[250px] mb-6">
       <div 
         className="absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: `url(${currentBanner.imageUrl})` }}
@@ -63,25 +63,25 @@ const PromoBanner = () => {
         <div className={`absolute inset-0 opacity-80 ${currentBanner.color}`}></div>
       </div>
       
-      <div className="relative z-10 h-full flex flex-col justify-center p-6 text-white">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-playfair font-bold mb-2 max-w-xl">
+      <div className="relative z-10 h-full flex flex-col justify-center p-4 sm:p-6 text-white">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-playfair font-bold mb-2 max-w-xl">
           {currentBanner.title}
         </h2>
-        <p className="text-lg sm:text-xl opacity-90 max-w-xl mb-6">
+        <p className="text-md sm:text-lg opacity-90 max-w-xl mb-3 sm:mb-4">
           {currentBanner.description}
         </p>
         
         {currentBanner.countdown.active && (
-          <div className="mb-6">
-            <p className="text-sm mb-2 uppercase tracking-wider">When:</p>
-            <div className="text-xl font-medium">
+          <div className="mb-3 sm:mb-4">
+            <p className="text-xs sm:text-sm mb-1 uppercase tracking-wider">When:</p>
+            <div className="text-md sm:text-lg font-medium">
               {currentBanner.countdown.displayText}
             </div>
           </div>
         )}
         
         <Button
-          className="bg-white text-gray-800 hover:bg-white/90 self-start"
+          className="bg-white text-gray-800 hover:bg-white/90 self-start text-sm"
         >
           {currentBanner.buttonText}
         </Button>
