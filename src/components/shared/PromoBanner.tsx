@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight, Clock, Calendar, Mail, SwatchBook } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -60,7 +59,6 @@ const PromoBanner = () => {
     }, 7000); // Toggle every 7 seconds
   };
   
-  // Set up autoplay
   useEffect(() => {
     startAutoplay();
     
@@ -71,7 +69,6 @@ const PromoBanner = () => {
     };
   }, [api]);
   
-  // Track current slide
   useEffect(() => {
     if (!api) return;
     
@@ -87,7 +84,6 @@ const PromoBanner = () => {
     };
   }, [api]);
   
-  // Update countdown timer
   useEffect(() => {
     const currentBanner = banners[current];
     if (currentBanner.countdown?.active && currentBanner.countdown.endDate) {
@@ -100,7 +96,6 @@ const PromoBanner = () => {
           setTimeRemaining(null);
           clearInterval(timer);
         } else {
-          // Calculate total hours instead of remainder hours
           const totalHours = Math.floor(distance / (1000 * 60 * 60));
           const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
           const seconds = Math.floor((distance % (1000 * 60)) / 1000);
@@ -115,7 +110,6 @@ const PromoBanner = () => {
     }
   }, [current]);
 
-  // Reset autoplay when manually navigating
   const handleManualNavigation = (direction: 'prev' | 'next') => {
     if (direction === 'prev') {
       api?.scrollPrev();
@@ -140,8 +134,8 @@ const PromoBanner = () => {
             <CarouselItem key={banner.id} className="w-full">
               <Card className={`${banner.borderColor} border shadow-sm w-full overflow-hidden`}>
                 <CardContent className="p-0">
-                  <div className={`${banner.color} ${banner.textColor}`}>
-                    <div className="flex flex-col md:flex-row items-center p-4">
+                  <div className={`${banner.color} ${banner.textColor} py-4`}>
+                    <div className="flex flex-col md:flex-row items-center px-4">
                       <div className="flex-1 text-left mb-4 md:mb-0">
                         <div className="flex items-center gap-2 mb-1">
                           {banner.icon && (
