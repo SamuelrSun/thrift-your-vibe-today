@@ -7,41 +7,16 @@ import Button from '../shared/Button';
 const banners = [
   {
     id: 1,
-    title: "Summer Vintage Drop",
-    description: "Exclusive 70s and 80s summer pieces",
-    imageUrl: "https://source.unsplash.com/featured/?vintage,summer",
-    buttonText: "Shop Now",
-    buttonLink: "/explore?collection=summer-vintage",
-    color: "bg-gradient-to-r from-yellow-400 to-orange-500",
-    countdown: {
-      active: true,
-      endDate: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000), // 3 days from now
-    }
-  },
-  {
-    id: 2,
-    title: "Sustainable Denim Collection",
-    description: "Pre-loved premium denim at affordable prices",
-    imageUrl: "https://source.unsplash.com/featured/?denim,jeans",
-    buttonText: "Explore Denim",
-    buttonLink: "/explore?category=denim",
-    color: "bg-gradient-to-r from-blue-500 to-indigo-600",
-    countdown: {
-      active: false,
-      endDate: null,
-    }
-  },
-  {
-    id: 3,
-    title: "Pop-up Event in NYC",
-    description: "Join us this weekend for exclusive in-person deals",
+    title: "Pop-up on Trousdale!",
+    description: "Join us for our first pop up this Thursday",
     imageUrl: "https://source.unsplash.com/featured/?newyork,fashion",
     buttonText: "Get Details",
-    buttonLink: "/events/nyc-popup",
-    color: "bg-gradient-to-r from-purple-500 to-pink-500",
+    buttonLink: "/events/trousdale-popup",
+    color: "bg-gradient-to-r from-red-400 to-amber-400",
     countdown: {
       active: true,
-      endDate: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000), // 5 days from now
+      endDate: new Date('2025-04-10T16:00:00'), // April 10th, 4:00 PM
+      displayText: "Thursday, April 10th from 8am-4pm"
     }
   },
 ];
@@ -49,14 +24,6 @@ const banners = [
 const PromoBanner = () => {
   const [currentBannerIndex, setCurrentBannerIndex] = useState(0);
   const [timeRemaining, setTimeRemaining] = useState<{days: number, hours: number, minutes: number} | null>(null);
-  
-  // Auto rotate banners
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentBannerIndex(prevIndex => (prevIndex + 1) % banners.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
   
   // Update countdown timer
   useEffect(() => {
@@ -85,14 +52,6 @@ const PromoBanner = () => {
     }
   }, [currentBannerIndex]);
   
-  const nextBanner = () => {
-    setCurrentBannerIndex((prevIndex) => (prevIndex + 1) % banners.length);
-  };
-  
-  const prevBanner = () => {
-    setCurrentBannerIndex((prevIndex) => (prevIndex - 1 + banners.length) % banners.length);
-  };
-  
   const currentBanner = banners[currentBannerIndex];
   
   return (
@@ -112,22 +71,11 @@ const PromoBanner = () => {
           {currentBanner.description}
         </p>
         
-        {currentBanner.countdown.active && timeRemaining && (
+        {currentBanner.countdown.active && (
           <div className="mb-6">
-            <p className="text-sm mb-2 uppercase tracking-wider">Ending in:</p>
-            <div className="flex space-x-4">
-              <div className="text-center">
-                <span className="text-2xl font-medium">{timeRemaining.days}</span>
-                <p className="text-xs opacity-80">Days</p>
-              </div>
-              <div className="text-center">
-                <span className="text-2xl font-medium">{timeRemaining.hours}</span>
-                <p className="text-xs opacity-80">Hours</p>
-              </div>
-              <div className="text-center">
-                <span className="text-2xl font-medium">{timeRemaining.minutes}</span>
-                <p className="text-xs opacity-80">Minutes</p>
-              </div>
+            <p className="text-sm mb-2 uppercase tracking-wider">When:</p>
+            <div className="text-xl font-medium">
+              {currentBanner.countdown.displayText}
             </div>
           </div>
         )}
@@ -137,38 +85,6 @@ const PromoBanner = () => {
         >
           {currentBanner.buttonText}
         </Button>
-      </div>
-      
-      {/* Navigation Controls */}
-      <div className="absolute z-20 bottom-4 right-4 flex space-x-2">
-        <button 
-          onClick={prevBanner}
-          className="bg-black/30 hover:bg-black/50 text-white rounded-full p-2 transition-colors"
-          aria-label="Previous banner"
-        >
-          <ChevronLeft className="h-5 w-5" />
-        </button>
-        <button 
-          onClick={nextBanner}
-          className="bg-black/30 hover:bg-black/50 text-white rounded-full p-2 transition-colors"
-          aria-label="Next banner"
-        >
-          <ChevronRight className="h-5 w-5" />
-        </button>
-      </div>
-      
-      {/* Indicator dots */}
-      <div className="absolute z-20 bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-        {banners.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentBannerIndex(index)}
-            className={`h-2 w-2 rounded-full ${
-              index === currentBannerIndex ? 'bg-white' : 'bg-white/50'
-            }`}
-            aria-label={`Go to banner ${index + 1}`}
-          />
-        ))}
       </div>
     </div>
   );
