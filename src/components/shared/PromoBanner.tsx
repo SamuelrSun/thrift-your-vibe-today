@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Clock, Calendar, CircleDot, Circle } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Clock, Calendar, CircleDot, Circle, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
@@ -25,18 +25,16 @@ const banners = [
   },
   {
     id: 2,
-    title: "Vintage Sale at McCarthy Quad",
-    description: "Bring your student ID for an extra 10% off all vintage items!",
-    imageUrl: "https://source.unsplash.com/featured/?vintage,clothes",
-    buttonText: "Save the Date",
-    buttonLink: "/events/mccarthy-sale",
-    color: "bg-gradient-to-r from-thrift-terracotta/10 to-thrift-terracotta/20", // Soft terracotta gradient
-    borderColor: "border-thrift-terracotta", // Thrift terracotta border
+    title: "Want cash for your closet cleanout?",
+    description: "We'll pick up your clothes and sell them for you.",
+    contactInfo: "everybodysthrift@gmail.com",
+    buttonText: "Contact Us",
+    buttonLink: "mailto:everybodysthrift@gmail.com",
+    color: "bg-gradient-to-r from-thrift-sage/10 to-thrift-sage/20", // Same green gradient
+    borderColor: "border-thrift-sage", // Thrift sage border
     textColor: "text-thrift-charcoal",
     countdown: {
-      active: true,
-      endDate: new Date('2025-04-15T17:00:00'), // April 15th, 5:00 PM
-      displayText: "Tuesday, April 15th"
+      active: false
     }
   },
 ];
@@ -44,6 +42,7 @@ const banners = [
 const PromoBanner = () => {
   const [currentBannerIndex, setCurrentBannerIndex] = useState(0);
   const [timeRemaining, setTimeRemaining] = useState<{hours: number, minutes: number, seconds: number} | null>(null);
+  const [isAnimating, setIsAnimating] = useState(false);
   
   // Update countdown timer
   useEffect(() => {
@@ -73,42 +72,98 @@ const PromoBanner = () => {
     }
   }, [currentBannerIndex]);
   
+  // Auto-slide functionality
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsAnimating(true);
+      setTimeout(() => {
+        setCurrentBannerIndex((prev) => (prev + 1) % banners.length);
+        setTimeout(() => {
+          setIsAnimating(false);
+        }, 50);
+      }, 300);
+    }, 7000); // Change banner every 7 seconds
+    
+    return () => clearInterval(interval);
+  }, []);
+  
   const currentBanner = banners[currentBannerIndex];
   
   const nextBanner = () => {
-    setCurrentBannerIndex((prev) => (prev + 1) % banners.length);
+    setIsAnimating(true);
+    setTimeout(() => {
+      setCurrentBannerIndex((prev) => (prev + 1) % banners.length);
+      setTimeout(() => {
+        setIsAnimating(false);
+      }, 50);
+    }, 300);
   };
   
   const prevBanner = () => {
-    setCurrentBannerIndex((prev) => (prev - 1 + banners.length) % banners.length);
+    setIsAnimating(true);
+    setTimeout(() => {
+      setCurrentBannerIndex((prev) => (prev - 1 + banners.length) % banners.length);
+      setTimeout(() => {
+        setIsAnimating(false);
+      }, 50);
+    }, 300);
   };
   
   const goToBanner = (index: number) => {
-    setCurrentBannerIndex(index);
+    if (index === currentBannerIndex) return;
+    
+    setIsAnimating(true);
+    setTimeout(() => {
+      setCurrentBannerIndex(index);
+      setTimeout(() => {
+        setIsAnimating(false);
+      }, 50);
+    }, 300);
   };
   
   return (
     <Card className={`mb-6 overflow-hidden ${currentBanner.borderColor} border shadow-sm`}>
       <CardContent className="p-0">
-        <div className={`${currentBanner.color} ${currentBanner.textColor}`}>
+        <div 
+          className={`${currentBanner.color} ${currentBanner.textColor} transition-opacity duration-300 ${isAnimating ? 'opacity-0' : 'opacity-100'}`}
+        >
           <div className="flex flex-col md:flex-row items-center p-4">
             <div className="flex-1 text-left mb-4 md:mb-0">
-              <div className="flex items-center gap-2 mb-1">
-                <Calendar className="h-4 w-4 text-thrift-sage" />
-                <span className="text-xs font-medium uppercase tracking-wider text-thrift-sage">
-                  Upcoming Event
-                </span>
-              </div>
-              <h2 className="text-xl sm:text-2xl font-playfair font-bold">
-                {currentBanner.title}
-              </h2>
-              <p className="text-sm sm:text-base mt-1 opacity-90">
-                {currentBanner.description}
-              </p>
+              {currentBanner.id === 1 ? (
+                <>
+                  <div className="flex items-center gap-2 mb-1">
+                    <Calendar className="h-4 w-4 text-thrift-sage" />
+                    <span className="text-xs font-medium uppercase tracking-wider text-thrift-sage">
+                      Upcoming Event
+                    </span>
+                  </div>
+                  <h2 className="text-xl sm:text-2xl font-playfair font-bold">
+                    {currentBanner.title}
+                  </h2>
+                  <p className="text-sm sm:text-base mt-1 opacity-90">
+                    {currentBanner.description}
+                  </p>
+                </>
+              ) : (
+                <>
+                  <h2 className="text-xl sm:text-2xl font-playfair font-bold">
+                    {currentBanner.title}
+                  </h2>
+                  <p className="text-sm sm:text-base mt-1 opacity-90">
+                    {currentBanner.description}
+                  </p>
+                  <div className="flex items-center gap-2 mt-2">
+                    <Mail className="h-4 w-4 text-thrift-sage" />
+                    <span className="text-sm font-medium text-thrift-sage">
+                      {currentBanner.contactInfo}
+                    </span>
+                  </div>
+                </>
+              )}
             </div>
             
             <div className="flex flex-col sm:flex-row items-center gap-4">
-              {timeRemaining && (
+              {timeRemaining && currentBanner.countdown.active && (
                 <div className="flex flex-col items-center sm:items-start">
                   <div className="flex items-center gap-1 mb-1.5">
                     <Clock className="h-4 w-4 text-thrift-charcoal/70" />
@@ -135,6 +190,7 @@ const PromoBanner = () => {
                 variant="secondary"
                 size="sm"
                 className="bg-thrift-sage hover:bg-thrift-sage/90 text-white shadow-sm"
+                onClick={() => window.open(currentBanner.buttonLink, '_blank')}
               >
                 {currentBanner.buttonText}
               </Button>
