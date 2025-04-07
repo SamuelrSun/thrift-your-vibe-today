@@ -43,8 +43,8 @@ export const inventory: Item[] = [
   },
   {
     id: 3,
-    title: 'Leather Moto Jacket',
-    brand: 'AllSaints',
+    title: 'Adidas Navy Puffer Jacket',
+    brand: 'Adidas',
     price: 120,
     size: 'L',
     condition: 'Gently Used',
