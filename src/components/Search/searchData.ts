@@ -49,7 +49,7 @@ export const inventory: Item[] = [
     id: 3,
     title: 'Adidas Navy Puffer Jacket',
     brand: 'Adidas',
-    price: 47,
+    price: 49,
     size: 'M',
     condition: 'Gently Used',
     imageUrl: '/MJ00010001.png',
@@ -65,7 +65,7 @@ export const inventory: Item[] = [
     condition: 'Gently Used',
     imageUrl: '/MF00020009.png',
     description: 'Cozy Patagonia fleece jacket in a soft off-white color, featuring a navy chest zip pocket, contrast trim, and a full front zipper for effortless layering and warmth.',
-    status: 'coming' // This item is coming soon
+    status: 'live' // This item is coming soon
   },
   {
     id: 5,
