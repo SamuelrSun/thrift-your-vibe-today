@@ -53,9 +53,9 @@ export const inventory: Item[] = [
   },
   {
     id: 4,
-    title: 'Patagonia',
-    brand: 'Madewell',
-    price: 38,
+    title: 'Patagonia Tan Fleece',
+    brand: 'Patagonia',
+    price: 89,
     size: 'M',
     condition: 'Like New',
     imageUrl: 'https://www.madewell.com/images/NU604_WR1830_ld?wid=1400&hei=1779&fmt=jpeg&fit=crop&qlt=75',
