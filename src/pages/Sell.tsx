@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -43,7 +42,7 @@ const Sell = () => {
                 <ul className="space-y-3">
                   <li className="flex items-start">
                     <span className="text-thrift-sage font-bold mr-2 text-2xl">❖</span>
-                    <span>Drop-off your items to our Thursday pop-ups.</span>
+                    <span>Drop-off your items to us at our Thursday pop-ups.</span>
                   </li>
                   <li className="flex items-start">
                     <span className="text-thrift-sage font-bold mr-2 text-2xl">❖</span>
