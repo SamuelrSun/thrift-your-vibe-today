@@ -57,9 +57,9 @@ export const inventory: Item[] = [
     brand: 'Patagonia',
     price: 89,
     size: 'M',
-    condition: 'Like New',
-    imageUrl: 'https://www.madewell.com/images/NU604_WR1830_ld?wid=1400&hei=1779&fmt=jpeg&fit=crop&qlt=75',
-    description: 'Elegant pleated midi skirt in emerald green. Perfect for office or evening wear.'
+    condition: 'Gently Used',
+    imageUrl: 'MF00020009',
+    description: 'Cozy Patagonia fleece jacket in a soft off-white color, featuring a navy chest zip pocket, contrast trim, and a full front zipper for effortless layering and warmth.'
   },
   {
     id: 5,
