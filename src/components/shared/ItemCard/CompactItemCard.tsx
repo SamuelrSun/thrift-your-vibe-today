@@ -38,6 +38,9 @@ const CompactItemCard = ({ item, isSelected = false, onSelect }: CompactItemCard
     }
   };
 
+  // Format price display based on whether it's a number or string
+  const priceDisplay = typeof item.price === 'number' ? `$${item.price}` : item.price;
+
   return (
     <Card 
       className={`cursor-pointer transition-all hover:shadow-md ${
@@ -84,7 +87,7 @@ const CompactItemCard = ({ item, isSelected = false, onSelect }: CompactItemCard
       <CardContent className="p-3">
         <h3 className="font-medium text-sm truncate">{formattedTitle}</h3>
         <div className="flex justify-between items-center mt-1">
-          <p className="font-medium">${item.price}</p>
+          <p className="font-medium">{priceDisplay}</p>
           <span className="text-xs text-thrift-charcoal/70">{item.size}</span>
         </div>
       </CardContent>

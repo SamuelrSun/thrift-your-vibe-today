@@ -9,7 +9,7 @@ export interface Item {
   id: number;
   title: string;
   brand: string;
-  price: number;
+  price: number | string; // Updated to handle string prices
   size: string;
   condition: string;
   imageUrl: string;
@@ -51,7 +51,7 @@ const ItemCard = ({ item }: ItemCardProps) => {
       item_id: item.id,
       title: item.title,
       brand: item.brand,
-      price: item.price,
+      price: typeof item.price === 'number' ? item.price : 0, // Handle string prices for cart
       size: item.size,
       condition: item.condition,
       image_url: item.imageUrl
@@ -70,7 +70,7 @@ const ItemCard = ({ item }: ItemCardProps) => {
         item_id: item.id,
         title: item.title,
         brand: item.brand,
-        price: item.price,
+        price: typeof item.price === 'number' ? item.price : 0, // Handle string prices for likes
         size: item.size,
         condition: item.condition,
         image_url: item.imageUrl,
@@ -90,6 +90,9 @@ const ItemCard = ({ item }: ItemCardProps) => {
 
   // Define a fallback image for when the main image fails to load
   const imageSrc = imageError ? '/placeholder.svg' : item.imageUrl;
+
+  // Format price display based on whether it's a number or string
+  const priceDisplay = typeof item.price === 'number' ? `$${item.price}` : item.price;
 
   return (
     <div 
@@ -130,7 +133,7 @@ const ItemCard = ({ item }: ItemCardProps) => {
               )}
             </div>
             <div className="p-4 h-[12%] border-t border-thrift-lightgray flex justify-between items-center">
-              <p className="font-medium text-lg">${item.price}</p>
+              <p className="font-medium text-lg">{priceDisplay}</p>
               <Button 
                 variant="ghost" 
                 size="icon"
@@ -151,7 +154,7 @@ const ItemCard = ({ item }: ItemCardProps) => {
             <div>
               <h3 className="font-medium text-lg mb-1 truncate">{formattedTitle}</h3>
               <div className="flex justify-between mb-3">
-                <p className="font-medium">${item.price}</p>
+                <p className="font-medium">{priceDisplay}</p>
                 <p className="text-sm text-thrift-charcoal/70">{item.condition}</p>
               </div>
               <div className="space-y-2 text-sm">
