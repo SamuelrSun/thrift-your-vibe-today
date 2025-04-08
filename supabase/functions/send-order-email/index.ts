@@ -35,42 +35,63 @@ serve(async (req) => {
     
     // Format the order items for the email
     const formattedItems = orderItems.map(item => 
-      `- ${item.title} (${item.brand}, ${item.size}, ${item.condition}): $${item.price.toFixed(2)} x ${item.quantity}`
-    ).join('\n');
+      `<tr>
+        <td style="padding: 8px; border-bottom: 1px solid #ddd;">${item.title} (${item.brand})</td>
+        <td style="padding: 8px; border-bottom: 1px solid #ddd;">${item.size}</td>
+        <td style="padding: 8px; border-bottom: 1px solid #ddd;">${item.condition}</td>
+        <td style="padding: 8px; border-bottom: 1px solid #ddd;">$${item.price.toFixed(2)}</td>
+        <td style="padding: 8px; border-bottom: 1px solid #ddd;">${item.quantity}</td>
+      </tr>`
+    ).join('');
 
-    // Format the email content
-    const emailContent = `
-      New Order from ThriftSC Website
-      
-      Customer Information:
-      ---------------------
-      Name: ${fullName}
-      Email: ${email}
-      Phone: ${phone || 'Not provided'}
-      
-      Order Details:
-      -------------
-      ${formattedItems || 'No items in cart'}
-      
-      Total Price: $${totalPrice.toFixed(2)}
-      
-      Payment: Screenshot provided (${paymentImageName})
+    // Format the email HTML content
+    const htmlContent = `
+      <html>
+        <head>
+          <style>
+            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+            h1 { color: #4a5568; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; }
+            table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+            th { background-color: #f8f9fa; text-align: left; padding: 8px; border-bottom: 2px solid #ddd; }
+            .total { font-weight: bold; margin-top: 20px; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <h1>New Order Submission</h1>
+            
+            <h2>Customer Information:</h2>
+            <p><strong>Name:</strong> ${fullName}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
+            
+            <h2>Order Details:</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Size</th>
+                  <th>Condition</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${formattedItems || '<tr><td colspan="5" style="padding: 8px;">No items in cart</td></tr>'}
+              </tbody>
+            </table>
+            
+            <p class="total"><strong>Total Price:</strong> $${totalPrice.toFixed(2)}</p>
+            
+            <p><strong>Payment:</strong> Venmo screenshot provided (${paymentImageName})</p>
+          </div>
+        </body>
+      </html>
     `;
 
-    // Send the actual email
-    const emailTo = "info@thriftsc.com";
-    
-    // Log the email content for debugging
-    console.log(`Sending email to: ${emailTo}`);
-    console.log(emailContent);
-    
-    // In a production environment, you would use a service like SendGrid, Mailgun, or Resend
-    // For now, we're simulating a successful email send
-    // You would need to add your email service API key to Supabase secrets
-    
-    // Example if using Resend (commented out until API key is added):
-    /*
-    const resendApiKey = Deno.env.get("RESEND_API_KEY");
+    // Send the actual email using Resend
+    const resendApiKey = "re_Wqf3LK31_576KhTmrRJLt6JF9wAoTQ3tC";
     const response = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
@@ -78,18 +99,21 @@ serve(async (req) => {
         "Authorization": `Bearer ${resendApiKey}`
       },
       body: JSON.stringify({
-        from: "ThriftSC <noreply@thriftsc.com>",
-        to: [emailTo],
-        subject: "New Order from ThriftSC Website",
-        text: emailContent,
+        from: "info@thriftsc.com",
+        to: "info@thriftsc.com",
+        subject: "New Order Submission",
+        html: htmlContent,
       }),
     });
     
     if (!response.ok) {
-      const error = await response.json();
-      throw new Error(`Failed to send email: ${JSON.stringify(error)}`);
+      const errorData = await response.json();
+      console.error("Resend API error:", errorData);
+      throw new Error(`Failed to send email: ${JSON.stringify(errorData)}`);
     }
-    */
+    
+    const responseData = await response.json();
+    console.log("Email sent successfully:", responseData);
 
     return new Response(
       JSON.stringify({ success: true, message: "Order email sent successfully" }),
