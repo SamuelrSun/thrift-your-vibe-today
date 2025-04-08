@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -7,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Check, Upload } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 interface OrderSummaryProps {
   subtotal: number;
@@ -28,6 +30,7 @@ const OrderSummary = ({
   const [phone, setPhone] = useState("");
   const [paymentImage, setPaymentImage] = useState<File | null>(null);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isSending, setIsSending] = useState(false);
   
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -39,7 +42,7 @@ const OrderSummary = ({
     return email.endsWith('@usc.edu');
   };
 
-  const handleSubmitPayment = (e: React.FormEvent) => {
+  const handleSubmitPayment = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!fullName.trim()) {
@@ -69,16 +72,46 @@ const OrderSummary = ({
       return;
     }
 
+    setIsSending(true);
     onCheckout();
     
-    console.log(`Sending order details to srwang@usc.edu`);
-    console.log(`Customer: ${fullName} (${email})`);
-    console.log(`Total amount: $${totalPrice?.toFixed(2) || '0.00'}`);
-    
-    setTimeout(() => {
-      setIsSuccess(true);
-      onClearCart();
-    }, 1500);
+    try {
+      // Get cart items from context for the email
+      const cartItems = JSON.parse(localStorage.getItem('thriftsc-cart-items') || '[]');
+      
+      // Send email with order details
+      const { data, error } = await supabase.functions.invoke('send-order-email', {
+        body: {
+          fullName,
+          email,
+          phone,
+          orderItems: cartItems,
+          totalPrice,
+          paymentImageName: paymentImage.name
+        }
+      });
+      
+      if (error) {
+        throw new Error(error.message);
+      }
+      
+      console.log("Email sent successfully:", data);
+      
+      setTimeout(() => {
+        setIsSuccess(true);
+        onClearCart();
+        setIsSending(false);
+      }, 1500);
+      
+    } catch (error) {
+      console.error("Error sending order email:", error);
+      toast({
+        title: "Order Processing Error",
+        description: "There was an error processing your order. Please try again.",
+        variant: "destructive"
+      });
+      setIsSending(false);
+    }
   };
 
   if (isSuccess) {
@@ -201,12 +234,12 @@ const OrderSummary = ({
         <Button 
           type="submit" 
           className="w-full mt-4" 
-          disabled={isProcessing}
+          disabled={isProcessing || isSending}
         >
-          {isProcessing ? (
+          {isProcessing || isSending ? (
             <>
               <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2"></div>
-              Processing...
+              {isSending ? "Sending Order..." : "Processing..."}
             </>
           ) : (
             'Submit Order'
