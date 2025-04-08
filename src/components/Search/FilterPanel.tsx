@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import Button from '../shared/Button';
@@ -105,9 +104,7 @@ const FilterPanel = ({
   const handleCategoryClick = (categoryId: string) => {
     onToggleFilter('categories', categoryId);
     
-    // If it's a main category, close any open subcategories
     if (categoryId === 'all' || categoryId === 'mens' || categoryId === 'womens') {
-      // If selecting All, unselect the other main categories
       if (categoryId === 'all') {
         if (activeFilters.categories.includes('mens')) {
           onToggleFilter('categories', 'mens');
@@ -116,7 +113,6 @@ const FilterPanel = ({
           onToggleFilter('categories', 'womens');
         }
       } 
-      // If selecting Men's or Women's, unselect All
       else if (activeFilters.categories.includes('all')) {
         onToggleFilter('categories', 'all');
       }
@@ -193,11 +189,10 @@ const FilterPanel = ({
                     }
                   }}
                 >
-                  <div className="flex items-center">
+                  <div className="flex items-center space-x-2">
                     <Checkbox 
                       id={`checkbox-${type.id}`}
                       checked={activeFilters.categories.includes(type.id)}
-                      className="mr-2"
                       onCheckedChange={() => handleCategoryClick(type.id)}
                     />
                     <label 
@@ -226,13 +221,12 @@ const FilterPanel = ({
                           <Checkbox 
                             id={`checkbox-${subCategory.id}`}
                             checked={activeFilters.categories.includes(subCategory.id)}
-                            className="mr-2"
                             onCheckedChange={() => onToggleFilter('categories', subCategory.id)}
                             disabled={!activeFilters.categories.includes(type.id)}
                           />
                           <label
                             htmlFor={`checkbox-${subCategory.id}`}
-                            className={`text-sm ${!activeFilters.categories.includes(type.id) ? 'text-gray-400' : ''}`}
+                            className={`text-sm ml-2 ${!activeFilters.categories.includes(type.id) ? 'text-gray-400' : 'cursor-pointer'}`}
                           >
                             {subCategory.label}
                           </label>
