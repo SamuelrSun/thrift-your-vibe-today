@@ -53,13 +53,13 @@ export const inventory: Item[] = [
   },
   {
     id: 4,
-    title: 'Pleated Midi Skirt',
-    brand: 'Madewell',
-    price: 38,
+    title: 'Patagonia Tan Fleece',
+    brand: 'Patagonia',
+    price: 89,
     size: 'M',
-    condition: 'Like New',
-    imageUrl: 'https://www.madewell.com/images/NU604_WR1830_ld?wid=1400&hei=1779&fmt=jpeg&fit=crop&qlt=75',
-    description: 'Elegant pleated midi skirt in emerald green. Perfect for office or evening wear.'
+    condition: 'Gently Used',
+    imageUrl: '/MJ00020009.png',
+    description: 'Cozy Patagonia fleece jacket in a soft off-white color, featuring a navy chest zip pocket, contrast trim, and a full front zipper for effortless layering and warmth.'
   },
   {
     id: 5,
