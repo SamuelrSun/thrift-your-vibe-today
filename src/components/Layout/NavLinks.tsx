@@ -22,7 +22,7 @@ const NavLinks = ({ isMobile = false, closeMenu }: NavLinksProps) => {
   ];
 
   return (
-    <div className="w-full flex justify-center items-center space-x-8">
+    <div className="flex justify-center items-center space-x-8">
       {commonLinks.map((link) => (
         <Link
           key={link.path}
