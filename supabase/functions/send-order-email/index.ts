@@ -38,24 +38,58 @@ serve(async (req) => {
       `- ${item.title} (${item.brand}, ${item.size}, ${item.condition}): $${item.price.toFixed(2)} x ${item.quantity}`
     ).join('\n');
 
-    // Simple email sending using fetch to a hypothetical email API
-    // In a real implementation, you would use a service like Resend, SendGrid, etc.
-    // For now, we'll just log the email content and return success
-    
-    console.log("Would send email to: info@thriftsc.com");
-    console.log("Subject: New Order from ThriftSC Website");
-    console.log(`
-      Customer Name: ${fullName}
-      Customer Email: ${email}
-      Customer Phone: ${phone || 'Not provided'}
+    // Format the email content
+    const emailContent = `
+      New Order from ThriftSC Website
+      
+      Customer Information:
+      ---------------------
+      Name: ${fullName}
+      Email: ${email}
+      Phone: ${phone || 'Not provided'}
       
       Order Details:
-      ${formattedItems}
+      -------------
+      ${formattedItems || 'No items in cart'}
       
       Total Price: $${totalPrice.toFixed(2)}
       
       Payment: Screenshot provided (${paymentImageName})
-    `);
+    `;
+
+    // Send the actual email
+    const emailTo = "info@thriftsc.com";
+    
+    // Log the email content for debugging
+    console.log(`Sending email to: ${emailTo}`);
+    console.log(emailContent);
+    
+    // In a production environment, you would use a service like SendGrid, Mailgun, or Resend
+    // For now, we're simulating a successful email send
+    // You would need to add your email service API key to Supabase secrets
+    
+    // Example if using Resend (commented out until API key is added):
+    /*
+    const resendApiKey = Deno.env.get("RESEND_API_KEY");
+    const response = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${resendApiKey}`
+      },
+      body: JSON.stringify({
+        from: "ThriftSC <noreply@thriftsc.com>",
+        to: [emailTo],
+        subject: "New Order from ThriftSC Website",
+        text: emailContent,
+      }),
+    });
+    
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(`Failed to send email: ${JSON.stringify(error)}`);
+    }
+    */
 
     return new Response(
       JSON.stringify({ success: true, message: "Order email sent successfully" }),
