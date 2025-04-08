@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Heart, ShoppingCart, Check } from 'lucide-react';
+import { Heart, ShoppingCart, Check, AlertCircle } from 'lucide-react';
 import Button from '../../shared/Button';
 import { useCart } from '@/contexts/CartContext';
 import { useLikes } from '@/contexts/LikesContext';
@@ -14,6 +14,7 @@ export interface Item {
   condition: string;
   imageUrl: string;
   description: string;
+  status?: 'live' | 'sold' | 'coming';
 }
 
 interface ItemCardProps {
@@ -30,6 +31,9 @@ const ItemCard = ({ item }: ItemCardProps) => {
   
   const inCart = isItemInCart(item.id);
   const isLiked = isItemLiked(item.id);
+  
+  // Default to 'live' if no status is provided
+  const itemStatus = item.status || 'live';
 
   const handleFlip = () => {
     setIsFlipped(!isFlipped);
@@ -38,7 +42,8 @@ const ItemCard = ({ item }: ItemCardProps) => {
   const handleAddToCart = async (e: React.MouseEvent) => {
     e.stopPropagation();
     
-    if (inCart) return;
+    // Only allow adding to cart for 'live' items
+    if (inCart || itemStatus !== 'live') return;
     
     setIsAddingToCart(true);
     
@@ -92,18 +97,37 @@ const ItemCard = ({ item }: ItemCardProps) => {
       onClick={handleFlip}
     >
       <div className="absolute inset-0 w-full h-full transition-all duration-500 preserve-3d" style={{transform: isFlipped ? 'rotateY(180deg)' : ''}}>
+        {/* Front of the card */}
         <div className="absolute inset-0 w-full h-full backface-hidden">
-          <div className="rounded-lg overflow-hidden shadow-md h-full bg-white border border-thrift-lightgray">
+          <div className={`rounded-lg overflow-hidden shadow-md h-full bg-white border border-thrift-lightgray ${itemStatus === 'sold' ? 'opacity-80' : ''}`}>
             <div className="p-3 border-b border-thrift-lightgray">
               <h3 className="font-medium text-lg truncate">{formattedTitle}</h3>
             </div>
-            <div className="h-[75%] overflow-hidden">
+            <div className="h-[75%] overflow-hidden relative">
               <img 
                 src={imageSrc} 
                 alt={item.title} 
                 onError={handleImageError}
-                className="w-full h-full object-cover transition-transform hover:scale-105"
+                className={`w-full h-full object-cover transition-transform hover:scale-105 ${itemStatus === 'sold' ? 'grayscale-[30%]' : ''}`}
               />
+              
+              {/* Status overlay for Sold items */}
+              {itemStatus === 'sold' && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="bg-gray-800 bg-opacity-60 text-white font-bold py-2 px-4 w-full text-center transform rotate-0">
+                    SOLD
+                  </div>
+                </div>
+              )}
+              
+              {/* Status overlay for Coming Soon items */}
+              {itemStatus === 'coming' && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="bg-thrift-sage bg-opacity-60 text-white font-bold py-2 px-4 w-full text-center transform rotate-0">
+                    COMING SOON
+                  </div>
+                </div>
+              )}
             </div>
             <div className="p-4 h-[12%] border-t border-thrift-lightgray flex justify-between items-center">
               <p className="font-medium text-lg">${item.price}</p>
@@ -121,8 +145,9 @@ const ItemCard = ({ item }: ItemCardProps) => {
           </div>
         </div>
 
+        {/* Back of the card */}
         <div className="absolute inset-0 w-full h-full backface-hidden" style={{transform: 'rotateY(180deg)'}}>
-          <div className="rounded-lg overflow-hidden shadow-md h-full bg-white p-5 flex flex-col justify-between border border-thrift-lightgray">
+          <div className={`rounded-lg overflow-hidden shadow-md h-full bg-white p-5 flex flex-col justify-between border border-thrift-lightgray ${itemStatus === 'sold' ? 'opacity-80' : ''}`}>
             <div>
               <h3 className="font-medium text-lg mb-1 truncate">{formattedTitle}</h3>
               <div className="flex justify-between mb-3">
@@ -133,28 +158,52 @@ const ItemCard = ({ item }: ItemCardProps) => {
                 <p><span className="font-medium">Brand:</span> {item.brand}</p>
                 <p><span className="font-medium">Size:</span> {item.size}</p>
                 <p className="text-thrift-charcoal/80 line-clamp-3">{item.description}</p>
+                {itemStatus !== 'live' && (
+                  <p className="text-sm mt-2 font-medium">
+                    {itemStatus === 'sold' ? 'This item has been sold.' : 'This item is coming soon.'}
+                  </p>
+                )}
               </div>
             </div>
             <div className="flex gap-2 mt-4">
-              <Button 
-                className={`w-full flex items-center justify-center gap-2 ${inCart ? 'bg-thrift-sage/70' : ''}`}
-                onClick={handleAddToCart}
-                disabled={isAddingToCart || inCart}
-              >
-                {isAddingToCart ? (
-                  <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full"></div>
-                ) : inCart ? (
-                  <>
-                    <Check className="h-4 w-4" />
-                    Added!
-                  </>
-                ) : (
-                  <>
-                    <ShoppingCart className="h-4 w-4" />
-                    Add to Cart
-                  </>
-                )}
-              </Button>
+              {/* Conditionally render Add to Cart button based on item status */}
+              {itemStatus === 'live' ? (
+                <Button 
+                  className={`w-full flex items-center justify-center gap-2 ${inCart ? 'bg-thrift-sage/70' : ''}`}
+                  onClick={handleAddToCart}
+                  disabled={isAddingToCart || inCart}
+                >
+                  {isAddingToCart ? (
+                    <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full"></div>
+                  ) : inCart ? (
+                    <>
+                      <Check className="h-4 w-4" />
+                      Added!
+                    </>
+                  ) : (
+                    <>
+                      <ShoppingCart className="h-4 w-4" />
+                      Add to Cart
+                    </>
+                  )}
+                </Button>
+              ) : itemStatus === 'sold' ? (
+                <Button 
+                  className="w-full flex items-center justify-center gap-2 bg-gray-400 cursor-not-allowed"
+                  disabled={true}
+                >
+                  Sold
+                </Button>
+              ) : (
+                <Button 
+                  className="w-full flex items-center justify-center gap-2 bg-thrift-sage/70"
+                  disabled={true}
+                >
+                  Coming Soon
+                </Button>
+              )}
+              
+              {/* Like button is always available */}
               <Button 
                 variant="outline" 
                 className="border-thrift-lightgray"

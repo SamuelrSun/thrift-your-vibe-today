@@ -8,6 +8,7 @@ export interface Item {
   condition: string;
   imageUrl: string;
   description: string;
+  status?: 'live' | 'sold' | 'coming'; // New field for item status
 }
 
 // ====================================================================================
@@ -19,6 +20,7 @@ export interface Item {
 // 3. Always give each new item a unique ID (increment from the highest existing ID)
 // 4. Make sure all image links are valid and accessible
 // 5. Keep the format consistent for all items
+// 6. Set status to 'live', 'sold', or 'coming' to control how the item is displayed
 
 export const inventory: Item[] = [
   {
@@ -29,7 +31,8 @@ export const inventory: Item[] = [
     size: 'L',
     condition: 'Used',
     imageUrl: '/tide.png',
-    description: 'Vintage Tide Racing Downy leather jacket in blue and orange. Great condition with authentic racing wear patterns and iconic Tide branding.'
+    description: 'Vintage Tide Racing Downy leather jacket in blue and orange. Great condition with authentic racing wear patterns and iconic Tide branding.',
+    status: 'live' // This item is available for purchase
   },
   {
     id: 2,
@@ -39,7 +42,8 @@ export const inventory: Item[] = [
     size: 'L',
     condition: 'Gently Used',
     imageUrl: '/croft.png',
-    description: 'Classic Croft & Barrow leather jacket with timeless design. Excellent condition with minimal wear, perfect for any casual outfit.'
+    description: 'Classic Croft & Barrow leather jacket with timeless design. Excellent condition with minimal wear, perfect for any casual outfit.',
+    status: 'sold' // This item has been sold
   },
   {
     id: 3,
@@ -49,7 +53,8 @@ export const inventory: Item[] = [
     size: 'M',
     condition: 'Gently Used',
     imageUrl: '/MJ00010001.png',
-    description: 'Sleek navy Adidas puffer jacket with iconic white triple stripes, a high collar, and a cozy quilted design perfect for staying warm in style.'
+    description: 'Sleek navy Adidas puffer jacket with iconic white triple stripes, a high collar, and a cozy quilted design perfect for staying warm in style.',
+    status: 'live'
   },
   {
     id: 4,
@@ -59,7 +64,8 @@ export const inventory: Item[] = [
     size: 'M',
     condition: 'Gently Used',
     imageUrl: '/MF00020009.png',
-    description: 'Cozy Patagonia fleece jacket in a soft off-white color, featuring a navy chest zip pocket, contrast trim, and a full front zipper for effortless layering and warmth.'
+    description: 'Cozy Patagonia fleece jacket in a soft off-white color, featuring a navy chest zip pocket, contrast trim, and a full front zipper for effortless layering and warmth.',
+    status: 'coming' // This item is coming soon
   },
   {
     id: 5,
@@ -69,7 +75,8 @@ export const inventory: Item[] = [
     size: 'S',
     condition: 'Like New',
     imageUrl: 'https://cdn.saksfifthavenue.com/is/image/saks/0400013120163_NATUREWHITE?wid=600&hei=800&qlt=90&resMode=sharp2&op_usm=0.9%2C1.0%2C8%2C0',
-    description: 'Luxurious silk button-up in cream. Versatile wardrobe essential in excellent condition.'
+    description: 'Luxurious silk button-up in cream. Versatile wardrobe essential in excellent condition.',
+    status: 'live'
   },
   {
     id: 6,
@@ -79,7 +86,8 @@ export const inventory: Item[] = [
     size: 'M',
     condition: 'Gently Used',
     imageUrl: 'https://static.zara.net/assets/public/4a94/de1b/b5af49c58969/7942584a631e/02019770520-a1/02019770520-a1.jpg?ts=1731574480622&w=744&f=auto',
-    description: 'Structured linen blazer in sand color. Perfect for summer office attire or casual elevation.'
+    description: 'Structured linen blazer in sand color. Perfect for summer office attire or casual elevation.',
+    status: 'live'
   },
 ];
 
@@ -139,6 +147,7 @@ export interface Item {
   condition: string;
   imageUrl: string;
   description: string;
+  status?: 'live' | 'sold' | 'coming'; // New field for item status
 }
 
 // Ensure items are fetched from the server rather than being stored locally

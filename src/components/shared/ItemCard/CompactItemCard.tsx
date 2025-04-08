@@ -18,6 +18,7 @@ const CompactItemCard = ({ item, isSelected = false, onSelect }: CompactItemCard
   // Handle different property naming between Item and LikedItem
   const itemId = 'item_id' in item ? item.item_id : item.id;
   const imageUrl = 'image_url' in item ? item.image_url : item.imageUrl;
+  const status = 'status' in item ? item.status : ('item_status' in item ? item.item_status : 'live');
   
   const isLiked = isItemLiked(itemId);
 
@@ -41,15 +42,34 @@ const CompactItemCard = ({ item, isSelected = false, onSelect }: CompactItemCard
     <Card 
       className={`cursor-pointer transition-all hover:shadow-md ${
         isSelected ? 'ring-2 ring-thrift-terracotta shadow-md' : ''
-      }`}
+      } ${status === 'sold' ? 'opacity-80' : ''}`}
       onClick={handleClick}
     >
       <div className="relative h-40 overflow-hidden">
         <img 
           src={imageUrl} 
           alt={item.title} 
-          className="w-full h-full object-cover"
+          className={`w-full h-full object-cover ${status === 'sold' ? 'grayscale-[30%]' : ''}`}
         />
+        
+        {/* Status overlay for Sold items */}
+        {status === 'sold' && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="bg-gray-800 bg-opacity-60 text-white font-bold py-1 px-2 w-full text-center text-sm">
+              SOLD
+            </div>
+          </div>
+        )}
+        
+        {/* Status overlay for Coming Soon items */}
+        {status === 'coming' && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="bg-thrift-sage bg-opacity-60 text-white font-bold py-1 px-2 w-full text-center text-sm">
+              COMING SOON
+            </div>
+          </div>
+        )}
+        
         {isLiked && (
           <Button 
             variant="ghost" 
