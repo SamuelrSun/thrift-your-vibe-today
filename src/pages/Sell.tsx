@@ -39,15 +39,15 @@ const Sell = () => {
           <section>
             <Card>
               <CardContent className="p-6">
-                <h2 className="text-2xl font-playfair font-semibold mb-4">How we get your clothes:</h2>
+                <h2 className="text-2xl font-playfair font-semibold mb-4 text-center">How we get your clothes:</h2>
                 <ul className="space-y-3">
                   <li className="flex items-start">
-                    <span className="text-thrift-sage font-bold mr-2">Drop-off:</span>
-                    <span>Bring your items to our Thursday pop-ups</span>
+                    <span className="text-thrift-sage font-bold mr-2 text-2xl">❖</span>
+                    <span>Drop-off your items to our Thursday pop-ups.</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-thrift-sage font-bold mr-2">Pick-up:</span>
-                    <span>Got a large batch? We'll come to you</span>
+                    <span className="text-thrift-sage font-bold mr-2 text-2xl">❖</span>
+                    <span>Got a large batch? We'll come to you!</span>
                   </li>
                 </ul>
               </CardContent>
@@ -57,15 +57,15 @@ const Sell = () => {
           <section>
             <Card>
               <CardContent className="p-6">
-                <h2 className="text-2xl font-playfair font-semibold mb-4">How we sell your clothes:</h2>
+                <h2 className="text-2xl font-playfair font-semibold mb-4 text-center">How we sell your clothes:</h2>
                 <ul className="space-y-3">
                   <li className="flex items-start">
-                    <span className="text-thrift-sage font-bold mr-2">In-person:</span>
-                    <span>Weekly Thursday pop-ups on Trousdale</span>
+                    <span className="text-thrift-sage font-bold mr-2 text-2xl">❖</span>
+                    <span>At weekly Thursday pop-ups on Trousdale crosswalk.</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-thrift-sage font-bold mr-2">Online:</span>
-                    <span>24/7 at thriftsc.com</span>
+                    <span className="text-thrift-sage font-bold mr-2 text-2xl">❖</span>
+                    <span>Online 24/7 at <a href="https://thriftsc.com" className="text-thrift-sage underline">thriftsc.com</a>!</span>
                   </li>
                 </ul>
               </CardContent>
