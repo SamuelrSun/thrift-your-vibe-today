@@ -3,7 +3,7 @@ export interface Item {
   id: number;
   title: string;
   brand: string;
-  price: number | string; // Updated to allow string values like "TBD"
+  price: number;
   size: string;
   condition: string;
   imageUrl: string;
@@ -61,11 +61,11 @@ export const inventory: Item[] = [
     title: 'Patagonia Tan Fleece',
     brand: 'Patagonia',
     price: 89,
-    size: 'M',
+    size: 'L',
     condition: 'Gently Used',
     imageUrl: '/MF00020009.png',
     description: 'Cozy Patagonia fleece jacket in a soft off-white color, featuring a navy chest zip pocket, contrast trim, and a full front zipper for effortless layering and warmth.',
-    status: 'live'
+    status: 'live' // This item is coming soon
   },
   {
     id: 5,
@@ -82,12 +82,12 @@ export const inventory: Item[] = [
     id: 6,
     title: 'Linen Blazer',
     brand: 'Zara',
-    price: "TBD", // Example of TBD price for coming soon item
+    price: 42,
     size: 'M',
     condition: 'Gently Used',
     imageUrl: 'https://static.zara.net/assets/public/4a94/de1b/b5af49c58969/7942584a631e/02019770520-a1/02019770520-a1.jpg?ts=1731574480622&w=744&f=auto',
     description: 'Structured linen blazer in sand color. Perfect for summer office attire or casual elevation.',
-    status: 'coming' // Updated to coming soon
+    status: 'live'
   },
 ];
 
@@ -142,7 +142,7 @@ export interface Item {
   id: number;
   title: string;
   brand: string;
-  price: number | string; // Updated to allow string values like "TBD"
+  price: number;
   size: string;
   condition: string;
   imageUrl: string;
