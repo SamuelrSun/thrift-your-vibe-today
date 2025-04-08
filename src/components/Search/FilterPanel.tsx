@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import Button from '../shared/Button';
@@ -56,10 +57,6 @@ const FilterPanel = ({
 
   const clothingTypes: CategoryOption[] = [
     { 
-      id: 'all', 
-      label: 'All' 
-    },
-    { 
       id: 'mens', 
       label: 'Men\'s',
       subCategories: [
@@ -104,16 +101,8 @@ const FilterPanel = ({
   const handleCategoryClick = (categoryId: string) => {
     onToggleFilter('categories', categoryId);
     
-    if (categoryId === 'all' || categoryId === 'mens' || categoryId === 'womens') {
-      if (categoryId === 'all') {
-        if (activeFilters.categories.includes('mens')) {
-          onToggleFilter('categories', 'mens');
-        }
-        if (activeFilters.categories.includes('womens')) {
-          onToggleFilter('categories', 'womens');
-        }
-      } 
-      else if (activeFilters.categories.includes('all')) {
+    if (categoryId === 'mens' || categoryId === 'womens') {
+      if (activeFilters.categories.includes('all')) {
         onToggleFilter('categories', 'all');
       }
     }
@@ -179,28 +168,19 @@ const FilterPanel = ({
           <h4 className="text-sm font-medium mb-3">Clothing Type</h4>
           <div className="space-y-2">
             {clothingTypes.map((type) => (
-              <div key={type.id} className="border border-thrift-lightgray rounded-md overflow-hidden">
+              <div key={type.id} className="overflow-hidden">
                 <div 
-                  className="flex items-center justify-between p-2 cursor-pointer"
+                  className="flex items-center justify-between p-2 cursor-pointer hover:bg-thrift-cream rounded"
                   onClick={() => {
-                    handleCategoryClick(type.id);
                     if (type.subCategories && type.subCategories.length > 0) {
                       toggleCategoryDropdown(type.id);
                     }
                   }}
                 >
-                  <div className="flex items-center space-x-2">
-                    <Checkbox 
-                      id={`checkbox-${type.id}`}
-                      checked={activeFilters.categories.includes(type.id)}
-                      onCheckedChange={() => handleCategoryClick(type.id)}
-                    />
-                    <label 
-                      htmlFor={`checkbox-${type.id}`}
-                      className="text-sm cursor-pointer"
-                    >
+                  <div className="flex items-center">
+                    <span className="text-sm">
                       {type.label}
-                    </label>
+                    </span>
                   </div>
                   {type.subCategories && type.subCategories.length > 0 && (
                     <ChevronDown 
@@ -211,22 +191,21 @@ const FilterPanel = ({
                 
                 {type.subCategories && (
                   <div 
-                    className={`border-t border-thrift-lightgray bg-thrift-cream transition-all overflow-hidden ${
-                      openCategory === type.id ? 'max-h-60' : 'max-h-0'
+                    className={`bg-thrift-cream transition-all overflow-hidden rounded pl-4 ${
+                      openCategory === type.id ? 'max-h-60 py-2' : 'max-h-0'
                     }`}
                   >
-                    <div className="p-2 space-y-1">
+                    <div className="space-y-2">
                       {type.subCategories.map((subCategory) => (
-                        <div key={subCategory.id} className="flex items-center pl-6">
+                        <div key={subCategory.id} className="flex items-center space-x-2">
                           <Checkbox 
                             id={`checkbox-${subCategory.id}`}
                             checked={activeFilters.categories.includes(subCategory.id)}
                             onCheckedChange={() => onToggleFilter('categories', subCategory.id)}
-                            disabled={!activeFilters.categories.includes(type.id)}
                           />
                           <label
                             htmlFor={`checkbox-${subCategory.id}`}
-                            className={`text-sm ml-2 ${!activeFilters.categories.includes(type.id) ? 'text-gray-400' : 'cursor-pointer'}`}
+                            className="text-sm cursor-pointer"
                           >
                             {subCategory.label}
                           </label>
@@ -244,16 +223,15 @@ const FilterPanel = ({
           <h4 className="text-sm font-medium mb-3">Condition</h4>
           <div className="space-y-2">
             {conditions.map(condition => (
-              <div key={condition.id} className="flex items-center">
+              <div key={condition.id} className="flex items-center space-x-2">
                 <Checkbox 
                   id={`checkbox-condition-${condition.id}`}
                   checked={activeFilters.conditions.includes(condition.id)}
-                  className="mr-2"
                   onCheckedChange={() => onToggleFilter('conditions', condition.id)}
                 />
                 <label 
                   htmlFor={`checkbox-condition-${condition.id}`}
-                  className="text-sm"
+                  className="text-sm cursor-pointer"
                 >
                   {condition.label}
                 </label>

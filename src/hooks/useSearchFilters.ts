@@ -59,14 +59,13 @@ export const useSearchFilters = (initialItems: Item[]) => {
     // Check if we have the parent category selected
     const hasMens = categories.includes('mens');
     const hasWomens = categories.includes('womens');
-    const hasAll = categories.includes('all');
     
     // Get specific subcategories
     const specificCategories = categories.filter(c => 
       c !== 'mens' && c !== 'womens' && c !== 'all'
     );
     
-    return { hasMens, hasWomens, hasAll, specificCategories };
+    return { hasMens, hasWomens, specificCategories };
   };
 
   const applyFilters = (items: Item[]) => {
@@ -93,12 +92,7 @@ export const useSearchFilters = (initialItems: Item[]) => {
 
       // Category filters
       if (activeFilters.categories.length > 0) {
-        const { hasMens, hasWomens, hasAll, specificCategories } = getCategoryFilters(activeFilters.categories);
-        
-        // If "All" is selected, don't filter by category
-        if (hasAll) {
-          return true;
-        }
+        const { hasMens, hasWomens, specificCategories } = getCategoryFilters(activeFilters.categories);
         
         // Check if the item matches any specific category filter
         const matchesSpecificCategory = specificCategories.length === 0 || 
