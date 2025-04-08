@@ -105,7 +105,7 @@ const Sell = () => {
                 </table>
               </div>
               <p className="mt-4">
-                *Have something high-end or designer? We'll work with you 1:1 to set a fair commission that works for both of us.
+                Have something high-end or designer? We'll work with you 1:1 to set a fair commission that works for both of us.
               </p>
             </CardContent>
           </Card>
