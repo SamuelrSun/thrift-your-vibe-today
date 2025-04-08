@@ -5,6 +5,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import NavLinks from './NavLinks';
 import NavIcons from './NavIcons';
 import MobileMenu from './MobileMenu';
+import { Image } from 'lucide-react';
 
 const Navbar = () => {
   const { user } = useAuth();
@@ -19,9 +20,16 @@ const Navbar = () => {
     <nav className="bg-thrift-cream border-b border-thrift-lightgray shadow-sm sticky top-0 z-50">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          {/* Logo */}
-          <Link to="/search" className="text-2xl font-playfair font-bold">
-            ThriftSC
+          {/* Logo and Text */}
+          <Link to="/search" className="flex items-center space-x-2">
+            <img 
+              src="/lovable-uploads/becfcfd7-09f7-4179-8aa9-0947c855d4f3.png" 
+              alt="ThriftSC Logo" 
+              className="h-8 w-8 rounded-full"
+            />
+            <span className="text-2xl font-playfair font-bold">
+              ThriftSC
+            </span>
           </Link>
 
           {/* Desktop Navigation - Centered */}
