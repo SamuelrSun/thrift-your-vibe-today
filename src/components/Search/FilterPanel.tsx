@@ -10,6 +10,11 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 
 interface FilterOption {
   id: string;
@@ -38,6 +43,7 @@ const FilterPanel = ({
   const [isExpanded, setIsExpanded] = useState(false);
   const [priceMin, setPriceMin] = useState<number | ''>(activeFilters.priceMin);
   const [priceMax, setPriceMax] = useState<number | ''>(activeFilters.priceMax);
+  const [openCategory, setOpenCategory] = useState<string | null>(null);
 
   const sizes: FilterOption[] = [
     { id: 'xs', label: 'XS' },
@@ -90,6 +96,31 @@ const FilterPanel = ({
   const handleApplyFilters = () => {
     onPriceChange(priceMin, priceMax);
     onApplyFilters();
+  };
+
+  const toggleCategoryDropdown = (categoryId: string) => {
+    setOpenCategory(openCategory === categoryId ? null : categoryId);
+  };
+
+  const handleCategoryClick = (categoryId: string) => {
+    onToggleFilter('categories', categoryId);
+    
+    // If it's a main category, close any open subcategories
+    if (categoryId === 'all' || categoryId === 'mens' || categoryId === 'womens') {
+      // If selecting All, unselect the other main categories
+      if (categoryId === 'all') {
+        if (activeFilters.categories.includes('mens')) {
+          onToggleFilter('categories', 'mens');
+        }
+        if (activeFilters.categories.includes('womens')) {
+          onToggleFilter('categories', 'womens');
+        }
+      } 
+      // If selecting Men's or Women's, unselect All
+      else if (activeFilters.categories.includes('all')) {
+        onToggleFilter('categories', 'all');
+      }
+    }
   };
 
   return (
@@ -150,40 +181,64 @@ const FilterPanel = ({
         
         <div>
           <h4 className="text-sm font-medium mb-3">Clothing Type</h4>
-          <div className="space-y-1">
+          <div className="space-y-2">
             {clothingTypes.map((type) => (
-              <div key={type.id} className="space-y-1">
-                <div className="flex items-center space-x-2">
-                  <Checkbox 
-                    id={type.id}
-                    checked={activeFilters.categories.includes(type.id)}
-                    onCheckedChange={() => onToggleFilter('categories', type.id)}
-                  />
-                  <label 
-                    htmlFor={type.id}
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                  >
-                    {type.label}
-                  </label>
+              <div key={type.id} className="border border-thrift-lightgray rounded-md overflow-hidden">
+                <div 
+                  className="flex items-center justify-between p-2 cursor-pointer"
+                  onClick={() => {
+                    handleCategoryClick(type.id);
+                    if (type.subCategories && type.subCategories.length > 0) {
+                      toggleCategoryDropdown(type.id);
+                    }
+                  }}
+                >
+                  <div className="flex items-center">
+                    <Checkbox 
+                      id={`checkbox-${type.id}`}
+                      checked={activeFilters.categories.includes(type.id)}
+                      className="mr-2"
+                      onCheckedChange={() => handleCategoryClick(type.id)}
+                    />
+                    <label 
+                      htmlFor={`checkbox-${type.id}`}
+                      className="text-sm cursor-pointer"
+                    >
+                      {type.label}
+                    </label>
+                  </div>
+                  {type.subCategories && type.subCategories.length > 0 && (
+                    <ChevronDown 
+                      className={`h-4 w-4 transition-transform ${openCategory === type.id ? 'rotate-180' : ''}`} 
+                    />
+                  )}
                 </div>
                 
-                {type.subCategories && activeFilters.categories.includes(type.id) && (
-                  <div className="pl-6 mt-1 space-y-1 border-l border-thrift-lightgray">
-                    {type.subCategories.map((subCategory) => (
-                      <div key={subCategory.id} className="flex items-center space-x-2">
-                        <Checkbox 
-                          id={subCategory.id}
-                          checked={activeFilters.categories.includes(subCategory.id)}
-                          onCheckedChange={() => onToggleFilter('categories', subCategory.id)}
-                        />
-                        <label
-                          htmlFor={subCategory.id}
-                          className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                        >
-                          {subCategory.label}
-                        </label>
-                      </div>
-                    ))}
+                {type.subCategories && (
+                  <div 
+                    className={`border-t border-thrift-lightgray bg-thrift-cream transition-all overflow-hidden ${
+                      openCategory === type.id ? 'max-h-60' : 'max-h-0'
+                    }`}
+                  >
+                    <div className="p-2 space-y-1">
+                      {type.subCategories.map((subCategory) => (
+                        <div key={subCategory.id} className="flex items-center pl-6">
+                          <Checkbox 
+                            id={`checkbox-${subCategory.id}`}
+                            checked={activeFilters.categories.includes(subCategory.id)}
+                            className="mr-2"
+                            onCheckedChange={() => onToggleFilter('categories', subCategory.id)}
+                            disabled={!activeFilters.categories.includes(type.id)}
+                          />
+                          <label
+                            htmlFor={`checkbox-${subCategory.id}`}
+                            className={`text-sm ${!activeFilters.categories.includes(type.id) ? 'text-gray-400' : ''}`}
+                          >
+                            {subCategory.label}
+                          </label>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>
@@ -195,15 +250,20 @@ const FilterPanel = ({
           <h4 className="text-sm font-medium mb-3">Condition</h4>
           <div className="space-y-2">
             {conditions.map(condition => (
-              <label key={condition.id} className="flex items-center">
-                <input 
-                  type="checkbox"
+              <div key={condition.id} className="flex items-center">
+                <Checkbox 
+                  id={`checkbox-condition-${condition.id}`}
                   checked={activeFilters.conditions.includes(condition.id)}
-                  onChange={() => onToggleFilter('conditions', condition.id)}
-                  className="rounded border-thrift-lightgray text-thrift-sage focus:ring-thrift-sage"
+                  className="mr-2"
+                  onCheckedChange={() => onToggleFilter('conditions', condition.id)}
                 />
-                <span className="ml-2 text-sm">{condition.label}</span>
-              </label>
+                <label 
+                  htmlFor={`checkbox-condition-${condition.id}`}
+                  className="text-sm"
+                >
+                  {condition.label}
+                </label>
+              </div>
             ))}
           </div>
         </div>
