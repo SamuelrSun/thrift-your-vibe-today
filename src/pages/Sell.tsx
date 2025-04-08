@@ -1,9 +1,24 @@
+
+import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Mail } from "lucide-react";
 
 const Sell = () => {
+  // Add an effect to ensure the page refreshes properly
+  useEffect(() => {
+    // Force a refresh of assets by appending a timestamp to any resources
+    document.querySelectorAll('img').forEach(img => {
+      if (img.src && !img.src.includes('nocache')) {
+        img.src = `${img.src}${img.src.includes('?') ? '&' : '?'}nocache=${Date.now()}`;
+      }
+    });
+    
+    // Log to confirm the component has mounted fresh
+    console.log("Sell page mounted:", Date.now());
+  }, []);
+
   return (
     <div className="bg-thrift-cream min-h-screen py-12">
       <div className="container mx-auto px-4 max-w-4xl">

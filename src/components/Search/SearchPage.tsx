@@ -1,18 +1,20 @@
+
 import { useState, useEffect } from 'react';
 import SearchBar from './SearchBar';
 import FilterPanel from './FilterPanel';
 import SearchHeader from './SearchHeader';
 import SearchResults from './SearchResults';
-import { thriftPhrases, dummyItems } from './searchData';
+import { thriftPhrases, dummyItems, fetchItems } from './searchData';
 import { useSearchFilters } from '@/hooks/useSearchFilters';
 import { toast } from '@/hooks/use-toast';
 import PromoBanner from '../shared/PromoBanner';
 
 const SearchPage = () => {
-  const [allItems, setAllItems] = useState(dummyItems);
-  const [filteredItems, setFilteredItems] = useState(dummyItems);
+  const [allItems, setAllItems] = useState([]);
+  const [filteredItems, setFilteredItems] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [randomPhrase, setRandomPhrase] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   
   const {
     activeFilters,
@@ -20,33 +22,40 @@ const SearchPage = () => {
     setPriceRange,
     clearFilters,
     applyFilters
-  } = useSearchFilters(dummyItems);
+  } = useSearchFilters(allItems);
 
-  // Set a random thrift phrase on component mount
+  // Set a random thrift phrase and fetch items on component mount
   useEffect(() => {
     const randomIndex = Math.floor(Math.random() * thriftPhrases.length);
     setRandomPhrase(thriftPhrases[randomIndex]);
+    
+    const loadItems = async () => {
+      setIsLoading(true);
+      const items = await fetchItems();
+      setAllItems(items);
+      setFilteredItems(items);
+      setIsLoading(false);
+    };
+    
+    loadItems();
   }, []);
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
     
     // Filter based on search query
-    const queryResults = dummyItems.filter(item => 
+    const queryResults = allItems.filter(item => 
       item.title.toLowerCase().includes(query.toLowerCase()) ||
       item.brand.toLowerCase().includes(query.toLowerCase()) ||
       item.description.toLowerCase().includes(query.toLowerCase())
     );
     
-    setAllItems(queryResults);
-    // Apply any active filters to the search results
     setFilteredItems(applyFilters(queryResults));
   };
 
   const handleClearSearch = () => {
     setSearchQuery('');
-    setAllItems(dummyItems);
-    setFilteredItems(dummyItems);
+    setFilteredItems(allItems);
   };
 
   const handleApplyFilters = () => {
@@ -90,6 +99,7 @@ const SearchPage = () => {
           searchQuery={searchQuery}
           searchResults={filteredItems}
           isAIMode={false}
+          isLoading={isLoading}
         />
       </div>
     </div>

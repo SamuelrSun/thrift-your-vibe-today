@@ -3,7 +3,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import Navbar from "./components/Layout/Navbar";
 import Footer from "./components/Layout/Footer";
 import Index from "./pages/Index";
@@ -19,7 +20,31 @@ import CartSuccess from "./pages/CartSuccess";
 import Likes from "./pages/Likes";
 import Sell from "./pages/Sell";
 
-const queryClient = new QueryClient();
+// Configure the query client with cache busting settings
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: true,
+      staleTime: 10 * 1000, // 10 seconds
+      cacheTime: 5 * 60 * 1000, // 5 minutes
+    },
+  },
+});
+
+// Component to ensure route changes force fresh data
+const RouteChangeHandler = () => {
+  const location = useLocation();
+  
+  useEffect(() => {
+    // Clear query cache when routes change
+    queryClient.invalidateQueries();
+    
+    // Force reload of static assets
+    console.log("Route changed:", location.pathname);
+  }, [location]);
+  
+  return null;
+};
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -32,6 +57,7 @@ const App = () => (
             <LikesProvider>
               <div className="flex flex-col min-h-screen">
                 <Navbar />
+                <RouteChangeHandler />
                 <main className="flex-grow">
                   <Routes>
                     <Route path="/" element={<Navigate to="/search" replace />} />

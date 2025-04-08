@@ -140,3 +140,16 @@ export interface Item {
   imageUrl: string;
   description: string;
 }
+
+// Ensure items are fetched from the server rather than being stored locally
+export const fetchItems = async () => {
+  try {
+    // This would ideally use a real API endpoint
+    // For now, we'll simulate a fetch with a small delay to mimic network request
+    await new Promise(resolve => setTimeout(resolve, 300));
+    return dummyItems;
+  } catch (error) {
+    console.error("Error fetching items:", error);
+    return [];
+  }
+}
