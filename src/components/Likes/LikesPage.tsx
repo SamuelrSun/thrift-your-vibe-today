@@ -40,7 +40,7 @@ const LikesPage = () => {
             Start exploring and heart the items you love!
           </p>
           <Button asChild>
-            <Link to="/explore">Explore items</Link>
+            <Link to="/search">Explore items</Link>
           </Button>
         </div>
       ) : (

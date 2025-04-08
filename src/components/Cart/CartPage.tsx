@@ -47,9 +47,9 @@ const CartPage = () => {
           <ShoppingBag className="mx-auto h-12 w-12 text-thrift-sage/70 mb-4" />
           <h2 className="text-2xl font-playfair font-bold mb-2">Your cart is empty</h2>
           <p className="text-thrift-charcoal/70 mb-8">Looks like you haven't added any items to your cart yet.</p>
-          <Link to="/explore">
-            <Button>Continue Shopping</Button>
-          </Link>
+          <Button asChild>
+            <Link to="/search">Continue Shopping</Link>
+          </Button>
         </div>
       </div>
     );
