@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Item } from '../components/shared/ItemCard'; // Updated import
+import { Item } from '../components/shared/ItemCard';
 
 export interface FilterState {
   priceMin: number | '';
@@ -55,6 +55,20 @@ export const useSearchFilters = (initialItems: Item[]) => {
     });
   };
 
+  const getCategoryFilters = (categories: string[]) => {
+    // Check if we have the parent category selected
+    const hasMens = categories.includes('mens');
+    const hasWomens = categories.includes('womens');
+    const hasAll = categories.includes('all');
+    
+    // Get specific subcategories
+    const specificCategories = categories.filter(c => 
+      c !== 'mens' && c !== 'womens' && c !== 'all'
+    );
+    
+    return { hasMens, hasWomens, hasAll, specificCategories };
+  };
+
   const applyFilters = (items: Item[]) => {
     return items.filter(item => {
       // Price filter
@@ -71,26 +85,44 @@ export const useSearchFilters = (initialItems: Item[]) => {
         return false;
       }
 
-      // Brand category filter
-      if (activeFilters.brands.length > 0 && 
-          !activeFilters.brands.some(brand => 
-            item.brand.toLowerCase().includes(brand))) {
-        return false;
-      }
-
       // Condition filter
       if (activeFilters.conditions.length > 0 && 
           !activeFilters.conditions.includes(item.condition.toLowerCase())) {
         return false;
       }
 
-      // Item category filter - Using optional chaining to handle potential missing category
-      if (activeFilters.categories.length > 0 && 
-          // Using type assertion to handle the optional category property
-          !('description' in item && typeof item.description === 'string' && 
-            activeFilters.categories.some(cat => 
-              item.description.toLowerCase().includes(cat)))) {
-        return false;
+      // Category filters
+      if (activeFilters.categories.length > 0) {
+        const { hasMens, hasWomens, hasAll, specificCategories } = getCategoryFilters(activeFilters.categories);
+        
+        // If "All" is selected, don't filter by category
+        if (hasAll) {
+          return true;
+        }
+        
+        // Check if the item matches any specific category filter
+        const matchesSpecificCategory = specificCategories.length === 0 || 
+          specificCategories.some(category => {
+            // Using type assertion to handle the optional description property
+            if ('description' in item && typeof item.description === 'string') {
+              return item.description.toLowerCase().includes(category.replace(/(mens-|womens-)/, ''));
+            }
+            return false;
+          });
+        
+        // Check if the item matches the gender filter
+        const isMensItem = 'gender' in item && item.gender === 'men';
+        const isWomensItem = 'gender' in item && item.gender === 'women';
+        
+        // Apply gender filter if set
+        if ((hasMens && !hasWomens && !isMensItem) || 
+            (hasWomens && !hasMens && !isWomensItem)) {
+          return false;
+        }
+        
+        if (!matchesSpecificCategory && specificCategories.length > 0) {
+          return false;
+        }
       }
 
       return true;
