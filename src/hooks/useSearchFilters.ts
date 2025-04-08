@@ -70,12 +70,20 @@ export const useSearchFilters = (initialItems: Item[]) => {
 
   const applyFilters = (items: Item[]) => {
     return items.filter(item => {
-      // Price filter
-      if (activeFilters.priceMin !== '' && item.price < activeFilters.priceMin) {
+      // Price filter - handle both number and string prices
+      const numericPrice = typeof item.price === 'number' ? item.price : -1; // Use -1 for non-numeric prices when filtering
+      
+      if (activeFilters.priceMin !== '' && numericPrice !== -1 && numericPrice < activeFilters.priceMin) {
         return false;
       }
-      if (activeFilters.priceMax !== '' && item.price > activeFilters.priceMax) {
+      
+      if (activeFilters.priceMax !== '' && numericPrice !== -1 && numericPrice > activeFilters.priceMax) {
         return false;
+      }
+      
+      // Skip price filtering for non-numeric prices like "TBD"
+      if ((activeFilters.priceMin !== '' || activeFilters.priceMax !== '') && numericPrice === -1) {
+        return false; // Filter out items with non-numeric prices when price filters are active
       }
 
       // Size filter
