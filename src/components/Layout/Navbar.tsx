@@ -24,8 +24,8 @@ const Navbar = () => {
             ThriftSC
           </Link>
 
-          {/* Desktop Navigation - Now in the center */}
-          <div className="hidden md:flex flex-1 justify-center">
+          {/* Desktop Navigation - Centered */}
+          <div className="absolute left-1/2 transform -translate-x-1/2">
             <NavLinks />
           </div>
 
