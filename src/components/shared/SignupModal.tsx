@@ -85,7 +85,7 @@ const SignupModal = ({ open, onOpenChange }: SignupModalProps) => {
           <div className="p-6 flex flex-col items-center">
             {/* Logo in circle */}
             <Avatar className="h-20 w-20 mb-4 bg-thrift-cream border-2 border-thrift-sage">
-              <AvatarImage src="/favicon.ico" alt="ThriftSC Logo" />
+              <AvatarImage src="/favicon.png" alt="ThriftSC Logo" />
               <AvatarFallback className="bg-thrift-sage text-white text-lg">
                 TSC
               </AvatarFallback>
