@@ -278,21 +278,8 @@ export const inventory: Item[] = [
     imageUrl: '/harutablackloafers.png',
     description: 'Haruta Arvin loafers in polished black leather. Sleek penny loafer design with stitched detailing and a low stacked heel. Made in Japan, these shoes offer timeless style and everyday comfort.',
     status: 'live',
-    sex: 'men',
-    category: 'shoes'
-  },
-  {
-    id: 20,
-    title: 'Michael Jackson Tour Excl. Bomber',
-    brand: 'Identity Inc.',
-    price: 1249,
-    size: 'S',
-    condition: 'Gently Used',
-    imageUrl: '/MJblackbomber.png',
-    description: 'This Michael Jackson Dangerous World Tour jacket with Pepsi branding was exclusively given to production crew. Truly the holy grail for \'90s thrifters. Email for purchasing details.',
-    status: 'live',
     sex: 'unisex',
-    category: 'shoes'
+    category: 'jackets'
   },
 ];
 
