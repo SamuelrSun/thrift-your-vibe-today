@@ -9,12 +9,14 @@ export interface Item {
   id: number;
   title: string;
   brand: string;
-  price: number | string; // Updated to handle string prices
+  price: number | string;
   size: string;
   condition: string;
   imageUrl: string;
   description: string;
   status?: 'live' | 'sold' | 'coming';
+  gender?: 'men' | 'women' | 'unisex';
+  category?: string;
 }
 
 interface ItemCardProps {
@@ -54,7 +56,9 @@ const ItemCard = ({ item }: ItemCardProps) => {
       price: typeof item.price === 'number' ? item.price : 0, // Handle string prices for cart
       size: item.size,
       condition: item.condition,
-      image_url: item.imageUrl
+      image_url: item.imageUrl,
+      gender: item.gender, // Add gender
+      category: item.category // Add category
     });
     
     setIsAddingToCart(false);
@@ -74,7 +78,9 @@ const ItemCard = ({ item }: ItemCardProps) => {
         size: item.size,
         condition: item.condition,
         image_url: item.imageUrl,
-        description: item.description
+        description: item.description,
+        gender: item.gender, // Add gender
+        category: item.category // Add category
       });
     }
   };
@@ -93,6 +99,10 @@ const ItemCard = ({ item }: ItemCardProps) => {
 
   // Format price display based on whether it's a number or string
   const priceDisplay = typeof item.price === 'number' ? `$${item.price}` : item.price;
+
+  // Format gender and category for display
+  const genderDisplay = item.gender ? item.gender.charAt(0).toUpperCase() + item.gender.slice(1) : 'Unisex';
+  const categoryDisplay = item.category ? item.category.charAt(0).toUpperCase() + item.category.slice(1) : 'Other';
 
   return (
     <div 
@@ -131,6 +141,20 @@ const ItemCard = ({ item }: ItemCardProps) => {
                   </div>
                 </div>
               )}
+              
+              {/* Gender and Category tag */}
+              <div className="absolute top-2 left-2 flex flex-col gap-1">
+                {item.gender && (
+                  <span className="bg-thrift-cream text-thrift-charcoal text-xs px-2 py-1 rounded">
+                    {genderDisplay}
+                  </span>
+                )}
+                {item.category && (
+                  <span className="bg-thrift-cream text-thrift-charcoal text-xs px-2 py-1 rounded">
+                    {categoryDisplay}
+                  </span>
+                )}
+              </div>
             </div>
             <div className="p-4 h-[12%] border-t border-thrift-lightgray flex justify-between items-center">
               <p className="font-medium text-lg">{priceDisplay}</p>
@@ -160,6 +184,8 @@ const ItemCard = ({ item }: ItemCardProps) => {
               <div className="space-y-2 text-sm">
                 <p><span className="font-medium">Brand:</span> {item.brand}</p>
                 <p><span className="font-medium">Size:</span> {item.size}</p>
+                {item.gender && <p><span className="font-medium">Gender:</span> {genderDisplay}</p>}
+                {item.category && <p><span className="font-medium">Category:</span> {categoryDisplay}</p>}
                 <p className="text-thrift-charcoal/80 line-clamp-3">{item.description}</p>
                 {itemStatus !== 'live' && (
                   <p className="text-sm mt-2 font-medium">

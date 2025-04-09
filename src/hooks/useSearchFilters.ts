@@ -92,38 +92,62 @@ export const useSearchFilters = (initialItems: Item[]) => {
         return false;
       }
 
-      // Condition filter
-      if (activeFilters.conditions.length > 0 && 
-          !activeFilters.conditions.includes(item.condition.toLowerCase())) {
-        return false;
+      // Condition filter - normalize conditions for comparison
+      if (activeFilters.conditions.length > 0) {
+        // Convert condition to lowercase and normalize spaces/hyphens
+        const normalizedCondition = item.condition.toLowerCase().replace(/\s+/g, '-');
+        const matchesCondition = activeFilters.conditions.some(condition => {
+          // Handle various condition formats (like-new matches "Like New")
+          if (condition === 'like-new' && 
+              (normalizedCondition === 'like-new' || normalizedCondition === 'like-new')) {
+            return true;
+          }
+          if (condition === 'gently-used' && 
+              (normalizedCondition === 'gently-used' || normalizedCondition === 'gently-used')) {
+            return true;
+          }
+          if (condition === 'well-loved' && 
+              (normalizedCondition === 'well-loved' || normalizedCondition === 'well-loved')) {
+            return true;
+          }
+          return normalizedCondition === condition;
+        });
+        
+        if (!matchesCondition) {
+          return false;
+        }
       }
 
-      // Category filters
+      // Category and gender filters
       if (activeFilters.categories.length > 0) {
         const { hasMens, hasWomens, specificCategories } = getCategoryFilters(activeFilters.categories);
         
-        // Check if the item matches any specific category filter
-        const matchesSpecificCategory = specificCategories.length === 0 || 
-          specificCategories.some(category => {
-            // Using type assertion to handle the optional description property
-            if ('description' in item && typeof item.description === 'string') {
-              return item.description.toLowerCase().includes(category.replace(/(mens-|womens-)/, ''));
-            }
-            return false;
-          });
-        
-        // Check if the item matches the gender filter
-        const isMensItem = 'gender' in item && item.gender === 'men';
-        const isWomensItem = 'gender' in item && item.gender === 'women';
+        // Check if the item matches gender filter
+        const isMensItem = item.gender === 'men';
+        const isWomensItem = item.gender === 'women';
+        const isUnisexItem = item.gender === 'unisex';
         
         // Apply gender filter if set
-        if ((hasMens && !hasWomens && !isMensItem) || 
-            (hasWomens && !hasMens && !isWomensItem)) {
+        if (hasMens && !hasWomens && !isMensItem && !isUnisexItem) {
           return false;
         }
         
-        if (!matchesSpecificCategory && specificCategories.length > 0) {
+        if (hasWomens && !hasMens && !isWomensItem && !isUnisexItem) {
           return false;
+        }
+        
+        // Check specific categories (like tops, bottoms, etc.)
+        if (specificCategories.length > 0) {
+          // Extract base category from filter (e.g., "mens-tops" -> "tops")
+          const simpleCategoryFilters = specificCategories.map(cat => {
+            const parts = cat.split('-');
+            return parts.length > 1 ? parts[1] : cat;
+          });
+          
+          // Check if item category matches any of our category filters
+          if (item.category && !simpleCategoryFilters.includes(item.category)) {
+            return false;
+          }
         }
       }
 
