@@ -7,7 +7,7 @@ body.mobile-menu-open {
 /* Define transition for content when mobile menu opens */
 @media (max-width: 767px) {
   .mobile-menu-open .page-content {
-    margin-top: 150px; /* Reduced from 180px to remove excess white space */
+    margin-top: 120px; /* Further reduced to minimize white gap */
     transition: margin-top 0.3s ease;
   }
   
