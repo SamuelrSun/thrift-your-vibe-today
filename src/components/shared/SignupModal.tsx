@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from '@/hooks/use-toast';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 interface SignupModalProps {
   open: boolean;
@@ -81,16 +82,24 @@ const SignupModal = ({ open, onOpenChange }: SignupModalProps) => {
             <span className="sr-only">Close</span>
           </button>
           
-          <div className="p-6">
-            <h2 className="text-2xl font-playfair font-semibold mb-4 text-thrift-charcoal">
+          <div className="p-6 flex flex-col items-center">
+            {/* Logo in circle */}
+            <Avatar className="h-20 w-20 mb-4 bg-thrift-cream border-2 border-thrift-sage">
+              <AvatarImage src="/favicon.ico" alt="ThriftSC Logo" />
+              <AvatarFallback className="bg-thrift-sage text-white text-lg">
+                TSC
+              </AvatarFallback>
+            </Avatar>
+            
+            <h2 className="text-2xl font-playfair font-semibold mb-4 text-thrift-charcoal text-center">
               Welcome to ThriftSC!
             </h2>
             
-            <p className="mb-6 text-gray-600">
+            <p className="mb-6 text-gray-600 text-center">
               Sign up now to be the first to shop weekly drops, score exclusive discount codes, and get early access to USC's best finds.
             </p>
             
-            <form onSubmit={handleSignup} className="space-y-4">
+            <form onSubmit={handleSignup} className="space-y-4 w-full">
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
