@@ -42,9 +42,6 @@ const LaunchPage = () => {
     }
     
     if (validateEarlyAccessCode(accessCode)) {
-      // Set redirecting state to prevent UI glitches
-      setIsRedirecting(true);
-      
       // Store in localStorage that user has early access
       setEarlyAccess();
       
@@ -55,8 +52,15 @@ const LaunchPage = () => {
         variant: "default",
       });
       
-      // Use navigate directly with replace to ensure proper redirection
-      navigate('/search', { replace: true });
+      // Set redirecting state to prevent UI glitches
+      setIsRedirecting(true);
+      
+      // Use setTimeout to ensure localStorage gets set before redirecting
+      // This helps prevent the blank page issue on mobile
+      setTimeout(() => {
+        // Use navigate with replace: true to prevent back button issues
+        window.location.href = '/search';
+      }, 100);
     } else {
       toast({
         title: "Invalid Code",
@@ -84,8 +88,10 @@ const LaunchPage = () => {
         setTimeRemaining(null);
         setIsRedirecting(true);
         
-        // Use navigate directly with replace to ensure proper redirection
-        navigate('/search', { replace: true });
+        // Use setTimeout to ensure smooth transition
+        setTimeout(() => {
+          window.location.href = '/search';
+        }, 100);
       } else {
         const hours = Math.floor(distance / (1000 * 60 * 60));
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));

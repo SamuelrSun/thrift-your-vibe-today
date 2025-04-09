@@ -14,7 +14,13 @@ const Index = () => {
     if (!window.location.href.includes('nocache')) {
       const hasQuery = window.location.href.includes('?');
       const cacheParam = `${hasQuery ? '&' : '?'}nocache=${Date.now()}`;
-      window.history.replaceState(null, '', window.location.href + cacheParam);
+      
+      // Use history.replaceState instead of directly modifying the URL
+      try {
+        window.history.replaceState(null, '', window.location.href + cacheParam);
+      } catch (e) {
+        console.error("Error updating URL: ", e);
+      }
     }
   }, []);
 
