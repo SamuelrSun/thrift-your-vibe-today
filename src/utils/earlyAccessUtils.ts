@@ -3,7 +3,7 @@
  */
 
 // The valid early access code (case sensitive)
-export const VALID_EARLY_ACCESS_CODE = 'F1RSTDROP';
+export const VALID_EARLY_ACCESS_CODE = 'LAUNCHD@Y';
 
 // Check if user has early access based on localStorage
 export const hasEarlyAccess = (): boolean => {
