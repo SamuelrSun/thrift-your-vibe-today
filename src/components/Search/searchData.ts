@@ -61,34 +61,13 @@ export const inventory: Item[] = [
     title: 'Patagonia Tan Fleece',
     brand: 'Patagonia',
     price: 89,
-    size: 'L',
+    size: 'M',
     condition: 'Gently Used',
     imageUrl: '/MF00020009.png',
     description: 'Cozy Patagonia fleece jacket in a soft off-white color, featuring a navy chest zip pocket, contrast trim, and a full front zipper for effortless layering and warmth.',
     status: 'live' // This item is coming soon
   },
-  {
-    id: 5,
-    title: 'Silk Button-Up Shirt',
-    brand: 'Equipment',
-    price: 55,
-    size: 'S',
-    condition: 'Like New',
-    imageUrl: 'https://cdn.saksfifthavenue.com/is/image/saks/0400013120163_NATUREWHITE?wid=600&hei=800&qlt=90&resMode=sharp2&op_usm=0.9%2C1.0%2C8%2C0',
-    description: 'Luxurious silk button-up in cream. Versatile wardrobe essential in excellent condition.',
-    status: 'live'
-  },
-  {
-    id: 6,
-    title: 'Linen Blazer',
-    brand: 'Zara',
-    price: 42,
-    size: 'M',
-    condition: 'Gently Used',
-    imageUrl: 'https://static.zara.net/assets/public/4a94/de1b/b5af49c58969/7942584a631e/02019770520-a1/02019770520-a1.jpg?ts=1731574480622&w=744&f=auto',
-    description: 'Structured linen blazer in sand color. Perfect for summer office attire or casual elevation.',
-    status: 'live'
-  },
+
 ];
 
 // Export dummyItems for backward compatibility with existing code
