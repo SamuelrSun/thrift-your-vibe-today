@@ -281,33 +281,6 @@ export const inventory: Item[] = [
     sex: 'men',
     category: 'shoes'
   },
-  {
-    id: 20,
-    title: 'Nike Air Max 90',
-    brand: 'Nike',
-    price: 75,
-    size: '9.5',
-    condition: 'Like New',
-    imageUrl: '/greendunks.png',
-    description: 'Classic Nike Air Max 90 running shoes in black and white colorway. Minimal wear with excellent cushioning and support.',
-    status: 'live',
-    sex: 'men',
-    category: 'shoes'
-  },
-  {
-    id: 21,
-    title: 'Birkin Style Bag',
-    brand: 'Inspired',
-    price: 129,
-    size: 'One Size',
-    condition: 'Brand New',
-    imageUrl: '/placeholder.svg',
-    description: 'Luxury-inspired handbag with fine craftsmanship, nearly identical to the designer original. Features high-quality materials and excellent attention to detail.',
-    status: 'live',
-    sex: 'women',
-    category: 'accessories',
-    fake: true
-  },
 ];
 
 // Export dummyItems for backward compatibility with existing code
