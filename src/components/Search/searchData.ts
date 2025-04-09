@@ -89,10 +89,11 @@ export const inventory: Item[] = [
     size: 'L',
     condition: 'Gently Used',
     imageUrl: '/ye.png',
-    description: 'Cactus Plant Flea Market “Ye Must Be Born Again” hoodie in black. Features bold 3D puff print text across the front and a relaxed, oversized fit. Made from heavyweight cotton fleece for a cozy, premium feel.',
+    description: 'Cactus Plant Flea Market "Ye Must Be Born Again" hoodie in black. Features bold 3D puff print text across the front and a relaxed, oversized fit. Made from heavyweight cotton fleece for a cozy, premium feel.',
     status: 'live',
     sex: 'men',
-    category: 'tops'
+    category: 'tops',
+    fake: true
   },
   {
     id: 6,
@@ -118,7 +119,8 @@ export const inventory: Item[] = [
     description: 'AMI Paris cardigan in black wool with the signature red Ami de Coeur logo on the chest. Features a classic V-neck, button front closure, and ribbed cuffs and hem. A cozy yet elevated staple perfect for layering.',
     status: 'live',
     sex: 'unisex',
-    category: 'tops'
+    category: 'tops',
+    fake: true
   },
   {
     id: 8,
@@ -167,10 +169,11 @@ export const inventory: Item[] = [
     size: '12',
     condition: 'Like New',
     imageUrl: '/greendunks.png',
-    description: 'Nike Dunk Low in the “Vintage Green” colorway, featuring a crisp white leather base with dark green overlays, classic low-top silhouette, and iconic Swoosh branding—clean, timeless, and always in style.',
+    description: 'Nike Dunk Low in the "Vintage Green" colorway, featuring a crisp white leather base with dark green overlays, classic low-top silhouette, and iconic Swoosh branding—clean, timeless, and always in style.',
     status: 'live',
     sex: 'men',
-    category: 'shoes'
+    category: 'shoes',
+    fake: true
   },
   {
     id: 12,
@@ -196,7 +199,8 @@ export const inventory: Item[] = [
     description: 'Argentina national team jersey with iconic blue and white stripes. Features number 10, AFA crest, FIFA champion badge, and Adidas branding. Official design with tournament patches on sleeves.',
     status: 'live',
     sex: 'men',
-    category: 'tops'
+    category: 'tops',
+    fake: true
   },
   {
     id: 14,
@@ -209,7 +213,8 @@ export const inventory: Item[] = [
     description: 'Air Jordan 1 Retro High OG in a blue-gray, white, and black colorway with a light blue outsole. Features premium leather and suede construction, classic Nike Swoosh, and the iconic Wings.',
     status: 'live',
     sex: 'men',
-    category: 'shoes'
+    category: 'shoes',
+    fake: true
   },
   {
     id: 15,
