@@ -86,7 +86,7 @@ export const inventory: Item[] = [
     price: 35,
     size: 'L',
     condition: 'Gently Used',
-    imageUrl: '/Screen%20Shot%202025-04-08%20at%204.26.37%20PM.png',
+    imageUrl: '/ye.png',
     description: 'Classic checkered flannel shirt in warm earth tones with traditional button-down design, perfect for layering or casual everyday wear.',
     status: 'live',
     sex: 'men',
