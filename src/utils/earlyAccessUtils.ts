@@ -24,8 +24,8 @@ export const validateEarlyAccessCode = (code: string): boolean => {
 // Check if launch time has passed
 export const isAfterLaunchTime = (): boolean => {
   const launchTime = new Date();
-  // Set to 9:00 AM today (April 9th)
-  launchTime.setHours(9, 0, 0, 0);
+  // Set to 11:00 AM today (April 9th)
+  launchTime.setHours(11, 0, 0, 0);
   
   return new Date() >= launchTime;
 };
@@ -33,13 +33,15 @@ export const isAfterLaunchTime = (): boolean => {
 // Get launch date as a formatted string
 export const getLaunchDateFormatted = (): string => {
   const launchTime = new Date();
-  // Set to 9:00 AM today (April 9th)
-  launchTime.setHours(9, 0, 0, 0);
+  // Set to 11:00 AM today (April 9th)
+  launchTime.setHours(11, 0, 0, 0);
   
-  // Format: "April 9, 2025 at 9:00 AM"
+  // Format: "April 9, 2025 at 11:00 AM"
   return launchTime.toLocaleDateString('en-US', {
     month: 'long',
     day: 'numeric',
     year: 'numeric'
-  }) + ' at 9:00 AM';
+  }) + ' at 11:00 AM';
 };
+
+// The getLaunchTime function in the LaunchPage will also need to be updated

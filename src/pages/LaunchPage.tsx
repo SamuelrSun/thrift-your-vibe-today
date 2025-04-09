@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Clock } from 'lucide-react';
@@ -25,10 +24,10 @@ const LaunchPage = () => {
     seconds: number;
   } | null>(null);
   
-  // Set launch time to 9:00 AM today
+  // Set launch time to 11:00 AM today
   const getLaunchTime = () => {
     const today = new Date();
-    today.setHours(9, 0, 0, 0);
+    today.setHours(11, 0, 0, 0);
     return today;
   };
   
