@@ -9,12 +9,23 @@ import { useSearchFilters } from '@/hooks/useSearchFilters';
 import { toast } from '@/hooks/use-toast';
 import PromoBanner from '../shared/PromoBanner';
 
+// Fisher-Yates (Knuth) shuffle algorithm
+const shuffleArray = (array: any[]) => {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+};
+
 const SearchPage = () => {
   const [allItems, setAllItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [randomPhrase, setRandomPhrase] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [viewMode, setViewMode] = useState<'grid' | 'compact'>('grid');
   
   const {
     activeFilters,
@@ -32,8 +43,10 @@ const SearchPage = () => {
     const loadItems = async () => {
       setIsLoading(true);
       const items = await fetchItems();
-      setAllItems(items);
-      setFilteredItems(items);
+      // Shuffle the items array before setting state
+      const shuffledItems = shuffleArray(items);
+      setAllItems(shuffledItems);
+      setFilteredItems(shuffledItems);
       setIsLoading(false);
     };
     
@@ -65,6 +78,10 @@ const SearchPage = () => {
       title: "Filters applied",
       description: `Showing ${results.length} filtered results`,
     });
+  };
+
+  const toggleViewMode = () => {
+    setViewMode(prev => prev === 'grid' ? 'compact' : 'grid');
   };
 
   return (
@@ -100,6 +117,7 @@ const SearchPage = () => {
           searchResults={filteredItems}
           isAIMode={false}
           isLoading={isLoading}
+          viewMode={viewMode}
         />
       </div>
     </div>
