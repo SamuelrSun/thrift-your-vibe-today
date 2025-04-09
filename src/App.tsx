@@ -22,6 +22,7 @@ import Likes from "./pages/Likes";
 import Sell from "./pages/Sell";
 import LaunchPage from "./pages/LaunchPage";
 import { hasEarlyAccess, isAfterLaunchTime } from "./utils/earlyAccessUtils";
+import "./styles/mobileMenu.css";
 
 // Configure the query client with cache busting settings
 const queryClient = new QueryClient({

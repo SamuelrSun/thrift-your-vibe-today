@@ -1,0 +1,12 @@
+
+/* Mobile menu styles */
+body.mobile-menu-open {
+  transition: padding-top 0.3s ease;
+}
+
+/* Define transition for all content when mobile menu opens */
+@media (max-width: 767px) {
+  .mobile-menu-open main {
+    transition: transform 0.3s ease;
+  }
+}

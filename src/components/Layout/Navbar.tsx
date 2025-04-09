@@ -62,11 +62,6 @@ const Navbar = () => {
             <div className="hidden md:flex">
               <NavIcons />
             </div>
-
-            {/* Mobile Menu Button - hidden on desktop */}
-            <div className="md:hidden hidden">
-              <MobileMenu />
-            </div>
           </div>
         )}
       </div>

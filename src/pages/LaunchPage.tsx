@@ -35,7 +35,12 @@ const LaunchPage = () => {
   const launchTime = getLaunchTime();
   const formattedLaunchDate = getLaunchDateFormatted();
   
-  const handleAccessCodeSubmit = () => {
+  const handleAccessCodeSubmit = (e: React.FormEvent | React.MouseEvent) => {
+    // Prevent default if it's a form submission
+    if ('preventDefault' in e) {
+      e.preventDefault();
+    }
+    
     if (validateEarlyAccessCode(accessCode)) {
       // Set redirecting state to prevent UI glitches
       setIsRedirecting(true);
@@ -50,10 +55,8 @@ const LaunchPage = () => {
         variant: "default",
       });
       
-      // Use a more reliable approach with a single timeout
-      setTimeout(() => {
-        navigate('/search', { replace: true });
-      }, 800); // Slightly longer delay to ensure smooth transition
+      // Use navigate directly with replace to ensure proper redirection
+      navigate('/search', { replace: true });
     } else {
       toast({
         title: "Invalid Code",
@@ -80,9 +83,9 @@ const LaunchPage = () => {
         clearInterval(timer);
         setTimeRemaining(null);
         setIsRedirecting(true);
-        setTimeout(() => {
-          navigate('/search', { replace: true });
-        }, 500);
+        
+        // Use navigate directly with replace to ensure proper redirection
+        navigate('/search', { replace: true });
       } else {
         const hours = Math.floor(distance / (1000 * 60 * 60));
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
@@ -156,7 +159,7 @@ const LaunchPage = () => {
           <h2 className="font-medium text-thrift-charcoal mb-3">
             Have an Early Access Code?
           </h2>
-          <div className="space-y-4">
+          <form onSubmit={handleAccessCodeSubmit} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="accessCode" className="sr-only">Early Access Code</Label>
               <Input
@@ -168,13 +171,13 @@ const LaunchPage = () => {
               />
             </div>
             <Button 
-              onClick={handleAccessCodeSubmit}
+              type="submit"
               disabled={isRedirecting}
               className="w-full bg-thrift-sage hover:bg-thrift-sage/90 text-white"
             >
               Submit
             </Button>
-          </div>
+          </form>
         </div>
       </div>
     </div>
