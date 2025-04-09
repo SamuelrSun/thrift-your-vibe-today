@@ -11,6 +11,7 @@ export interface Item {
   status?: 'live' | 'sold' | 'coming';
   sex?: 'men' | 'women' | 'unisex';
   category?: string;
+  fake?: boolean; // Added property to indicate if an item is a dupe/fake
 }
 
 // ====================================================================================
@@ -25,6 +26,7 @@ export interface Item {
 // 6. Set status to 'live', 'sold', or 'coming' to control how the item is displayed
 // 7. Add sex ('men', 'women', 'unisex') and category (e.g., 'tops', 'bottoms', 'outerwear')
 // 8. For condition, use: 'Brand New', 'Like New', 'Gently Used', or 'Well Loved'
+// 9. Set fake to true for items that are duplicates/replicas of designer items
 
 export const inventory: Item[] = [
   {
@@ -286,6 +288,20 @@ export const inventory: Item[] = [
     status: 'live',
     sex: 'men',
     category: 'shoes'
+  },
+  {
+    id: 21,
+    title: 'Birkin Style Bag',
+    brand: 'Inspired',
+    price: 129,
+    size: 'One Size',
+    condition: 'Brand New',
+    imageUrl: '/placeholder.svg',
+    description: 'Luxury-inspired handbag with fine craftsmanship, nearly identical to the designer original. Features high-quality materials and excellent attention to detail.',
+    status: 'live',
+    sex: 'women',
+    category: 'accessories',
+    fake: true
   },
 ];
 

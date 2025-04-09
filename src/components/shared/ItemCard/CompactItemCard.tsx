@@ -24,6 +24,8 @@ const CompactItemCard = ({ item, isSelected = false, onSelect }: CompactItemCard
   // Handle sex and category fields which may have different naming
   const sex = 'sex' in item ? item.sex : undefined;
   const category = 'category' in item ? item.category : undefined;
+  // Check if the item is marked as fake
+  const isFake = 'fake' in item ? item.fake : false;
   
   const isLiked = isItemLiked(itemId);
 
@@ -107,6 +109,15 @@ const CompactItemCard = ({ item, isSelected = false, onSelect }: CompactItemCard
           >
             <Heart className="h-4 w-4 fill-thrift-terracotta text-thrift-terracotta" />
           </Button>
+        )}
+        
+        {/* Display dupe badge on the card if it's a fake item */}
+        {isFake && (
+          <div className="absolute bottom-2 left-2">
+            <span className="bg-thrift-terracotta/90 text-white font-bold px-2 py-0.5 rounded-sm text-xs uppercase">
+              Dupe
+            </span>
+          </div>
         )}
       </div>
       <CardContent className="p-3">

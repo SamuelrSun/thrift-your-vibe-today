@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Heart, ShoppingCart, Check, AlertCircle } from 'lucide-react';
 import Button from '../../shared/Button';
@@ -17,6 +16,7 @@ export interface Item {
   status?: 'live' | 'sold' | 'coming';
   sex?: 'men' | 'women' | 'unisex';
   category?: string;
+  fake?: boolean; // Added property to indicate if an item is a dupe/fake
 }
 
 interface ItemCardProps {
@@ -92,16 +92,16 @@ const ItemCard = ({ item }: ItemCardProps) => {
     ? item.title 
     : `${item.brand} ${item.title}`;
 
-  // Process image URL to ensure proper encoding for spaces and special characters
   const processImageUrl = (url: string) => {
-    // If the URL already starts with http:// or https://, don't modify it
     if (url.startsWith('http://') || url.startsWith('https://')) {
       return url;
     }
     
-    // For local URLs that contain spaces, ensure they're properly encoded
-    // Replace spaces with %20 if they're not already encoded
-    return url.includes(' ') ? url.replace(/ /g, '%20') : url;
+    if (url.includes(' ')) {
+      return url.replace(/ /g, '%20');
+    }
+    
+    return url;
   };
 
   const imageSrc = imageError ? '/placeholder.svg' : processImageUrl(item.imageUrl);
@@ -117,7 +117,6 @@ const ItemCard = ({ item }: ItemCardProps) => {
       onClick={handleFlip}
     >
       <div className="absolute inset-0 w-full h-full transition-all duration-500 preserve-3d" style={{transform: isFlipped ? 'rotateY(180deg)' : ''}}>
-        {/* Front of card */}
         <div className="absolute inset-0 w-full h-full backface-hidden">
           <div className={`rounded-lg overflow-hidden shadow-md h-full bg-white border border-thrift-lightgray ${itemStatus === 'sold' ? 'opacity-80' : ''}`}>
             <div className="p-3 border-b border-thrift-lightgray">
@@ -163,7 +162,6 @@ const ItemCard = ({ item }: ItemCardProps) => {
           </div>
         </div>
 
-        {/* Back of card */}
         <div className="absolute inset-0 w-full h-full backface-hidden" style={{transform: 'rotateY(180deg)'}}>
           <div className={`rounded-lg overflow-hidden shadow-md h-full bg-white p-5 flex flex-col justify-between border border-thrift-lightgray ${itemStatus === 'sold' ? 'opacity-80' : ''}`}>
             <div>
@@ -178,6 +176,15 @@ const ItemCard = ({ item }: ItemCardProps) => {
                 {item.sex && <p><span className="font-medium">Sex:</span> {sexDisplay}</p>}
                 {item.category && <p><span className="font-medium">Category:</span> {categoryDisplay}</p>}
                 <p className="text-thrift-charcoal/80 line-clamp-3">{item.description}</p>
+                
+                {item.fake && (
+                  <div className="mt-2 inline-block">
+                    <span className="bg-thrift-terracotta/90 text-white font-bold px-3 py-1 rounded text-xs uppercase">
+                      Dupe
+                    </span>
+                  </div>
+                )}
+                
                 {itemStatus !== 'live' && (
                   <p className="text-sm mt-2 font-medium">
                     {itemStatus === 'sold' ? 'This item has been sold.' : 'This item is coming soon.'}
