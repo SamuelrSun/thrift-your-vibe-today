@@ -53,10 +53,8 @@ const CompactItemCard = ({ item, isSelected = false, onSelect }: CompactItemCard
     setImageError(true);
   };
   
-  // Create formatted title with brand included
-  const formattedTitle = item.title.toLowerCase().includes(item.brand.toLowerCase()) 
-    ? item.title 
-    : `${item.brand} ${item.title}`;
+  // Display the title directly without checking or adding the brand name
+  const formattedTitle = item.title;
 
   const handleClick = () => {
     if (onSelect) {
