@@ -166,7 +166,7 @@ export const inventory: Item[] = [
     condition: 'Gently Used',
     imageUrl: '/greendunks.png',
     description: 'Textured corduroy overshirt in rich burgundy color with button closure. Perfect as a light jacket or heavy shirt for transitional weather.',
-    status: 'coming',
+    status: 'live',
     sex: 'men',
     category: 'shoes'
   },
@@ -218,7 +218,7 @@ export const inventory: Item[] = [
     condition: 'Like New',
     imageUrl: '/nikegreenfleece.png',
     description: 'Classic denim jacket with cozy sherpa lining throughout body and collar. Perfect for colder weather while maintaining that rugged denim style.',
-    status: 'sold',
+    status: 'live',
     sex: 'men',
     category: 'jackets'
   },
