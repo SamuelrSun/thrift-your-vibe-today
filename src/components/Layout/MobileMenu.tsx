@@ -24,7 +24,7 @@ const MobileMenu = () => {
 
       {/* Mobile Menu Dropdown */}
       {isMenuOpen && (
-        <div className="md:hidden pt-4 pb-3 border-t mt-4">
+        <div className="absolute left-0 right-0 bg-thrift-cream border-t mt-4 px-4 py-3 z-50">
           <div className="flex flex-col space-y-3">
             <NavLinks isMobile={true} closeMenu={closeMenu} />
             <NavIcons isMobile={true} closeMenu={closeMenu} />
