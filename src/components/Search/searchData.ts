@@ -281,6 +281,19 @@ export const inventory: Item[] = [
     sex: 'men',
     category: 'shoes'
   },
+  {
+    id: 20,
+    title: 'Michael Jackson Tour Excl. Bomber',
+    brand: 'Identity Inc.',
+    price: 1249,
+    size: 'S',
+    condition: 'Gently Used',
+    imageUrl: '/MJblackbomber.png',
+    description: 'This Michael Jackson Dangerous World Tour jacket with Pepsi branding was exclusively given to production crew. Truly the holy grail for \'90s thrifters. Email for purchasing details.',
+    status: 'live',
+    sex: 'unisex',
+    category: 'shoes'
+  },
 ];
 
 // Export dummyItems for backward compatibility with existing code
