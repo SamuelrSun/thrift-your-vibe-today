@@ -1,0 +1,19 @@
+
+/* Mobile menu styles */
+body.mobile-menu-open {
+  transition: padding-top 0.3s ease;
+  /* Allow scrolling even when menu is open */
+}
+
+/* Define transition for content when mobile menu opens */
+@media (max-width: 767px) {
+  .mobile-menu-open .page-content {
+    margin-top: 115px; /* Fine-tuned to eliminate white gap */
+    transition: margin-top 0.3s ease;
+  }
+  
+  .page-content {
+    margin-top: 0;
+    transition: margin-top 0.3s ease;
+  }
+}

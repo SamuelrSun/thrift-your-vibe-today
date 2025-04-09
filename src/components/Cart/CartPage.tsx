@@ -1,23 +1,20 @@
 
 import { useState } from "react";
 import { useCart } from "@/contexts/CartContext";
-import { useAuth } from "@/contexts/AuthContext";
-import { Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
+import { ShoppingBag } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { Card } from "@/components/ui/card";
 import OrderSummary from "./OrderSummary";
+import { Card } from "@/components/ui/card";
+import { Minus, Plus, Trash2 } from "lucide-react";
 
 const CartPage = () => {
   const { cartItems, cartCount, isLoading, updateQuantity, removeFromCart, clearCart } = useCart();
-  const { user } = useAuth();
   const [isProcessing, setIsProcessing] = useState(false);
 
-  // Calculate total price
+  // Calculate total price without tax
   const subtotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
-  const taxEstimate = subtotal * 0.08; // 8% tax
-  const totalPrice = subtotal + taxEstimate;
+  const totalPrice = subtotal;
 
   const handleQuantityChange = (itemId: string, newQuantity: number) => {
     if (newQuantity >= 1) {
@@ -43,22 +40,6 @@ const CartPage = () => {
   }
 
   // Empty cart state
-  if (!user) {
-    return (
-      <div className="container mx-auto px-4 py-12 text-center">
-        <div className="max-w-md mx-auto">
-          <ShoppingBag className="mx-auto h-12 w-12 text-thrift-sage/70 mb-4" />
-          <h2 className="text-2xl font-playfair font-bold mb-2">Sign in to view your cart</h2>
-          <p className="text-thrift-charcoal/70 mb-8">Sign in to save items to your cart and continue shopping.</p>
-          <Link to="/auth">
-            <Button>Sign In</Button>
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
-  // Empty cart for signed in user
   if (cartCount === 0) {
     return (
       <div className="container mx-auto px-4 py-12 text-center">
@@ -66,9 +47,9 @@ const CartPage = () => {
           <ShoppingBag className="mx-auto h-12 w-12 text-thrift-sage/70 mb-4" />
           <h2 className="text-2xl font-playfair font-bold mb-2">Your cart is empty</h2>
           <p className="text-thrift-charcoal/70 mb-8">Looks like you haven't added any items to your cart yet.</p>
-          <Link to="/explore">
-            <Button>Continue Shopping</Button>
-          </Link>
+          <Button asChild>
+            <Link to="/search">Continue Shopping</Link>
+          </Button>
         </div>
       </div>
     );
@@ -161,7 +142,6 @@ const CartPage = () => {
         <div className="lg:w-1/3">
           <OrderSummary
             subtotal={subtotal}
-            taxEstimate={taxEstimate}
             totalPrice={totalPrice}
             onCheckout={handleCheckout}
             isProcessing={isProcessing}

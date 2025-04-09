@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -6,12 +5,12 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Check, Upload } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 interface OrderSummaryProps {
   subtotal: number;
-  taxEstimate: number;
   totalPrice: number;
   onCheckout: () => void;
   isProcessing: boolean;
@@ -20,17 +19,17 @@ interface OrderSummaryProps {
 
 const OrderSummary = ({
   subtotal,
-  taxEstimate,
   totalPrice,
   onCheckout,
   isProcessing,
   onClearCart,
 }: OrderSummaryProps) => {
+  const navigate = useNavigate();
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [paymentImage, setPaymentImage] = useState<File | null>(null);
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [isSending, setIsSending] = useState(false);
   
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -39,14 +38,12 @@ const OrderSummary = ({
   };
 
   const validateEmail = (email: string) => {
-    // Simple USC email validation
     return email.endsWith('@usc.edu');
   };
 
-  const handleSubmitPayment = (e: React.FormEvent) => {
+  const handleSubmitPayment = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Form validation
     if (!fullName.trim()) {
       toast({ 
         title: "Missing information", 
@@ -74,41 +71,48 @@ const OrderSummary = ({
       return;
     }
 
-    // Simulate sending the data
+    setIsSending(true);
     onCheckout();
     
-    // In a real implementation, we would send the data to an API endpoint
-    // Simulate sending email to srwang@usc.edu with the order details
-    console.log(`Sending order details to srwang@usc.edu`);
-    console.log(`Customer: ${fullName} (${email})`);
-    console.log(`Total amount: $${totalPrice?.toFixed(2) || '0.00'}`);
-    
-    // This is simulated for now
-    setTimeout(() => {
-      setIsSuccess(true);
-      onClearCart();
-    }, 1500);
+    try {
+      // Get cart items from context for the email
+      const cartItems = JSON.parse(localStorage.getItem('thriftsc-cart-items') || '[]');
+      
+      // Send email with order details
+      const { data, error } = await supabase.functions.invoke('send-order-email', {
+        body: {
+          fullName,
+          email,
+          phone,
+          orderItems: cartItems,
+          totalPrice,
+          paymentImageName: paymentImage.name
+        }
+      });
+      
+      if (error) {
+        throw new Error(error.message);
+      }
+      
+      console.log("Email sent successfully:", data);
+      
+      setTimeout(() => {
+        onClearCart();
+        setIsSending(false);
+        // Navigate to the success page instead of showing success state inline
+        navigate("/cart/success");
+      }, 1500);
+      
+    } catch (error) {
+      console.error("Error sending order email:", error);
+      toast({
+        title: "Order Processing Error",
+        description: "There was an error processing your order. Please try again.",
+        variant: "destructive"
+      });
+      setIsSending(false);
+    }
   };
-
-  if (isSuccess) {
-    return (
-      <Card className="p-5">
-        <div className="flex flex-col items-center py-4">
-          <div className="rounded-full bg-green-100 p-3 mb-4">
-            <Check className="h-8 w-8 text-green-600" />
-          </div>
-          <h2 className="text-xl font-medium mb-2">Order Submitted Successfully!</h2>
-          <p className="text-center mb-6">
-            Thank you for your order! We've received your payment information and will process your order shortly. 
-            A confirmation email has been sent to your USC email address.
-          </p>
-          <Link to="/explore">
-            <Button>Continue Shopping</Button>
-          </Link>
-        </div>
-      </Card>
-    );
-  }
 
   return (
     <Card className="p-5">
@@ -118,11 +122,6 @@ const OrderSummary = ({
         <div className="flex justify-between">
           <span>Subtotal</span>
           <span>${subtotal?.toFixed(2) || '0.00'}</span>
-        </div>
-        
-        <div className="flex justify-between">
-          <span>Tax estimate</span>
-          <span>${taxEstimate?.toFixed(2) || '0.00'}</span>
         </div>
         
         <Separator className="my-2" />
@@ -138,8 +137,8 @@ const OrderSummary = ({
           <p className="font-medium mb-2">Payment Instructions:</p>
           <ol className="list-decimal list-inside space-y-1 text-sm">
             <li>Send ${totalPrice?.toFixed(2) || '0.00'} via Venmo to <span className="font-medium">@SamuelrWang (6248)</span></li>
-            <li>Include this message: <span className="font-mono bg-muted p-1 rounded text-xs">
-              #ORDER - [Your USC Email]</span>
+            <li>In the description: <span className="font-mono bg-muted p-1 rounded text-xs">
+              [Product] - [Your USC Email]</span>
             </li>
             <li>Take a screenshot of your completed payment</li>
             <li>Upload the screenshot below and complete the form</li>
@@ -215,12 +214,12 @@ const OrderSummary = ({
         <Button 
           type="submit" 
           className="w-full mt-4" 
-          disabled={isProcessing}
+          disabled={isProcessing || isSending}
         >
-          {isProcessing ? (
+          {isProcessing || isSending ? (
             <>
               <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2"></div>
-              Processing...
+              {isSending ? "Sending Order..." : "Processing..."}
             </>
           ) : (
             'Submit Order'
@@ -229,7 +228,7 @@ const OrderSummary = ({
         
         <div className="mt-2 text-center">
           <Link 
-            to="/explore" 
+            to="/search" 
             className="text-sm text-thrift-sage hover:underline"
           >
             Continue Shopping

@@ -53,7 +53,7 @@ const NavIcons = ({ isMobile = false, closeMenu }: NavIconsProps) => {
   };
 
   return (
-    <div className={isMobile ? "flex space-x-3 px-3 pt-3" : "flex items-center space-x-4"}>
+    <div className={isMobile ? "flex justify-center space-x-3 px-3 pt-3 w-full" : "flex items-center space-x-4"}>
       <Button
         variant="ghost"
         size="icon"

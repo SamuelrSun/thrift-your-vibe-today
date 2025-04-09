@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Mail, Lock } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+import { useNavigate } from "react-router-dom";
 
 interface AuthFormProps {
   mode: "signin" | "signup";
@@ -23,6 +24,7 @@ const AuthForm = ({ mode }: AuthFormProps) => {
   const { signIn, signUp } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const navigate = useNavigate();
   
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -64,76 +66,84 @@ const AuthForm = ({ mode }: AuthFormProps) => {
     }
   };
 
+  const handleGuestAccess = () => {
+    navigate("/search");
+  };
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <div className="relative">
-                <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                <FormControl>
-                  <Input
-                    placeholder="your@email.com"
-                    className="pl-10"
-                    {...field}
-                    disabled={isLoading}
-                  />
-                </FormControl>
+        {mode === "signin" || mode === "signup" ? (
+          <>
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <div className="relative">
+                    <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                    <FormControl>
+                      <Input
+                        placeholder="your@email.com"
+                        className="pl-10"
+                        {...field}
+                        disabled={isLoading}
+                      />
+                    </FormControl>
+                  </div>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <div className="relative">
+                    <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                    <FormControl>
+                      <Input
+                        type="password"
+                        placeholder="••••••"
+                        className="pl-10"
+                        {...field}
+                        disabled={isLoading}
+                      />
+                    </FormControl>
+                  </div>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            
+            {mode === "signin" && (
+              <div className="flex justify-end">
+                <a
+                  href="#"
+                  className="text-sm text-thrift-sage hover:text-thrift-terracotta"
+                >
+                  Forgot password?
+                </a>
               </div>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <div className="relative">
-                <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                <FormControl>
-                  <Input
-                    type="password"
-                    placeholder="••••••"
-                    className="pl-10"
-                    {...field}
-                    disabled={isLoading}
-                  />
-                </FormControl>
-              </div>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        
-        {mode === "signin" && (
-          <div className="flex justify-end">
-            <a
-              href="#"
-              className="text-sm text-thrift-sage hover:text-thrift-terracotta"
+            )}
+            
+            <Button
+              type="submit"
+              className="w-full bg-thrift-sage hover:bg-thrift-sage/90"
+              disabled={isLoading}
             >
-              Forgot password?
-            </a>
-          </div>
-        )}
-        
-        <Button
-          type="submit"
-          className="w-full bg-thrift-sage hover:bg-thrift-sage/90"
-          disabled={isLoading}
-        >
-          {isLoading
-            ? "Loading..."
-            : mode === "signin"
-            ? "Sign In"
-            : "Create Account"}
-        </Button>
+              {isLoading
+                ? "Loading..."
+                : mode === "signin"
+                ? "Sign In"
+                : "Create Account"}
+            </Button>
+          </>
+        ) : null}
 
         <div className="relative my-6">
           <div className="absolute inset-0 flex items-center">
@@ -144,14 +154,14 @@ const AuthForm = ({ mode }: AuthFormProps) => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
-          <Button variant="outline" type="button" disabled={isLoading}>
-            Google
-          </Button>
-          <Button variant="outline" type="button" disabled={isLoading}>
-            Facebook
-          </Button>
-        </div>
+        <Button 
+          variant="outline" 
+          type="button" 
+          className="w-full"
+          onClick={handleGuestAccess}
+        >
+          Continue as Guest
+        </Button>
       </form>
     </Form>
   );

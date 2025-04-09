@@ -15,6 +15,8 @@ export interface LikedItem {
   image_url: string;
   description: string;
   created_at: string;
+  sex?: 'men' | 'women' | 'unisex';
+  category?: string;
 }
 
 type LikesContextType = {
@@ -31,127 +33,168 @@ export function LikesProvider({ children }: { children: React.ReactNode }) {
   const [likedItems, setLikedItems] = useState<LikedItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const { user } = useAuth();
+  
+  const LOCAL_STORAGE_KEY = 'thriftsc-liked-items';
 
-  // Fetch liked items from Supabase when user changes
   useEffect(() => {
     const fetchLikedItems = async () => {
-      if (!user) {
-        setLikedItems([]);
-        setIsLoading(false);
-        return;
-      }
-
       setIsLoading(true);
+      
+      if (user) {
+        try {
+          const { data, error } = await supabase
+            .from('liked_items')
+            .select('*')
+            .eq('user_id', user.id);
+
+          if (error) {
+            throw error;
+          }
+
+          setLikedItems(data as LikedItem[]);
+        } catch (error) {
+          console.error('Error fetching liked items:', error);
+          toast({
+            title: "Error",
+            description: "Failed to load liked items",
+            variant: "destructive",
+          });
+        }
+      } else {
+        try {
+          const storedItems = localStorage.getItem(LOCAL_STORAGE_KEY);
+          if (storedItems) {
+            setLikedItems(JSON.parse(storedItems));
+          } else {
+            setLikedItems([]);
+          }
+        } catch (error) {
+          console.error('Error reading from localStorage:', error);
+          setLikedItems([]);
+        }
+      }
+      
+      setIsLoading(false);
+    };
+
+    fetchLikedItems();
+  }, [user]);
+
+  useEffect(() => {
+    if (!user && !isLoading) {
+      try {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(likedItems));
+      } catch (error) {
+        console.error('Error saving to localStorage:', error);
+      }
+    }
+  }, [likedItems, user, isLoading]);
+
+  const likeItem = async (item: Omit<LikedItem, "id" | "created_at">): Promise<boolean> => {
+    if (user) {
       try {
         const { data, error } = await supabase
           .from('liked_items')
+          .insert({
+            ...item,
+            user_id: user.id,
+          })
           .select('*')
+          .single();
+
+        if (error) {
+          if (error.code === '23505') {
+            toast({
+              title: "Already liked",
+              description: "This item is already in your likes",
+            });
+            return true;
+          }
+          throw error;
+        }
+
+        setLikedItems(prevItems => [...prevItems, data as LikedItem]);
+        
+        toast({
+          title: "Added to likes",
+          description: `${item.title} has been added to your liked items`,
+        });
+        
+        return true;
+      } catch (error) {
+        console.error('Error adding item to likes:', error);
+        toast({
+          title: "Error",
+          description: "Failed to add item to likes",
+          variant: "destructive",
+        });
+        return false;
+      }
+    } else {
+      try {
+        const newItem = {
+          ...item,
+          id: `local-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
+          created_at: new Date().toISOString()
+        };
+        
+        setLikedItems(prevItems => [...prevItems, newItem]);
+        
+        toast({
+          title: "Added to likes",
+          description: `${item.title} has been added to your liked items`,
+        });
+        
+        return true;
+      } catch (error) {
+        console.error('Error adding item to local likes:', error);
+        toast({
+          title: "Error",
+          description: "Failed to add item to likes",
+          variant: "destructive",
+        });
+        return false;
+      }
+    }
+  };
+
+  const unlikeItem = async (itemId: number) => {
+    if (user) {
+      try {
+        const { error } = await supabase
+          .from('liked_items')
+          .delete()
+          .eq('item_id', itemId)
           .eq('user_id', user.id);
 
         if (error) {
           throw error;
         }
 
-        setLikedItems(data as LikedItem[]);
+        setLikedItems(prevItems => prevItems.filter(item => item.item_id !== itemId));
+        
+        toast({
+          title: "Removed from likes",
+          description: "Item has been removed from your liked items",
+        });
       } catch (error) {
-        console.error('Error fetching liked items:', error);
+        console.error('Error removing item from likes:', error);
         toast({
           title: "Error",
-          description: "Failed to load liked items",
+          description: "Failed to remove item from likes",
           variant: "destructive",
         });
-      } finally {
-        setIsLoading(false);
       }
-    };
-
-    fetchLikedItems();
-  }, [user]);
-
-  // Add an item to liked items
-  const likeItem = async (item: Omit<LikedItem, "id" | "created_at">): Promise<boolean> => {
-    if (!user) {
-      toast({
-        title: "Sign in required",
-        description: "Please sign in to like items",
-      });
-      return false;
-    }
-
-    try {
-      // Add item to liked_items table
-      const { data, error } = await supabase
-        .from('liked_items')
-        .insert({
-          ...item,
-          user_id: user.id,
-        })
-        .select('*')
-        .single();
-
-      if (error) {
-        // If the error is due to unique constraint, it means the item is already liked
-        if (error.code === '23505') {
-          toast({
-            title: "Already liked",
-            description: "This item is already in your likes",
-          });
-          return true;
-        }
-        throw error;
-      }
-
-      setLikedItems(prevItems => [...prevItems, data as LikedItem]);
-      
-      toast({
-        title: "Added to likes",
-        description: `${item.title} has been added to your liked items`,
-      });
-      
-      return true;
-    } catch (error) {
-      console.error('Error adding item to likes:', error);
-      toast({
-        title: "Error",
-        description: "Failed to add item to likes",
-        variant: "destructive",
-      });
-      return false;
-    }
-  };
-
-  // Remove an item from liked items
-  const unlikeItem = async (itemId: number) => {
-    if (!user) return;
-
-    try {
-      const { error } = await supabase
-        .from('liked_items')
-        .delete()
-        .eq('item_id', itemId)
-        .eq('user_id', user.id);
-
-      if (error) {
-        throw error;
-      }
-
+    } else {
       setLikedItems(prevItems => prevItems.filter(item => item.item_id !== itemId));
       
       toast({
         title: "Removed from likes",
         description: "Item has been removed from your liked items",
       });
-    } catch (error) {
-      console.error('Error removing item from likes:', error);
-      toast({
-        title: "Error",
-        description: "Failed to remove item from likes",
-        variant: "destructive",
-      });
     }
   };
 
-  // Check if an item is already liked
   const isItemLiked = (itemId: number) => {
     return likedItems.some(item => item.item_id === itemId);
   };

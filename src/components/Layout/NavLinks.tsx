@@ -17,13 +17,12 @@ const NavLinks = ({ isMobile = false, closeMenu }: NavLinksProps) => {
 
   const commonLinks = [
     { path: "/search", label: "Search" },
-    { path: "/explore", label: "Explore" },
     { path: "/likes", label: "Likes" },
     { path: "/sell", label: "Sell" },
   ];
 
   return (
-    <>
+    <div className="flex justify-center items-center space-x-8">
       {commonLinks.map((link) => (
         <Link
           key={link.path}
@@ -38,7 +37,7 @@ const NavLinks = ({ isMobile = false, closeMenu }: NavLinksProps) => {
           {link.label}
         </Link>
       ))}
-    </>
+    </div>
   );
 };
 

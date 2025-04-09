@@ -1,11 +1,28 @@
-import { useState } from 'react';
+
+import { useState, useEffect } from 'react';
 import { ChevronDown } from 'lucide-react';
 import Button from '../shared/Button';
 import { FilterState } from '@/hooks/useSearchFilters';
+import { 
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 
 interface FilterOption {
   id: string;
   label: string;
+}
+
+interface CategoryOption extends FilterOption {
+  subCategories?: FilterOption[];
 }
 
 interface FilterPanelProps {
@@ -26,6 +43,13 @@ const FilterPanel = ({
   const [isExpanded, setIsExpanded] = useState(false);
   const [priceMin, setPriceMin] = useState<number | ''>(activeFilters.priceMin);
   const [priceMax, setPriceMax] = useState<number | ''>(activeFilters.priceMax);
+  const [openCategory, setOpenCategory] = useState<string | null>(null);
+
+  // Update local state when activeFilters change (e.g., after clearing filters)
+  useEffect(() => {
+    setPriceMin(activeFilters.priceMin);
+    setPriceMax(activeFilters.priceMax);
+  }, [activeFilters.priceMin, activeFilters.priceMax]);
 
   const sizes: FilterOption[] = [
     { id: 'xs', label: 'XS' },
@@ -37,32 +61,68 @@ const FilterPanel = ({
     { id: '3xl', label: '3XL' },
   ];
 
-  const brands: FilterOption[] = [
-    { id: 'luxury', label: 'Luxury' },
-    { id: 'designer', label: 'Designer' },
-    { id: 'vintage', label: 'Vintage' },
-    { id: 'fast-fashion', label: 'Fast Fashion' },
+  const clothingTypes: CategoryOption[] = [
+    { 
+      id: 'mens', 
+      label: 'Men\'s',
+      subCategories: [
+        { id: 'mens-tops', label: 'Tops' },
+        { id: 'mens-bottoms', label: 'Bottoms' },
+        { id: 'mens-active', label: 'Active' },
+        { id: 'mens-outerwear', label: 'Coats & Jackets' },
+        { id: 'mens-accessories', label: 'Accessories' },
+        { id: 'mens-shoes', label: 'Shoes' },
+      ]
+    },
+    { 
+      id: 'womens', 
+      label: 'Women\'s',
+      subCategories: [
+        { id: 'womens-tops', label: 'Tops' },
+        { id: 'womens-bottoms', label: 'Bottoms' },
+        { id: 'womens-dresses', label: 'Dresses' },
+        { id: 'womens-outerwear', label: 'Coats & Jackets' },
+        { id: 'womens-sleepwear', label: 'Sleepwear & Loungewear' },
+        { id: 'womens-accessories', label: 'Accessories' },
+        { id: 'womens-shoes', label: 'Shoes' },
+      ]
+    },
   ];
 
   const conditions: FilterOption[] = [
+    { id: 'brand-new', label: 'Brand New' },
     { id: 'like-new', label: 'Like New' },
     { id: 'gently-used', label: 'Gently Used' },
     { id: 'well-loved', label: 'Well Loved' },
   ];
 
-  const categories: FilterOption[] = [
-    { id: 'tops', label: 'Tops' },
-    { id: 'bottoms', label: 'Bottoms' },
-    { id: 'dresses', label: 'Dresses' },
-    { id: 'outerwear', label: 'Outerwear' },
-    { id: 'activewear', label: 'Activewear' },
-    { id: 'accessories', label: 'Accessories' },
-    { id: 'shoes', label: 'Shoes' },
-  ];
-
   const handleApplyFilters = () => {
+    // Apply price range to filter state first
     onPriceChange(priceMin, priceMax);
+    // Then apply filters
     onApplyFilters();
+  };
+
+  const handleClearFilters = () => {
+    // Clear local price state
+    setPriceMin('');
+    setPriceMax('');
+    // Clear all filters and automatically refresh results
+    onClearFilters();
+  };
+
+  const toggleCategoryDropdown = (categoryId: string) => {
+    setOpenCategory(openCategory === categoryId ? null : categoryId);
+  };
+
+  const handleCategoryClick = (categoryId: string) => {
+    onToggleFilter('categories', categoryId);
+    
+    if (categoryId === 'mens' || categoryId === 'womens') {
+      if (activeFilters.categories.includes('all')) {
+        onToggleFilter('categories', 'all');
+      }
+    }
   };
 
   return (
@@ -122,52 +182,77 @@ const FilterPanel = ({
         </div>
         
         <div>
-          <h4 className="text-sm font-medium mb-3">Brand Categories</h4>
+          <h4 className="text-sm font-medium mb-3">Clothing Type</h4>
           <div className="space-y-2">
-            {brands.map(brand => (
-              <label key={brand.id} className="flex items-center">
-                <input 
-                  type="checkbox"
-                  checked={activeFilters.brands.includes(brand.id)}
-                  onChange={() => onToggleFilter('brands', brand.id)}
-                  className="rounded border-thrift-lightgray text-thrift-sage focus:ring-thrift-sage"
-                />
-                <span className="ml-2 text-sm">{brand.label}</span>
-              </label>
+            {clothingTypes.map((type) => (
+              <div key={type.id} className="overflow-hidden">
+                <div 
+                  className="flex items-center justify-between p-2 cursor-pointer hover:bg-thrift-cream rounded"
+                  onClick={() => {
+                    if (type.subCategories && type.subCategories.length > 0) {
+                      toggleCategoryDropdown(type.id);
+                    }
+                  }}
+                >
+                  <div className="flex items-center">
+                    <span className="text-sm">
+                      {type.label}
+                    </span>
+                  </div>
+                  {type.subCategories && type.subCategories.length > 0 && (
+                    <ChevronDown 
+                      className={`h-4 w-4 transition-transform ${openCategory === type.id ? 'rotate-180' : ''}`} 
+                    />
+                  )}
+                </div>
+                
+                {type.subCategories && (
+                  <div 
+                    className={`bg-thrift-cream transition-all overflow-hidden rounded pl-4 ${
+                      openCategory === type.id ? 'max-h-60 py-2' : 'max-h-0'
+                    }`}
+                  >
+                    <div className="space-y-2">
+                      {type.subCategories.map((subCategory) => (
+                        <div key={subCategory.id} className="flex items-center space-x-2">
+                          <Checkbox 
+                            id={`checkbox-${subCategory.id}`}
+                            checked={activeFilters.categories.includes(subCategory.id)}
+                            onCheckedChange={() => onToggleFilter('categories', subCategory.id)}
+                          />
+                          <label
+                            htmlFor={`checkbox-${subCategory.id}`}
+                            className="text-sm cursor-pointer"
+                          >
+                            {subCategory.label}
+                          </label>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
             ))}
           </div>
         </div>
-        
+
         <div>
           <h4 className="text-sm font-medium mb-3">Condition</h4>
           <div className="space-y-2">
             {conditions.map(condition => (
-              <label key={condition.id} className="flex items-center">
-                <input 
-                  type="checkbox"
+              <div key={condition.id} className="flex items-center space-x-2">
+                <Checkbox 
+                  id={`checkbox-condition-${condition.id}`}
                   checked={activeFilters.conditions.includes(condition.id)}
-                  onChange={() => onToggleFilter('conditions', condition.id)}
-                  className="rounded border-thrift-lightgray text-thrift-sage focus:ring-thrift-sage"
+                  onCheckedChange={() => onToggleFilter('conditions', condition.id)}
                 />
-                <span className="ml-2 text-sm">{condition.label}</span>
-              </label>
-            ))}
-          </div>
-        </div>
-        
-        <div>
-          <h4 className="text-sm font-medium mb-3">Categories</h4>
-          <div className="space-y-2">
-            {categories.map(category => (
-              <label key={category.id} className="flex items-center">
-                <input 
-                  type="checkbox"
-                  checked={activeFilters.categories.includes(category.id)}
-                  onChange={() => onToggleFilter('categories', category.id)}
-                  className="rounded border-thrift-lightgray text-thrift-sage focus:ring-thrift-sage"
-                />
-                <span className="ml-2 text-sm">{category.label}</span>
-              </label>
+                <label 
+                  htmlFor={`checkbox-condition-${condition.id}`}
+                  className="text-sm cursor-pointer"
+                >
+                  {condition.label}
+                </label>
+              </div>
             ))}
           </div>
         </div>
@@ -177,7 +262,7 @@ const FilterPanel = ({
           <Button 
             variant="outline" 
             className="border-thrift-lightgray text-thrift-charcoal"
-            onClick={onClearFilters}
+            onClick={handleClearFilters}
           >
             Clear
           </Button>

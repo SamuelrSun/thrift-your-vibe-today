@@ -1,7 +1,6 @@
 
 import { useState } from 'react';
 import { useLikes } from '@/contexts/LikesContext';
-import { useAuth } from '@/contexts/AuthContext';
 import LikedItemsList from './LikedItemsList';
 import ItemSuggestions from './ItemSuggestions';
 import { Button } from '@/components/ui/button';
@@ -10,27 +9,7 @@ import { Link } from 'react-router-dom';
 
 const LikesPage = () => {
   const { likedItems, isLoading } = useLikes();
-  const { user } = useAuth();
   const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
-
-  if (!user) {
-    return (
-      <div className="container mx-auto px-4 py-16 text-center">
-        <div className="max-w-md mx-auto">
-          <div className="flex justify-center mb-4">
-            <Heart className="h-16 w-16 text-thrift-terracotta" />
-          </div>
-          <h1 className="text-2xl font-medium mb-3">Sign in to see your liked items</h1>
-          <p className="text-thrift-charcoal/80 mb-6">
-            Create an account to save your favorite items and get personalized recommendations.
-          </p>
-          <Button asChild>
-            <Link to="/auth">Sign in</Link>
-          </Button>
-        </div>
-      </div>
-    );
-  }
 
   if (isLoading) {
     return (
@@ -61,7 +40,7 @@ const LikesPage = () => {
             Start exploring and heart the items you love!
           </p>
           <Button asChild>
-            <Link to="/explore">Explore items</Link>
+            <Link to="/search">Explore items</Link>
           </Button>
         </div>
       ) : (
