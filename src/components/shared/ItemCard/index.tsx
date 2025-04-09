@@ -10,7 +10,7 @@ export interface Item {
   title: string;
   brand: string;
   price: number | string;
-  size: string;
+  size: string; // Can handle both letter sizes (S, M, L) and numerical sizes (8, 9, 10, etc)
   condition: string;
   imageUrl: string;
   description: string;

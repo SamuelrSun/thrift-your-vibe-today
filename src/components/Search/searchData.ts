@@ -4,7 +4,7 @@ export interface Item {
   title: string;
   brand: string;
   price: number | string;
-  size: string;
+  size: string; // Can be traditional sizes (S, M, L, XL) or numerical sizes (8, 9, 10, etc)
   condition: string;
   imageUrl: string;
   description: string;
@@ -286,6 +286,19 @@ export const inventory: Item[] = [
     status: 'live',
     sex: 'unisex',
     category: 'tops'
+  },
+  {
+    id: 21,
+    title: 'Nike Air Max 90',
+    brand: 'Nike',
+    price: 75,
+    size: '9.5',
+    condition: 'Like New',
+    imageUrl: '/greendunks.png',
+    description: 'Classic Nike Air Max 90 running shoes in black and white colorway. Minimal wear with excellent cushioning and support.',
+    status: 'live',
+    sex: 'men',
+    category: 'shoes'
   },
 ];
 
