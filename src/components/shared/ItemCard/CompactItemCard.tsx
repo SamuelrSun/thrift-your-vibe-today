@@ -14,10 +14,11 @@ interface CompactItemCardProps {
 
 const CompactItemCard = ({ item, isSelected = false, onSelect }: CompactItemCardProps) => {
   const { unlikeItem, isItemLiked } = useLikes();
+  const [imageError, setImageError] = React.useState(false);
   
   // Handle different property naming between Item and LikedItem
   const itemId = 'item_id' in item ? item.item_id : item.id;
-  const imageUrl = 'image_url' in item ? item.image_url : item.imageUrl;
+  const rawImageUrl = 'image_url' in item ? item.image_url : item.imageUrl;
   const status = 'status' in item ? item.status : ('item_status' in item ? item.item_status : 'live');
   
   // Handle sex and category fields which may have different naming
@@ -29,6 +30,25 @@ const CompactItemCard = ({ item, isSelected = false, onSelect }: CompactItemCard
   const handleUnlike = (e: React.MouseEvent) => {
     e.stopPropagation();
     unlikeItem(itemId);
+  };
+  
+  // Process image URL to ensure proper encoding for spaces and special characters
+  const processImageUrl = (url: string) => {
+    // If the URL already starts with http:// or https://, don't modify it
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+      return url;
+    }
+    
+    // For local URLs that contain spaces, ensure they're properly encoded
+    // Replace spaces with %20 if they're not already encoded
+    return url.includes(' ') ? url.replace(/ /g, '%20') : url;
+  };
+  
+  const imageUrl = imageError ? '/placeholder.svg' : processImageUrl(rawImageUrl);
+  
+  const handleImageError = () => {
+    console.error(`Failed to load image for item: ${item.title}`);
+    setImageError(true);
   };
   
   // Create formatted title with brand included
@@ -56,6 +76,7 @@ const CompactItemCard = ({ item, isSelected = false, onSelect }: CompactItemCard
         <img 
           src={imageUrl} 
           alt={item.title} 
+          onError={handleImageError}
           className={`w-full h-full object-cover ${status === 'sold' ? 'grayscale-[30%]' : ''}`}
         />
         

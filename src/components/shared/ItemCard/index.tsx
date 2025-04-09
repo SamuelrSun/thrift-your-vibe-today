@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Heart, ShoppingCart, Check, AlertCircle } from 'lucide-react';
 import Button from '../../shared/Button';
@@ -91,7 +92,19 @@ const ItemCard = ({ item }: ItemCardProps) => {
     ? item.title 
     : `${item.brand} ${item.title}`;
 
-  const imageSrc = imageError ? '/placeholder.svg' : item.imageUrl;
+  // Process image URL to ensure proper encoding for spaces and special characters
+  const processImageUrl = (url: string) => {
+    // If the URL already starts with http:// or https://, don't modify it
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+      return url;
+    }
+    
+    // For local URLs that contain spaces, ensure they're properly encoded
+    // Replace spaces with %20 if they're not already encoded
+    return url.includes(' ') ? url.replace(/ /g, '%20') : url;
+  };
+
+  const imageSrc = imageError ? '/placeholder.svg' : processImageUrl(item.imageUrl);
 
   const priceDisplay = typeof item.price === 'number' ? `$${item.price}` : item.price;
 
@@ -104,6 +117,7 @@ const ItemCard = ({ item }: ItemCardProps) => {
       onClick={handleFlip}
     >
       <div className="absolute inset-0 w-full h-full transition-all duration-500 preserve-3d" style={{transform: isFlipped ? 'rotateY(180deg)' : ''}}>
+        {/* Front of card */}
         <div className="absolute inset-0 w-full h-full backface-hidden">
           <div className={`rounded-lg overflow-hidden shadow-md h-full bg-white border border-thrift-lightgray ${itemStatus === 'sold' ? 'opacity-80' : ''}`}>
             <div className="p-3 border-b border-thrift-lightgray">
@@ -149,6 +163,7 @@ const ItemCard = ({ item }: ItemCardProps) => {
           </div>
         </div>
 
+        {/* Back of card */}
         <div className="absolute inset-0 w-full h-full backface-hidden" style={{transform: 'rotateY(180deg)'}}>
           <div className={`rounded-lg overflow-hidden shadow-md h-full bg-white p-5 flex flex-col justify-between border border-thrift-lightgray ${itemStatus === 'sold' ? 'opacity-80' : ''}`}>
             <div>
