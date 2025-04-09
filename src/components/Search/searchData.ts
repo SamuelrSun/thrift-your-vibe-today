@@ -227,42 +227,29 @@ export const inventory: Item[] = [
     title: 'Stüssy Hoodie',
     brand: 'Stüssy',
     price: 59,
-    size: 'M',
+    size: 'L',
     condition: 'Gently Used',
     imageUrl: '/stussybluehoodie.png',
-    description: 'Classic rugby shirt with bold horizontal stripes in navy and red. Features button placket collar and durable cotton construction.',
+    description: 'Stüssy light blue pullover hoodie with bright yellow embroidered logo across the chest. Features a spacious kangaroo pocket and ribbed cuffs for a comfortable, classic streetwear fit.',
     status: 'live',
     sex: 'men',
     category: 'tops'
   },
   {
     id: 17,
-    title: 'White Fox Hoodie',
+    title: 'White Fox Hoodie (New with Tag)',
     brand: 'White Fox',
-    price: 35,
+    price: 44,
     size: 'M',
-    condition: 'Like New',
+    condition: 'Brand New',
     imageUrl: '/whitefoxcremehoodie.png',
-    description: 'Versatile grey cardigan with button front closure and ribbed trim. Lightweight knit perfect for layering over shirts or tees in any season.',
+    description: 'White Fox cream-colored pullover hoodie with minimal chest logo design. Brand new with original tags attached, featuring a classic fit and ribbed cuffs and hem.',
     status: 'live',
     sex: 'unisex',
     category: 'tops'
   },
   {
     id: 18,
-    title: 'Utility Work Jacket',
-    brand: 'Carhartt',
-    price: 85,
-    size: 'L',
-    condition: 'Gently Used',
-    imageUrl: '/Screen%20Shot%202025-04-08%20at%205.02.02%20PM.png',
-    description: 'Durable canvas work jacket in tan with multiple pockets and button closure. Built for functionality and rugged wear with that classic workwear aesthetic.',
-    status: 'live',
-    sex: 'men',
-    category: 'outerwear'
-  },
-  {
-    id: 19,
     title: 'New Balance 990s v6',
     brand: 'New Balance',
     price: 119,
@@ -275,7 +262,7 @@ export const inventory: Item[] = [
     category: 'shoes'
   },
   {
-    id: 20,
+    id: 19,
     title: 'Haruta Arvin Loafers',
     brand: 'Haruta Arvin',
     price: 39,
@@ -288,7 +275,7 @@ export const inventory: Item[] = [
     category: 'shoes'
   },
   {
-    id: 21,
+    id: 20,
     title: 'Nike Air Max 90',
     brand: 'Nike',
     price: 75,
