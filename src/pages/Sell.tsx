@@ -107,7 +107,7 @@ const Sell = () => {
                       <td className="border border-thrift-lightgray p-3">34%</td>
                     </tr>
                     <tr className="bg-thrift-sage/5">
-                      <td className="border border-thrift-lightgray p-3">$80–$150</td>
+                      <td className="border border-thrift-lightgray p-3">$80–$149</td>
                       <td className="border border-thrift-lightgray p-3">73%</td>
                       <td className="border border-thrift-lightgray p-3">27%</td>
                     </tr>
