@@ -1,4 +1,3 @@
-
 import { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "./AuthContext";
@@ -15,6 +14,8 @@ export interface LikedItem {
   image_url: string;
   description: string;
   created_at: string;
+  gender?: 'men' | 'women' | 'unisex';
+  category?: string;
 }
 
 type LikesContextType = {
@@ -32,16 +33,13 @@ export function LikesProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const { user } = useAuth();
   
-  // Use localStorage for non-authenticated users
   const LOCAL_STORAGE_KEY = 'thriftsc-liked-items';
 
-  // Fetch liked items when user changes or on initial load
   useEffect(() => {
     const fetchLikedItems = async () => {
       setIsLoading(true);
       
       if (user) {
-        // If user is authenticated, fetch from Supabase
         try {
           const { data, error } = await supabase
             .from('liked_items')
@@ -62,7 +60,6 @@ export function LikesProvider({ children }: { children: React.ReactNode }) {
           });
         }
       } else {
-        // For non-authenticated users, get from localStorage
         try {
           const storedItems = localStorage.getItem(LOCAL_STORAGE_KEY);
           if (storedItems) {
@@ -82,7 +79,6 @@ export function LikesProvider({ children }: { children: React.ReactNode }) {
     fetchLikedItems();
   }, [user]);
 
-  // Save liked items to localStorage for non-authenticated users
   useEffect(() => {
     if (!user && !isLoading) {
       try {
@@ -93,10 +89,8 @@ export function LikesProvider({ children }: { children: React.ReactNode }) {
     }
   }, [likedItems, user, isLoading]);
 
-  // Add an item to liked items
   const likeItem = async (item: Omit<LikedItem, "id" | "created_at">): Promise<boolean> => {
     if (user) {
-      // For authenticated users, save to Supabase
       try {
         const { data, error } = await supabase
           .from('liked_items')
@@ -108,7 +102,6 @@ export function LikesProvider({ children }: { children: React.ReactNode }) {
           .single();
 
         if (error) {
-          // If the error is due to unique constraint, it means the item is already liked
           if (error.code === '23505') {
             toast({
               title: "Already liked",
@@ -137,9 +130,7 @@ export function LikesProvider({ children }: { children: React.ReactNode }) {
         return false;
       }
     } else {
-      // For non-authenticated users, save to localStorage
       try {
-        // Generate a client-side id
         const newItem = {
           ...item,
           id: `local-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
@@ -166,10 +157,8 @@ export function LikesProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  // Remove an item from liked items
   const unlikeItem = async (itemId: number) => {
     if (user) {
-      // For authenticated users, remove from Supabase
       try {
         const { error } = await supabase
           .from('liked_items')
@@ -196,7 +185,6 @@ export function LikesProvider({ children }: { children: React.ReactNode }) {
         });
       }
     } else {
-      // For non-authenticated users, remove from localStorage
       setLikedItems(prevItems => prevItems.filter(item => item.item_id !== itemId));
       
       toast({
@@ -206,7 +194,6 @@ export function LikesProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  // Check if an item is already liked
   const isItemLiked = (itemId: number) => {
     return likedItems.some(item => item.item_id === itemId);
   };

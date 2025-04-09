@@ -1,4 +1,3 @@
-
 import { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "./AuthContext";
@@ -14,6 +13,8 @@ export interface CartItem {
   condition: string;
   image_url: string;
   quantity: number;
+  gender?: 'men' | 'women' | 'unisex';
+  category?: string;
 }
 
 type CartContextType = {
@@ -34,19 +35,15 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const { user } = useAuth();
   
-  // Use localStorage for non-authenticated users
   const LOCAL_STORAGE_KEY = 'thriftsc-cart-items';
 
-  // Calculate cart count based on total quantity of items
   const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
-  // Fetch cart items when user changes or on initial load
   useEffect(() => {
     const fetchCartItems = async () => {
       setIsLoading(true);
       
       if (user) {
-        // If user is authenticated, fetch from Supabase
         try {
           const { data, error } = await supabase
             .from('cart_items')
@@ -67,7 +64,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
           });
         }
       } else {
-        // For non-authenticated users, get from localStorage
         try {
           const storedItems = localStorage.getItem(LOCAL_STORAGE_KEY);
           if (storedItems) {
@@ -87,7 +83,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     fetchCartItems();
   }, [user]);
 
-  // Save cart items to localStorage for non-authenticated users
   useEffect(() => {
     if (!user && !isLoading) {
       try {
@@ -98,19 +93,15 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
   }, [cartItems, user, isLoading]);
 
-  // Add an item to the cart
   const addToCart = async (item: Omit<CartItem, "id" | "quantity">): Promise<boolean> => {
-    // Check if item already exists in cart
     const existingItem = cartItems.find(cartItem => cartItem.item_id === item.item_id);
 
     if (existingItem) {
-      // Update quantity if item already exists
       await updateQuantity(existingItem.id, existingItem.quantity + 1);
       return true;
     }
 
     if (user) {
-      // For authenticated users, save to Supabase
       try {
         const { data, error } = await supabase
           .from('cart_items')
@@ -144,9 +135,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         return false;
       }
     } else {
-      // For non-authenticated users, save to localStorage
       try {
-        // Generate a client-side id
         const newItem = {
           ...item,
           id: `local-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
@@ -173,10 +162,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  // Remove an item from the cart
   const removeFromCart = async (itemId: string) => {
     if (user && !itemId.startsWith('local-')) {
-      // For authenticated users with server items, remove from Supabase
       try {
         const { error } = await supabase
           .from('cart_items')
@@ -203,7 +190,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         });
       }
     } else {
-      // For non-authenticated users or local items, simply remove from state
       setCartItems(prevItems => prevItems.filter(item => item.id !== itemId));
       
       toast({
@@ -213,12 +199,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  // Update item quantity
   const updateQuantity = async (itemId: string, quantity: number) => {
     if (quantity < 1) return;
 
     if (user && !itemId.startsWith('local-')) {
-      // For authenticated users with server items, update in Supabase
       try {
         const { data, error } = await supabase
           .from('cart_items')
@@ -244,17 +228,14 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         });
       }
     } else {
-      // For non-authenticated users or local items, update in state
       setCartItems(prevItems =>
         prevItems.map(item => (item.id === itemId ? { ...item, quantity } : item))
       );
     }
   };
 
-  // Clear the entire cart
   const clearCart = async () => {
     if (user) {
-      // For authenticated users, clear in Supabase
       try {
         const { error } = await supabase
           .from('cart_items')
@@ -265,7 +246,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
           throw error;
         }
 
-        // Also clear any local items
         setCartItems([]);
         
         toast({
@@ -281,7 +261,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         });
       }
     } else {
-      // For non-authenticated users, clear local state
       setCartItems([]);
       
       toast({
@@ -291,7 +270,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  // Check if an item is already in the cart
   const isItemInCart = (itemId: number) => {
     return cartItems.some(item => item.item_id === itemId);
   };
