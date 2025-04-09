@@ -83,11 +83,11 @@ export const inventory: Item[] = [
     id: 5,
     title: 'Yeezy Gray Hoodie',
     brand: 'Yeezy',
-    price: 35,
+    price: 29,
     size: 'L',
     condition: 'Gently Used',
     imageUrl: '/ye.png',
-    description: 'Classic checkered flannel shirt in warm earth tones with traditional button-down design, perfect for layering or casual everyday wear.',
+    description: 'Cactus Plant Flea Market “Ye Must Be Born Again” hoodie in black. Features bold 3D puff print text across the front and a relaxed, oversized fit. Made from heavyweight cotton fleece for a cozy, premium feel.',
     status: 'live',
     sex: 'men',
     category: 'tops'
