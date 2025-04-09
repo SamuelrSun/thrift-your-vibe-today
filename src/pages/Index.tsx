@@ -20,7 +20,9 @@ const Index = () => {
 
   return (
     <div className="bg-thrift-cream min-h-screen">
-      <SearchPage key={key} />
+      <div className="page-content">
+        <SearchPage key={key} />
+      </div>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 
-// Custom hook to manage mobile menu state and body padding
+// Custom hook to manage mobile menu state and page content padding
 export const useMobileMenu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -15,22 +15,19 @@ export const useMobileMenu = () => {
     setIsMenuOpen(false);
   };
 
-  // Update body padding based on menu state
+  // Update body class based on menu state
   useEffect(() => {
     if (isMenuOpen) {
-      // When menu is open, push the content down
+      // When menu is open, add class to body
       document.body.classList.add('mobile-menu-open');
-      document.body.style.paddingTop = "180px"; // Adjust height as needed
     } else {
-      // When menu is closed, remove the padding
+      // When menu is closed, remove class from body
       document.body.classList.remove('mobile-menu-open');
-      document.body.style.paddingTop = "0";
     }
 
     // Cleanup when component unmounts
     return () => {
       document.body.classList.remove('mobile-menu-open');
-      document.body.style.paddingTop = "0";
     };
   }, [isMenuOpen]);
 

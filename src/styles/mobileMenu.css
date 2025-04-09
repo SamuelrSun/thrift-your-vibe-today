@@ -4,9 +4,15 @@ body.mobile-menu-open {
   transition: padding-top 0.3s ease;
 }
 
-/* Define transition for all content when mobile menu opens */
+/* Define transition for content when mobile menu opens */
 @media (max-width: 767px) {
-  .mobile-menu-open main {
-    transition: transform 0.3s ease;
+  .mobile-menu-open .page-content {
+    margin-top: 180px; /* Adjustable height based on menu content */
+    transition: margin-top 0.3s ease;
+  }
+  
+  .page-content {
+    margin-top: 0;
+    transition: margin-top 0.3s ease;
   }
 }

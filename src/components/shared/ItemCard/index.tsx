@@ -37,6 +37,18 @@ const ItemCard = ({ item }: ItemCardProps) => {
   
   const itemStatus = item.status || 'live';
 
+  const isSpecialPurchaseItem = (item: Item) => {
+    const specialItems = [
+      'michael jackson bomber',
+      'mj bomber jacket',
+      'michael jackson black bomber'
+    ];
+    
+    return specialItems.some(specialItem => 
+      item.title.toLowerCase().includes(specialItem)
+    );
+  };
+
   const handleFlip = () => {
     setIsFlipped(!isFlipped);
   };
@@ -120,18 +132,6 @@ const ItemCard = ({ item }: ItemCardProps) => {
 
   const sexDisplay = item.sex ? item.sex.charAt(0).toUpperCase() + item.sex.slice(1) : 'Unisex';
   const categoryDisplay = item.category ? item.category.charAt(0).toUpperCase() + item.category.slice(1) : 'Other';
-
-  const isSpecialPurchaseItem = (item: Item) => {
-    const specialItems = [
-      'michael jackson bomber',
-      'mj bomber jacket',
-      'michael jackson black bomber'
-    ];
-    
-    return specialItems.some(specialItem => 
-      item.title.toLowerCase().includes(specialItem)
-    );
-  };
 
   return (
     <div 
