@@ -1,5 +1,6 @@
+
 import React, { useState } from 'react';
-import { Heart, ShoppingCart, Check, AlertCircle } from 'lucide-react';
+import { Heart, ShoppingCart, Check, AlertCircle, ChevronDown, ChevronUp } from 'lucide-react';
 import Button from '../../shared/Button';
 import { useCart } from '@/contexts/CartContext';
 import { useLikes } from '@/contexts/LikesContext';
@@ -27,6 +28,7 @@ const ItemCard = ({ item }: ItemCardProps) => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const [showFullDescription, setShowFullDescription] = useState(false);
 
   const { addToCart, isItemInCart } = useCart();
   const { likeItem, unlikeItem, isItemLiked } = useLikes();
@@ -81,6 +83,11 @@ const ItemCard = ({ item }: ItemCardProps) => {
         category: item.category
       });
     }
+  };
+
+  const toggleDescription = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setShowFullDescription(!showFullDescription);
   };
 
   const handleImageError = () => {
@@ -175,7 +182,28 @@ const ItemCard = ({ item }: ItemCardProps) => {
                 <p><span className="font-medium">Size:</span> {item.size}</p>
                 {item.sex && <p><span className="font-medium">Sex:</span> {sexDisplay}</p>}
                 {item.category && <p><span className="font-medium">Category:</span> {categoryDisplay}</p>}
-                <p className="text-thrift-charcoal/80 line-clamp-3">{item.description}</p>
+                
+                <div>
+                  <p className={`text-thrift-charcoal/80 ${showFullDescription ? '' : 'line-clamp-3'}`}>
+                    {item.description}
+                  </p>
+                  {item.description && item.description.length > 100 && (
+                    <button 
+                      onClick={toggleDescription}
+                      className="text-thrift-terracotta mt-1 text-xs flex items-center hover:underline"
+                    >
+                      {showFullDescription ? (
+                        <>
+                          See less <ChevronUp className="h-3 w-3 ml-1" />
+                        </>
+                      ) : (
+                        <>
+                          See more <ChevronDown className="h-3 w-3 ml-1" />
+                        </>
+                      )}
+                    </button>
+                  )}
+                </div>
                 
                 {item.fake && (
                   <div className="mt-2 inline-block">

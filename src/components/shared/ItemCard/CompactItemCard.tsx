@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Heart } from 'lucide-react';
+import { Heart, ChevronDown, ChevronUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLikes, LikedItem } from '@/contexts/LikesContext';
 import { Card, CardContent } from '@/components/ui/card';
@@ -15,6 +15,7 @@ interface CompactItemCardProps {
 const CompactItemCard = ({ item, isSelected = false, onSelect }: CompactItemCardProps) => {
   const { unlikeItem, isItemLiked } = useLikes();
   const [imageError, setImageError] = React.useState(false);
+  const [showFullDescription, setShowFullDescription] = React.useState(false);
   
   // Handle different property naming between Item and LikedItem
   const itemId = 'item_id' in item ? item.item_id : item.id;
@@ -32,6 +33,11 @@ const CompactItemCard = ({ item, isSelected = false, onSelect }: CompactItemCard
   const handleUnlike = (e: React.MouseEvent) => {
     e.stopPropagation();
     unlikeItem(itemId);
+  };
+  
+  const toggleDescription = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setShowFullDescription(!showFullDescription);
   };
   
   // Process image URL to ensure proper encoding for spaces and special characters
@@ -124,6 +130,30 @@ const CompactItemCard = ({ item, isSelected = false, onSelect }: CompactItemCard
           <p className="font-medium">{priceDisplay}</p>
           <span className="text-xs text-thrift-charcoal/70">{item.size}</span>
         </div>
+        
+        {'description' in item && item.description && (
+          <div className="mt-2">
+            <p className={`text-xs text-thrift-charcoal/80 ${showFullDescription ? '' : 'line-clamp-2'}`}>
+              {item.description}
+            </p>
+            {item.description.length > 50 && (
+              <button 
+                onClick={toggleDescription}
+                className="text-thrift-terracotta mt-1 text-xs flex items-center hover:underline"
+              >
+                {showFullDescription ? (
+                  <>
+                    See less <ChevronUp className="h-3 w-3 ml-1" />
+                  </>
+                ) : (
+                  <>
+                    See more <ChevronDown className="h-3 w-3 ml-1" />
+                  </>
+                )}
+              </button>
+            )}
+          </div>
+        )}
       </CardContent>
     </Card>
   );

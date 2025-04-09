@@ -1,6 +1,7 @@
 
 import React from 'react';
 import ItemCard from '../shared/ItemCard';
+import CompactItemCard from '../shared/ItemCard/CompactItemCard';
 import { Item } from '../shared/ItemCard';
 
 interface SearchResultsProps {
@@ -8,9 +9,16 @@ interface SearchResultsProps {
   searchResults: Item[];
   isAIMode: boolean;
   isLoading?: boolean;
+  viewMode?: 'grid' | 'compact';
 }
 
-const SearchResults = ({ searchQuery, searchResults, isAIMode, isLoading = false }: SearchResultsProps) => {
+const SearchResults = ({ 
+  searchQuery, 
+  searchResults, 
+  isAIMode, 
+  isLoading = false,
+  viewMode = 'grid'
+}: SearchResultsProps) => {
   if (isLoading) {
     return (
       <div className="md:w-3/4 flex items-center justify-center min-h-[300px]">
@@ -32,9 +40,14 @@ const SearchResults = ({ searchQuery, searchResults, isAIMode, isLoading = false
         </div>
       )}
       
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className={`grid ${viewMode === 'grid' 
+        ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6' 
+        : 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'}`}
+      >
         {searchResults.map(item => (
-          <ItemCard key={item.id} item={item} />
+          viewMode === 'grid' 
+            ? <ItemCard key={item.id} item={item} />
+            : <CompactItemCard key={item.id} item={item} />
         ))}
       </div>
       
