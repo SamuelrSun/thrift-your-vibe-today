@@ -38,7 +38,7 @@ export const inventory: Item[] = [
     description: 'Vintage Tide Racing Downy leather jacket in blue and orange. Great condition with authentic racing wear patterns and iconic Tide branding.',
     status: 'live',
     sex: 'men',
-    category: 'outerwear'
+    category: 'jackets'
   },
   {
     id: 2,
@@ -51,7 +51,7 @@ export const inventory: Item[] = [
     description: 'Classic Croft & Barrow leather jacket with timeless design. Excellent condition with minimal wear, perfect for any casual outfit.',
     status: 'sold',
     sex: 'men',
-    category: 'outerwear'
+    category: 'jackets'
   },
   {
     id: 3,
@@ -63,8 +63,8 @@ export const inventory: Item[] = [
     imageUrl: '/MJ00010001.png',
     description: 'Sleek navy Adidas puffer jacket with iconic white triple stripes, a high collar, and a cozy quilted design perfect for staying warm in style.',
     status: 'live',
-    sex: 'men',
-    category: 'outerwear'
+    sex: 'unisex',
+    category: 'jackets'
   },
   {
     id: 4,
@@ -77,7 +77,7 @@ export const inventory: Item[] = [
     description: 'Cozy Patagonia fleece jacket in a soft off-white color, featuring a navy chest zip pocket, contrast trim, and a full front zipper for effortless layering and warmth.',
     status: 'live',
     sex: 'unisex',
-    category: 'outerwear'
+    category: 'jackets'
   },
   {
     id: 5,
@@ -103,7 +103,7 @@ export const inventory: Item[] = [
     description: 'Premium black leather jacket with zippered front and classic motorcycle-inspired design. Minimal wear with buttery soft leather for a comfortable fit.',
     status: 'live',
     sex: 'men',
-    category: 'outerwear'
+    category: 'shoes'
   },
   {
     id: 7,
@@ -129,12 +129,12 @@ export const inventory: Item[] = [
     description: 'Classic denim trucker jacket in medium wash with button front closure and traditional chest pockets. Perfectly broken in with that vintage feel.',
     status: 'live',
     sex: 'men',
-    category: 'outerwear'
+    category: 'jackets'
   },
   {
     id: 9,
-    title: 'Combat Boots',
-    brand: 'Ralph Lauren',
+    title: 'Discont\'d Combat Boots',
+    brand: 'Discont\'d',
     price: 40,
     size: 'M',
     condition: 'Like New',
@@ -142,7 +142,7 @@ export const inventory: Item[] = [
     description: 'Premium plaid button-up shirt in blue and white with embroidered logo on chest. Perfect for casual or semi-formal occasions with excellent structure and fit.',
     status: 'live',
     sex: 'men',
-    category: 'tops'
+    category: 'shoes'
   },
   {
     id: 10,
@@ -155,7 +155,7 @@ export const inventory: Item[] = [
     description: 'Authentic vintage letterman jacket with wool body and leather sleeves. Features embroidered patches and snap-button closure with that perfect worn-in feel.',
     status: 'live',
     sex: 'men',
-    category: 'outerwear'
+    category: 'shoes'
   },
   {
     id: 11,
@@ -168,7 +168,7 @@ export const inventory: Item[] = [
     description: 'Textured corduroy overshirt in rich burgundy color with button closure. Perfect as a light jacket or heavy shirt for transitional weather.',
     status: 'coming',
     sex: 'men',
-    category: 'tops'
+    category: 'shoes'
   },
   {
     id: 12,
@@ -180,8 +180,8 @@ export const inventory: Item[] = [
     imageUrl: '/levibluejacket.png',
     description: 'Retro-inspired colorblock windbreaker with water-resistant fabric. Features hood, front zip, and adjustable drawstring hem for versatile outdoor wear.',
     status: 'live',
-    sex: 'unisex',
-    category: 'outerwear'
+    sex: 'men',
+    category: 'jackets'
   },
   {
     id: 13,
@@ -207,7 +207,7 @@ export const inventory: Item[] = [
     description: 'Vintage-inspired oversized sweatshirt in heather gray with small logo embroidery. Perfect for that relaxed, retro athletic style.',
     status: 'live',
     sex: 'unisex',
-    category: 'tops'
+    category: 'shoes'
   },
   {
     id: 15,
@@ -220,7 +220,7 @@ export const inventory: Item[] = [
     description: 'Classic denim jacket with cozy sherpa lining throughout body and collar. Perfect for colder weather while maintaining that rugged denim style.',
     status: 'sold',
     sex: 'men',
-    category: 'outerwear'
+    category: 'jackets'
   },
   {
     id: 16,
