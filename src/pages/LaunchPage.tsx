@@ -18,6 +18,7 @@ const LaunchPage = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [accessCode, setAccessCode] = useState('');
+  const [isRedirecting, setIsRedirecting] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState<{
     hours: number;
     minutes: number;
@@ -36,6 +37,9 @@ const LaunchPage = () => {
   
   const handleAccessCodeSubmit = () => {
     if (validateEarlyAccessCode(accessCode)) {
+      // Set redirecting state to prevent UI glitches
+      setIsRedirecting(true);
+      
       toast({
         title: "Access Granted!",
         description: "Welcome to ThriftSC! Enjoy your early access.",
@@ -45,8 +49,10 @@ const LaunchPage = () => {
       // Store in localStorage that user has early access
       setEarlyAccess();
       
-      // Navigate to the main app
-      navigate('/search');
+      // Short timeout to allow toast to display before redirect
+      setTimeout(() => {
+        navigate('/search');
+      }, 200);
     } else {
       toast({
         title: "Invalid Code",
@@ -84,6 +90,17 @@ const LaunchPage = () => {
     
     return () => clearInterval(timer);
   }, [navigate, launchTime]);
+  
+  // Don't render content if redirecting - prevents flash of content
+  if (isRedirecting) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-thrift-cream">
+        <div className="text-center">
+          <p className="text-thrift-charcoal font-medium">Redirecting to ThriftSC...</p>
+        </div>
+      </div>
+    );
+  }
   
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-thrift-cream p-4">
