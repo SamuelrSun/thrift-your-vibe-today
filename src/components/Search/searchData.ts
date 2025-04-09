@@ -44,7 +44,7 @@ export const inventory: Item[] = [
   },
   {
     id: 2,
-    title: 'Croft&Barrow Leather Jacket',
+    title: 'Croft & Barrow Leather Jacket',
     brand: 'Croft & Barrow',
     price: 99,
     size: 'L',
