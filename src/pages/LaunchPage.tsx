@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Clock } from 'lucide-react';
@@ -39,19 +40,20 @@ const LaunchPage = () => {
       // Set redirecting state to prevent UI glitches
       setIsRedirecting(true);
       
+      // Store in localStorage that user has early access
+      setEarlyAccess();
+      
+      // Show the success toast
       toast({
         title: "Access Granted!",
         description: "Welcome to ThriftSC! Enjoy your early access.",
         variant: "default",
       });
       
-      // Store in localStorage that user has early access
-      setEarlyAccess();
-      
-      // Short timeout to allow toast to display before redirect
+      // Use a more reliable approach with a single timeout
       setTimeout(() => {
-        navigate('/search');
-      }, 200);
+        navigate('/search', { replace: true });
+      }, 800); // Slightly longer delay to ensure smooth transition
     } else {
       toast({
         title: "Invalid Code",
@@ -64,7 +66,7 @@ const LaunchPage = () => {
   useEffect(() => {
     // Check if user already has early access or if launch time has passed
     if (hasEarlyAccess() || isAfterLaunchTime()) {
-      navigate('/search');
+      navigate('/search', { replace: true });
       return;
     }
     
@@ -77,7 +79,10 @@ const LaunchPage = () => {
         // It's launch time!
         clearInterval(timer);
         setTimeRemaining(null);
-        navigate('/search');
+        setIsRedirecting(true);
+        setTimeout(() => {
+          navigate('/search', { replace: true });
+        }, 500);
       } else {
         const hours = Math.floor(distance / (1000 * 60 * 60));
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
@@ -94,8 +99,14 @@ const LaunchPage = () => {
   if (isRedirecting) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-thrift-cream">
-        <div className="text-center">
-          <p className="text-thrift-charcoal font-medium">Redirecting to ThriftSC...</p>
+        <div className="text-center p-8 bg-white rounded-lg shadow-md">
+          <img 
+            src="/lovable-uploads/becfcfd7-09f7-4179-8aa9-0947c855d4f3.png" 
+            alt="ThriftSC Logo" 
+            className="mx-auto h-16 mb-4"
+          />
+          <p className="text-thrift-charcoal font-medium text-lg mb-2">Welcome to ThriftSC!</p>
+          <p className="text-thrift-charcoal/70">Redirecting to the main store...</p>
         </div>
       </div>
     );
@@ -158,6 +169,7 @@ const LaunchPage = () => {
             </div>
             <Button 
               onClick={handleAccessCodeSubmit}
+              disabled={isRedirecting}
               className="w-full bg-thrift-sage hover:bg-thrift-sage/90 text-white"
             >
               Submit

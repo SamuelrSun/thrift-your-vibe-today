@@ -64,7 +64,7 @@ const App = () => {
     checkLaunchStatus();
     
     // Set up interval to periodically check (for auto-transition at launch time)
-    const intervalId = setInterval(checkLaunchStatus, 5000);
+    const intervalId = setInterval(checkLaunchStatus, 1000); // Check more frequently
     
     return () => clearInterval(intervalId);
   }, []);
