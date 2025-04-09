@@ -11,6 +11,7 @@ import Index from "./pages/Index";
 import Profile from "./pages/Profile";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
+import ComingSoon from "./pages/ComingSoon";
 import { AuthProvider } from "./contexts/AuthContext";
 import { CartProvider } from "./contexts/CartContext";
 import { LikesProvider } from "./contexts/LikesContext";
@@ -68,6 +69,19 @@ const App = () => (
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/cart/success" element={<CartSuccess />} />
                     <Route path="/profile" element={<Profile />} />
+                    
+                    {/* Coming Soon pages */}
+                    <Route path="/explore" element={<ComingSoon />} />
+                    <Route path="/pricing" element={<ComingSoon />} />
+                    <Route path="/shipping" element={<ComingSoon />} />
+                    <Route path="/faq" element={<ComingSoon />} />
+                    <Route path="/about" element={<ComingSoon />} />
+                    <Route path="/sustainability" element={<ComingSoon />} />
+                    <Route path="/contact" element={<ComingSoon />} />
+                    <Route path="/privacy" element={<ComingSoon />} />
+                    <Route path="/terms" element={<ComingSoon />} />
+                    <Route path="/accessibility" element={<ComingSoon />} />
+                    
                     <Route path="*" element={<NotFound />} />
                   </Routes>
                 </main>
