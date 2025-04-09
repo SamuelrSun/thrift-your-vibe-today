@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Heart, ShoppingCart, Check, AlertCircle, ChevronDown, ChevronUp } from 'lucide-react';
 import Button from '../../shared/Button';
@@ -44,6 +43,10 @@ const ItemCard = ({ item }: ItemCardProps) => {
 
   const handleAddToCart = async (e: React.MouseEvent) => {
     e.stopPropagation();
+    
+    if (isSpecialPurchaseItem(item)) {
+      return;
+    }
     
     if (inCart || itemStatus !== 'live') return;
     
@@ -117,6 +120,18 @@ const ItemCard = ({ item }: ItemCardProps) => {
 
   const sexDisplay = item.sex ? item.sex.charAt(0).toUpperCase() + item.sex.slice(1) : 'Unisex';
   const categoryDisplay = item.category ? item.category.charAt(0).toUpperCase() + item.category.slice(1) : 'Other';
+
+  const isSpecialPurchaseItem = (item: Item) => {
+    const specialItems = [
+      'michael jackson bomber',
+      'mj bomber jacket',
+      'michael jackson black bomber'
+    ];
+    
+    return specialItems.some(specialItem => 
+      item.title.toLowerCase().includes(specialItem)
+    );
+  };
 
   return (
     <div 
@@ -221,40 +236,49 @@ const ItemCard = ({ item }: ItemCardProps) => {
               </div>
             </div>
             <div className="flex gap-2 mt-4">
-              {itemStatus === 'live' ? (
-                <Button 
-                  className={`w-full flex items-center justify-center gap-2 ${inCart ? 'bg-thrift-sage/70' : ''}`}
-                  onClick={handleAddToCart}
-                  disabled={isAddingToCart || inCart}
-                >
-                  {isAddingToCart ? (
-                    <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full"></div>
-                  ) : inCart ? (
-                    <>
-                      <Check className="h-4 w-4" />
-                      Added!
-                    </>
-                  ) : (
-                    <>
-                      <ShoppingCart className="h-4 w-4" />
-                      Add to Cart
-                    </>
-                  )}
-                </Button>
-              ) : itemStatus === 'sold' ? (
-                <Button 
-                  className="w-full flex items-center justify-center gap-2 bg-gray-400 cursor-not-allowed"
-                  disabled={true}
-                >
-                  Sold
-                </Button>
-              ) : (
+              {isSpecialPurchaseItem(item) ? (
                 <Button 
                   className="w-full flex items-center justify-center gap-2 bg-thrift-sage/70"
                   disabled={true}
                 >
-                  Coming Soon
+                  Email for Purchasing
                 </Button>
+              ) : (
+                itemStatus === 'live' ? (
+                  <Button 
+                    className={`w-full flex items-center justify-center gap-2 ${inCart ? 'bg-thrift-sage/70' : ''}`}
+                    onClick={handleAddToCart}
+                    disabled={isAddingToCart || inCart}
+                  >
+                    {isAddingToCart ? (
+                      <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full"></div>
+                    ) : inCart ? (
+                      <>
+                        <Check className="h-4 w-4" />
+                        Added!
+                      </>
+                    ) : (
+                      <>
+                        <ShoppingCart className="h-4 w-4" />
+                        Add to Cart
+                      </>
+                    )}
+                  </Button>
+                ) : itemStatus === 'sold' ? (
+                  <Button 
+                    className="w-full flex items-center justify-center gap-2 bg-gray-400 cursor-not-allowed"
+                    disabled={true}
+                  >
+                    Sold
+                  </Button>
+                ) : (
+                  <Button 
+                    className="w-full flex items-center justify-center gap-2 bg-thrift-sage/70"
+                    disabled={true}
+                  >
+                    Coming Soon
+                  </Button>
+                )
               )}
               
               <Button 
