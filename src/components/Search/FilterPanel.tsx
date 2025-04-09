@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ChevronDown } from 'lucide-react';
 import Button from '../shared/Button';
 import { FilterState } from '@/hooks/useSearchFilters';
@@ -44,6 +44,12 @@ const FilterPanel = ({
   const [priceMin, setPriceMin] = useState<number | ''>(activeFilters.priceMin);
   const [priceMax, setPriceMax] = useState<number | ''>(activeFilters.priceMax);
   const [openCategory, setOpenCategory] = useState<string | null>(null);
+
+  // Update local state when activeFilters change (e.g., after clearing filters)
+  useEffect(() => {
+    setPriceMin(activeFilters.priceMin);
+    setPriceMax(activeFilters.priceMax);
+  }, [activeFilters.priceMin, activeFilters.priceMax]);
 
   const sizes: FilterOption[] = [
     { id: 'xs', label: 'XS' },
@@ -91,8 +97,18 @@ const FilterPanel = ({
   ];
 
   const handleApplyFilters = () => {
+    // Apply price range to filter state first
     onPriceChange(priceMin, priceMax);
+    // Then apply filters
     onApplyFilters();
+  };
+
+  const handleClearFilters = () => {
+    // Clear local price state
+    setPriceMin('');
+    setPriceMax('');
+    // Clear all filters and automatically refresh results
+    onClearFilters();
   };
 
   const toggleCategoryDropdown = (categoryId: string) => {
@@ -246,7 +262,7 @@ const FilterPanel = ({
           <Button 
             variant="outline" 
             className="border-thrift-lightgray text-thrift-charcoal"
-            onClick={onClearFilters}
+            onClick={handleClearFilters}
           >
             Clear
           </Button>

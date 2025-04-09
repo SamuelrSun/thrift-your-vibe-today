@@ -80,6 +80,20 @@ const SearchPage = () => {
     });
   };
 
+  const handleClearFilters = () => {
+    // Clear filters
+    clearFilters();
+    
+    // Immediately reset to all items
+    setFilteredItems(allItems);
+    
+    // Show toast
+    toast({
+      title: "Filters cleared",
+      description: "Showing all items",
+    });
+  };
+
   const toggleViewMode = () => {
     setViewMode(prev => prev === 'grid' ? 'compact' : 'grid');
   };
@@ -107,7 +121,7 @@ const SearchPage = () => {
             onToggleFilter={toggleFilter}
             onPriceChange={setPriceRange}
             onApplyFilters={handleApplyFilters}
-            onClearFilters={clearFilters}
+            onClearFilters={handleClearFilters}
           />
         </div>
         
