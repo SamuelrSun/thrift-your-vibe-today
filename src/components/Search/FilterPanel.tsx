@@ -84,6 +84,7 @@ const FilterPanel = ({
   ];
 
   const conditions: FilterOption[] = [
+    { id: 'brand-new', label: 'Brand New' },
     { id: 'like-new', label: 'Like New' },
     { id: 'gently-used', label: 'Gently Used' },
     { id: 'well-loved', label: 'Well Loved' },

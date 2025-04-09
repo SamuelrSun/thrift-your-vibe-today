@@ -97,7 +97,11 @@ export const useSearchFilters = (initialItems: Item[]) => {
         // Convert condition to lowercase and normalize spaces/hyphens
         const normalizedCondition = item.condition.toLowerCase().replace(/\s+/g, '-');
         const matchesCondition = activeFilters.conditions.some(condition => {
-          // Handle various condition formats (like-new matches "Like New")
+          // Handle various condition formats
+          if (condition === 'brand-new' && 
+              (normalizedCondition === 'brand-new' || item.condition.toLowerCase() === 'brand new')) {
+            return true;
+          }
           if (condition === 'like-new' && 
               (normalizedCondition === 'like-new' || item.condition.toLowerCase() === 'like new')) {
             return true;

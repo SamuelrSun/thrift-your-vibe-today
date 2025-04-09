@@ -1,4 +1,3 @@
-
 // Item interface definition to ensure consistency
 export interface Item {
   id: number;
@@ -25,6 +24,7 @@ export interface Item {
 // 5. Keep the format consistent for all items
 // 6. Set status to 'live', 'sold', or 'coming' to control how the item is displayed
 // 7. Add sex ('men', 'women', 'unisex') and category (e.g., 'tops', 'bottoms', 'outerwear')
+// 8. For condition, use: 'Brand New', 'Like New', 'Gently Used', or 'Well Loved'
 
 export const inventory: Item[] = [
   {
