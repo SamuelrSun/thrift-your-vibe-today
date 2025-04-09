@@ -24,12 +24,11 @@ const LaunchPage = () => {
     seconds: number;
   } | null>(null);
   
-  // Set launch time to 9:00 AM tomorrow
+  // Set launch time to 9:00 AM today
   const getLaunchTime = () => {
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    tomorrow.setHours(9, 0, 0, 0);
-    return tomorrow;
+    const today = new Date();
+    today.setHours(9, 0, 0, 0);
+    return today;
   };
   
   const launchTime = getLaunchTime();
