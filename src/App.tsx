@@ -82,7 +82,7 @@ const App = () => {
                 <div className="flex flex-col min-h-screen">
                   {!showLaunchPage && <Navbar />}
                   <RouteChangeHandler />
-                  <main className="flex-grow">
+                  <main className="flex-grow page-content">
                     <Routes>
                       <Route path="/" element={showLaunchPage ? <LaunchPage /> : <Navigate to="/search" replace />} />
                       <Route path="/search" element={showLaunchPage ? <Navigate to="/" replace /> : <Index />} />
