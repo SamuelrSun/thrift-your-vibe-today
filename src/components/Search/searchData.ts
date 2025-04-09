@@ -285,7 +285,7 @@ export const inventory: Item[] = [
     id: 20,
     title: 'Michael Jackson Tour Excl. Bomber',
     brand: 'Identity Inc.',
-    price: 1249,
+    price: "1,249",
     size: 'S',
     condition: 'Gently Used',
     imageUrl: '/MJblackbomber.png',
