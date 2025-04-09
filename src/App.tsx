@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -15,7 +14,6 @@ import ComingSoon from "./pages/ComingSoon";
 import { AuthProvider } from "./contexts/AuthContext";
 import { CartProvider } from "./contexts/CartContext";
 import { LikesProvider } from "./contexts/LikesContext";
-import ProtectedRoute from "./components/Auth/ProtectedRoute";
 import Cart from "./pages/Cart";
 import CartSuccess from "./pages/CartSuccess";
 import Likes from "./pages/Likes";

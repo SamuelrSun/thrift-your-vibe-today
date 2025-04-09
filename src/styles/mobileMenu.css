@@ -2,7 +2,7 @@
 /* Mobile menu styles */
 body.mobile-menu-open {
   transition: padding-top 0.3s ease;
-  overflow: hidden; /* Prevent scrolling when menu is open */
+  /* Allow scrolling even when menu is open */
 }
 
 /* Define transition for content when mobile menu opens */

@@ -35,10 +35,17 @@ export const useMobileMenu = () => {
   useEffect(() => {
     if (!isMenuOpen) return;
     
+    let lastScrollY = window.scrollY;
+    
     const handleScroll = () => {
-      if (isMenuOpen) {
+      const currentScrollY = window.scrollY;
+      
+      // If user has scrolled more than 10px, close the menu
+      if (Math.abs(currentScrollY - lastScrollY) > 10) {
         closeMenu();
       }
+      
+      lastScrollY = currentScrollY;
     };
     
     window.addEventListener('scroll', handleScroll, { passive: true });
