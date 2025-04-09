@@ -149,8 +149,16 @@ export const useSearchFilters = (initialItems: Item[]) => {
             return parts.length > 1 ? parts[1] : cat;
           });
           
+          // Map outerwear filter to match jackets category
+          const mappedFilters = simpleCategoryFilters.map(filter => {
+            if (filter === 'outerwear') {
+              return 'jackets'; // Map "outerwear" filter to match "jackets" category
+            }
+            return filter;
+          });
+          
           // Check if the item's category matches any of our filtered categories
-          const categoryMatches = simpleCategoryFilters.includes(item.category);
+          const categoryMatches = mappedFilters.includes(item.category);
           
           // Also check if sex part of filter matches the item
           const sexMatches = specificCategories.some(cat => {
