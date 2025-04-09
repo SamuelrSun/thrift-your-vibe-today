@@ -4,7 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "./components/Layout/Navbar";
 import Footer from "./components/Layout/Footer";
 import Index from "./pages/Index";
@@ -20,6 +20,8 @@ import Cart from "./pages/Cart";
 import CartSuccess from "./pages/CartSuccess";
 import Likes from "./pages/Likes";
 import Sell from "./pages/Sell";
+import LaunchPage from "./pages/LaunchPage";
+import { hasEarlyAccess, isAfterLaunchTime } from "./utils/earlyAccessUtils";
 
 // Configure the query client with cache busting settings
 const queryClient = new QueryClient({
@@ -47,52 +49,73 @@ const RouteChangeHandler = () => {
   return null;
 };
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <AuthProvider>
-          <CartProvider>
-            <LikesProvider>
-              <div className="flex flex-col min-h-screen">
-                <Navbar />
-                <RouteChangeHandler />
-                <main className="flex-grow">
-                  <Routes>
-                    <Route path="/" element={<Navigate to="/search" replace />} />
-                    <Route path="/search" element={<Index />} />
-                    <Route path="/auth" element={<Auth />} />
-                    <Route path="/likes" element={<Likes />} />
-                    <Route path="/sell" element={<Sell />} />
-                    <Route path="/cart" element={<Cart />} />
-                    <Route path="/cart/success" element={<CartSuccess />} />
-                    <Route path="/profile" element={<Profile />} />
-                    
-                    {/* Coming Soon pages */}
-                    <Route path="/explore" element={<ComingSoon />} />
-                    <Route path="/pricing" element={<ComingSoon />} />
-                    <Route path="/shipping" element={<ComingSoon />} />
-                    <Route path="/faq" element={<ComingSoon />} />
-                    <Route path="/about" element={<ComingSoon />} />
-                    <Route path="/sustainability" element={<ComingSoon />} />
-                    <Route path="/contact" element={<ComingSoon />} />
-                    <Route path="/privacy" element={<ComingSoon />} />
-                    <Route path="/terms" element={<ComingSoon />} />
-                    <Route path="/accessibility" element={<ComingSoon />} />
-                    
-                    <Route path="*" element={<NotFound />} />
-                  </Routes>
-                </main>
-                <Footer />
-              </div>
-            </LikesProvider>
-          </CartProvider>
-        </AuthProvider>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+const App = () => {
+  // State to track if we should show launch page
+  const [showLaunchPage, setShowLaunchPage] = useState(true);
+  
+  // Check if we should show the launch page on mount and when changes occur
+  useEffect(() => {
+    const checkLaunchStatus = () => {
+      const shouldShow = !hasEarlyAccess() && !isAfterLaunchTime();
+      setShowLaunchPage(shouldShow);
+    };
+    
+    // Check initially
+    checkLaunchStatus();
+    
+    // Set up interval to periodically check (for auto-transition at launch time)
+    const intervalId = setInterval(checkLaunchStatus, 5000);
+    
+    return () => clearInterval(intervalId);
+  }, []);
+  
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <AuthProvider>
+            <CartProvider>
+              <LikesProvider>
+                <div className="flex flex-col min-h-screen">
+                  {!showLaunchPage && <Navbar />}
+                  <RouteChangeHandler />
+                  <main className="flex-grow">
+                    <Routes>
+                      <Route path="/" element={showLaunchPage ? <LaunchPage /> : <Navigate to="/search" replace />} />
+                      <Route path="/search" element={showLaunchPage ? <Navigate to="/" replace /> : <Index />} />
+                      <Route path="/auth" element={showLaunchPage ? <Navigate to="/" replace /> : <Auth />} />
+                      <Route path="/likes" element={showLaunchPage ? <Navigate to="/" replace /> : <Likes />} />
+                      <Route path="/sell" element={showLaunchPage ? <Navigate to="/" replace /> : <Sell />} />
+                      <Route path="/cart" element={showLaunchPage ? <Navigate to="/" replace /> : <Cart />} />
+                      <Route path="/cart/success" element={showLaunchPage ? <Navigate to="/" replace /> : <CartSuccess />} />
+                      <Route path="/profile" element={showLaunchPage ? <Navigate to="/" replace /> : <Profile />} />
+                      
+                      {/* Coming Soon pages */}
+                      <Route path="/explore" element={showLaunchPage ? <Navigate to="/" replace /> : <ComingSoon />} />
+                      <Route path="/pricing" element={showLaunchPage ? <Navigate to="/" replace /> : <ComingSoon />} />
+                      <Route path="/shipping" element={showLaunchPage ? <Navigate to="/" replace /> : <ComingSoon />} />
+                      <Route path="/faq" element={showLaunchPage ? <Navigate to="/" replace /> : <ComingSoon />} />
+                      <Route path="/about" element={showLaunchPage ? <Navigate to="/" replace /> : <ComingSoon />} />
+                      <Route path="/sustainability" element={showLaunchPage ? <Navigate to="/" replace /> : <ComingSoon />} />
+                      <Route path="/contact" element={showLaunchPage ? <Navigate to="/" replace /> : <ComingSoon />} />
+                      <Route path="/privacy" element={showLaunchPage ? <Navigate to="/" replace /> : <ComingSoon />} />
+                      <Route path="/terms" element={showLaunchPage ? <Navigate to="/" replace /> : <ComingSoon />} />
+                      <Route path="/accessibility" element={showLaunchPage ? <Navigate to="/" replace /> : <ComingSoon />} />
+                      
+                      <Route path="*" element={<NotFound />} />
+                    </Routes>
+                  </main>
+                  {!showLaunchPage && <Footer />}
+                </div>
+              </LikesProvider>
+            </CartProvider>
+          </AuthProvider>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;
