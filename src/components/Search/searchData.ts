@@ -63,7 +63,7 @@ export const inventory: Item[] = [
     price: 89,
     size: 'M',
     condition: 'Gently Used',
-    imageUrl: '/MF00020009.png',
+    imageUrl: 'Screen Shot 2025-04-08 at 5.02.17 PM.png',
     description: 'Cozy Patagonia fleece jacket in a soft off-white color, featuring a navy chest zip pocket, contrast trim, and a full front zipper for effortless layering and warmth.',
     status: 'live' // This item is coming soon
   },
