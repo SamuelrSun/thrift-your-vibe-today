@@ -1,4 +1,3 @@
-
 /**
  * Utility functions for early access management
  */
@@ -23,11 +22,14 @@ export const validateEarlyAccessCode = (code: string): boolean => {
 
 // Check if launch time has passed
 export const isAfterLaunchTime = (): boolean => {
+  const now = new Date();
   const launchTime = new Date();
-  // Set to 11:00 AM today (April 9th)
+  
+  // Set launch time to 11:00 AM today
   launchTime.setHours(11, 0, 0, 0);
   
-  return new Date() >= launchTime;
+  // Precisely check if current time is at or after 11:00 AM
+  return now >= launchTime;
 };
 
 // Get launch date as a formatted string
