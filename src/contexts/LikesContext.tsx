@@ -1,3 +1,4 @@
+
 import { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "./AuthContext";
@@ -14,7 +15,7 @@ export interface LikedItem {
   image_url: string;
   description: string;
   created_at: string;
-  gender?: 'men' | 'women' | 'unisex';
+  sex?: 'men' | 'women' | 'unisex';
   category?: string;
 }
 

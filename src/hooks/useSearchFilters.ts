@@ -118,16 +118,16 @@ export const useSearchFilters = (initialItems: Item[]) => {
         }
       }
 
-      // Category and gender filters
+      // Category and sex filters
       if (activeFilters.categories.length > 0) {
         const { hasMens, hasWomens, specificCategories } = getCategoryFilters(activeFilters.categories);
         
-        // Check if the item matches gender filter
-        const isMensItem = item.gender === 'men';
-        const isWomensItem = item.gender === 'women';
-        const isUnisexItem = item.gender === 'unisex';
+        // Check if the item matches sex filter
+        const isMensItem = item.sex === 'men';
+        const isWomensItem = item.sex === 'women';
+        const isUnisexItem = item.sex === 'unisex';
         
-        // Apply gender filter if set
+        // Apply sex filter if set
         if (hasMens && !hasWomens && !isMensItem && !isUnisexItem) {
           return false;
         }
@@ -152,16 +152,16 @@ export const useSearchFilters = (initialItems: Item[]) => {
           // Check if the item's category matches any of our filtered categories
           const categoryMatches = simpleCategoryFilters.includes(item.category);
           
-          // Also check if gender part of filter matches the item
-          const genderMatches = specificCategories.some(cat => {
+          // Also check if sex part of filter matches the item
+          const sexMatches = specificCategories.some(cat => {
             const parts = cat.split('-');
-            if (parts.length <= 1) return true; // No gender specific filter
+            if (parts.length <= 1) return true; // No sex specific filter
             
-            const filterGender = parts[0] === 'mens' ? 'men' : 'women';
-            return item.gender === filterGender || item.gender === 'unisex';
+            const filterSex = parts[0] === 'mens' ? 'men' : 'women';
+            return item.sex === filterSex || item.sex === 'unisex';
           });
           
-          if (!categoryMatches || !genderMatches) {
+          if (!categoryMatches || !sexMatches) {
             return false;
           }
         }

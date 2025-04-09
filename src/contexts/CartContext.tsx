@@ -1,3 +1,4 @@
+
 import { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "./AuthContext";
@@ -13,7 +14,7 @@ export interface CartItem {
   condition: string;
   image_url: string;
   quantity: number;
-  gender?: 'men' | 'women' | 'unisex';
+  sex?: 'men' | 'women' | 'unisex';
   category?: string;
 }
 

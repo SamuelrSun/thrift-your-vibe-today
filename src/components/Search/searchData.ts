@@ -1,3 +1,4 @@
+
 // Item interface definition to ensure consistency
 export interface Item {
   id: number;
@@ -9,7 +10,7 @@ export interface Item {
   imageUrl: string;
   description: string;
   status?: 'live' | 'sold' | 'coming';
-  gender?: 'men' | 'women' | 'unisex';
+  sex?: 'men' | 'women' | 'unisex';
   category?: string;
 }
 
@@ -23,7 +24,7 @@ export interface Item {
 // 4. Make sure all image links are valid and accessible
 // 5. Keep the format consistent for all items
 // 6. Set status to 'live', 'sold', or 'coming' to control how the item is displayed
-// 7. Add gender ('men', 'women', 'unisex') and category (e.g., 'tops', 'bottoms', 'outerwear')
+// 7. Add sex ('men', 'women', 'unisex') and category (e.g., 'tops', 'bottoms', 'outerwear')
 
 export const inventory: Item[] = [
   {
@@ -36,7 +37,7 @@ export const inventory: Item[] = [
     imageUrl: '/tide.png',
     description: 'Vintage Tide Racing Downy leather jacket in blue and orange. Great condition with authentic racing wear patterns and iconic Tide branding.',
     status: 'live',
-    gender: 'men',
+    sex: 'men',
     category: 'outerwear'
   },
   {
@@ -49,7 +50,7 @@ export const inventory: Item[] = [
     imageUrl: '/croft.png',
     description: 'Classic Croft & Barrow leather jacket with timeless design. Excellent condition with minimal wear, perfect for any casual outfit.',
     status: 'sold',
-    gender: 'men',
+    sex: 'men',
     category: 'outerwear'
   },
   {
@@ -62,7 +63,7 @@ export const inventory: Item[] = [
     imageUrl: '/MJ00010001.png',
     description: 'Sleek navy Adidas puffer jacket with iconic white triple stripes, a high collar, and a cozy quilted design perfect for staying warm in style.',
     status: 'live',
-    gender: 'men',
+    sex: 'men',
     category: 'outerwear'
   },
   {
@@ -75,7 +76,7 @@ export const inventory: Item[] = [
     imageUrl: 'Screen Shot 2025-04-08 at 5.02.17 PM.png',
     description: 'Cozy Patagonia fleece jacket in a soft off-white color, featuring a navy chest zip pocket, contrast trim, and a full front zipper for effortless layering and warmth.',
     status: 'live',
-    gender: 'unisex',
+    sex: 'unisex',
     category: 'outerwear'
   },
 ];
