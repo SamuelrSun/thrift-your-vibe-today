@@ -31,5 +31,22 @@ export const useMobileMenu = () => {
     };
   }, [isMenuOpen]);
 
+  // Add scroll detection to close menu when scrolling
+  useEffect(() => {
+    if (!isMenuOpen) return;
+    
+    const handleScroll = () => {
+      if (isMenuOpen) {
+        closeMenu();
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [isMenuOpen]);
+
   return { isMenuOpen, toggleMenu, closeMenu };
 };
