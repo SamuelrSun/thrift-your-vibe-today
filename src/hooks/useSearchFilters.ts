@@ -99,15 +99,15 @@ export const useSearchFilters = (initialItems: Item[]) => {
         const matchesCondition = activeFilters.conditions.some(condition => {
           // Handle various condition formats (like-new matches "Like New")
           if (condition === 'like-new' && 
-              (normalizedCondition === 'like-new' || normalizedCondition === 'like-new')) {
+              (normalizedCondition === 'like-new' || item.condition.toLowerCase() === 'like new')) {
             return true;
           }
           if (condition === 'gently-used' && 
-              (normalizedCondition === 'gently-used' || normalizedCondition === 'gently-used')) {
+              (normalizedCondition === 'gently-used' || item.condition.toLowerCase() === 'gently used')) {
             return true;
           }
           if (condition === 'well-loved' && 
-              (normalizedCondition === 'well-loved' || normalizedCondition === 'well-loved')) {
+              (normalizedCondition === 'well-loved' || item.condition.toLowerCase() === 'well loved')) {
             return true;
           }
           return normalizedCondition === condition;
@@ -136,16 +136,32 @@ export const useSearchFilters = (initialItems: Item[]) => {
           return false;
         }
         
-        // Check specific categories (like tops, bottoms, etc.)
+        // If specific categories are selected (like tops, bottoms, etc.)
         if (specificCategories.length > 0) {
+          // If no item category, it doesn't match
+          if (!item.category) {
+            return false;
+          }
+          
           // Extract base category from filter (e.g., "mens-tops" -> "tops")
           const simpleCategoryFilters = specificCategories.map(cat => {
             const parts = cat.split('-');
             return parts.length > 1 ? parts[1] : cat;
           });
           
-          // Check if item category matches any of our category filters
-          if (item.category && !simpleCategoryFilters.includes(item.category)) {
+          // Check if the item's category matches any of our filtered categories
+          const categoryMatches = simpleCategoryFilters.includes(item.category);
+          
+          // Also check if gender part of filter matches the item
+          const genderMatches = specificCategories.some(cat => {
+            const parts = cat.split('-');
+            if (parts.length <= 1) return true; // No gender specific filter
+            
+            const filterGender = parts[0] === 'mens' ? 'men' : 'women';
+            return item.gender === filterGender || item.gender === 'unisex';
+          });
+          
+          if (!categoryMatches || !genderMatches) {
             return false;
           }
         }
