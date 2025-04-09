@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -20,8 +19,8 @@ const CompactItemCard = ({ item, isSelected = false, onSelect }: CompactItemCard
   const imageUrl = 'image_url' in item ? item.image_url : item.imageUrl;
   const status = 'status' in item ? item.status : ('item_status' in item ? item.item_status : 'live');
   
-  // Handle gender and category fields which may have different naming
-  const gender = 'gender' in item ? item.gender : undefined;
+  // Handle sex and category fields which may have different naming
+  const sex = 'sex' in item ? item.sex : undefined;
   const category = 'category' in item ? item.category : undefined;
   
   const isLiked = isItemLiked(itemId);
@@ -44,10 +43,6 @@ const CompactItemCard = ({ item, isSelected = false, onSelect }: CompactItemCard
 
   // Format price display based on whether it's a number or string
   const priceDisplay = typeof item.price === 'number' ? `$${item.price}` : item.price;
-
-  // Format gender and category for display
-  const genderDisplay = gender ? gender.charAt(0).toUpperCase() + gender.slice(1) : undefined;
-  const categoryDisplay = category ? category.charAt(0).toUpperCase() + category.slice(1) : undefined;
 
   return (
     <Card 
@@ -80,20 +75,6 @@ const CompactItemCard = ({ item, isSelected = false, onSelect }: CompactItemCard
             </div>
           </div>
         )}
-        
-        {/* Gender and Category tags */}
-        <div className="absolute top-2 left-2 flex flex-col gap-1">
-          {gender && (
-            <span className="bg-white/80 text-thrift-charcoal text-xs px-1.5 py-0.5 rounded">
-              {genderDisplay}
-            </span>
-          )}
-          {category && (
-            <span className="bg-white/80 text-thrift-charcoal text-xs px-1.5 py-0.5 rounded">
-              {categoryDisplay}
-            </span>
-          )}
-        </div>
         
         {isLiked && (
           <Button 

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Heart, ShoppingCart, Check, AlertCircle } from 'lucide-react';
 import Button from '../../shared/Button';
@@ -15,7 +14,7 @@ export interface Item {
   imageUrl: string;
   description: string;
   status?: 'live' | 'sold' | 'coming';
-  gender?: 'men' | 'women' | 'unisex';
+  sex?: 'men' | 'women' | 'unisex';
   category?: string;
 }
 
@@ -34,7 +33,6 @@ const ItemCard = ({ item }: ItemCardProps) => {
   const inCart = isItemInCart(item.id);
   const isLiked = isItemLiked(item.id);
   
-  // Default to 'live' if no status is provided
   const itemStatus = item.status || 'live';
 
   const handleFlip = () => {
@@ -44,7 +42,6 @@ const ItemCard = ({ item }: ItemCardProps) => {
   const handleAddToCart = async (e: React.MouseEvent) => {
     e.stopPropagation();
     
-    // Only allow adding to cart for 'live' items
     if (inCart || itemStatus !== 'live') return;
     
     setIsAddingToCart(true);
@@ -53,12 +50,12 @@ const ItemCard = ({ item }: ItemCardProps) => {
       item_id: item.id,
       title: item.title,
       brand: item.brand,
-      price: typeof item.price === 'number' ? item.price : 0, // Handle string prices for cart
+      price: typeof item.price === 'number' ? item.price : 0,
       size: item.size,
       condition: item.condition,
       image_url: item.imageUrl,
-      gender: item.gender, // Add gender
-      category: item.category // Add category
+      sex: item.sex,
+      category: item.category
     });
     
     setIsAddingToCart(false);
@@ -74,13 +71,13 @@ const ItemCard = ({ item }: ItemCardProps) => {
         item_id: item.id,
         title: item.title,
         brand: item.brand,
-        price: typeof item.price === 'number' ? item.price : 0, // Handle string prices for likes
+        price: typeof item.price === 'number' ? item.price : 0,
         size: item.size,
         condition: item.condition,
         image_url: item.imageUrl,
         description: item.description,
-        gender: item.gender, // Add gender
-        category: item.category // Add category
+        sex: item.sex,
+        category: item.category
       });
     }
   };
@@ -94,14 +91,11 @@ const ItemCard = ({ item }: ItemCardProps) => {
     ? item.title 
     : `${item.brand} ${item.title}`;
 
-  // Define a fallback image for when the main image fails to load
   const imageSrc = imageError ? '/placeholder.svg' : item.imageUrl;
 
-  // Format price display based on whether it's a number or string
   const priceDisplay = typeof item.price === 'number' ? `$${item.price}` : item.price;
 
-  // Format gender and category for display
-  const genderDisplay = item.gender ? item.gender.charAt(0).toUpperCase() + item.gender.slice(1) : 'Unisex';
+  const sexDisplay = item.sex ? item.sex.charAt(0).toUpperCase() + item.sex.slice(1) : 'Unisex';
   const categoryDisplay = item.category ? item.category.charAt(0).toUpperCase() + item.category.slice(1) : 'Other';
 
   return (
@@ -110,7 +104,6 @@ const ItemCard = ({ item }: ItemCardProps) => {
       onClick={handleFlip}
     >
       <div className="absolute inset-0 w-full h-full transition-all duration-500 preserve-3d" style={{transform: isFlipped ? 'rotateY(180deg)' : ''}}>
-        {/* Front of the card */}
         <div className="absolute inset-0 w-full h-full backface-hidden">
           <div className={`rounded-lg overflow-hidden shadow-md h-full bg-white border border-thrift-lightgray ${itemStatus === 'sold' ? 'opacity-80' : ''}`}>
             <div className="p-3 border-b border-thrift-lightgray">
@@ -124,7 +117,6 @@ const ItemCard = ({ item }: ItemCardProps) => {
                 className={`w-full h-full object-cover transition-transform hover:scale-105 ${itemStatus === 'sold' ? 'grayscale-[30%]' : ''}`}
               />
               
-              {/* Status overlay for Sold items */}
               {itemStatus === 'sold' && (
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="bg-gray-800 bg-opacity-60 text-white font-bold py-2 px-4 w-full text-center transform rotate-0">
@@ -133,7 +125,6 @@ const ItemCard = ({ item }: ItemCardProps) => {
                 </div>
               )}
               
-              {/* Status overlay for Coming Soon items */}
               {itemStatus === 'coming' && (
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="bg-thrift-sage bg-opacity-60 text-white font-bold py-2 px-4 w-full text-center transform rotate-0">
@@ -141,20 +132,6 @@ const ItemCard = ({ item }: ItemCardProps) => {
                   </div>
                 </div>
               )}
-              
-              {/* Gender and Category tag */}
-              <div className="absolute top-2 left-2 flex flex-col gap-1">
-                {item.gender && (
-                  <span className="bg-thrift-cream text-thrift-charcoal text-xs px-2 py-1 rounded">
-                    {genderDisplay}
-                  </span>
-                )}
-                {item.category && (
-                  <span className="bg-thrift-cream text-thrift-charcoal text-xs px-2 py-1 rounded">
-                    {categoryDisplay}
-                  </span>
-                )}
-              </div>
             </div>
             <div className="p-4 h-[12%] border-t border-thrift-lightgray flex justify-between items-center">
               <p className="font-medium text-lg">{priceDisplay}</p>
@@ -172,7 +149,6 @@ const ItemCard = ({ item }: ItemCardProps) => {
           </div>
         </div>
 
-        {/* Back of the card */}
         <div className="absolute inset-0 w-full h-full backface-hidden" style={{transform: 'rotateY(180deg)'}}>
           <div className={`rounded-lg overflow-hidden shadow-md h-full bg-white p-5 flex flex-col justify-between border border-thrift-lightgray ${itemStatus === 'sold' ? 'opacity-80' : ''}`}>
             <div>
@@ -184,7 +160,7 @@ const ItemCard = ({ item }: ItemCardProps) => {
               <div className="space-y-2 text-sm">
                 <p><span className="font-medium">Brand:</span> {item.brand}</p>
                 <p><span className="font-medium">Size:</span> {item.size}</p>
-                {item.gender && <p><span className="font-medium">Gender:</span> {genderDisplay}</p>}
+                {item.sex && <p><span className="font-medium">Sex:</span> {sexDisplay}</p>}
                 {item.category && <p><span className="font-medium">Category:</span> {categoryDisplay}</p>}
                 <p className="text-thrift-charcoal/80 line-clamp-3">{item.description}</p>
                 {itemStatus !== 'live' && (
@@ -195,7 +171,6 @@ const ItemCard = ({ item }: ItemCardProps) => {
               </div>
             </div>
             <div className="flex gap-2 mt-4">
-              {/* Conditionally render Add to Cart button based on item status */}
               {itemStatus === 'live' ? (
                 <Button 
                   className={`w-full flex items-center justify-center gap-2 ${inCart ? 'bg-thrift-sage/70' : ''}`}
@@ -232,7 +207,6 @@ const ItemCard = ({ item }: ItemCardProps) => {
                 </Button>
               )}
               
-              {/* Like button is always available */}
               <Button 
                 variant="outline" 
                 className="border-thrift-lightgray"
