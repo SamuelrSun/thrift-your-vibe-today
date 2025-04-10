@@ -1,3 +1,5 @@
+import { Item } from '../shared/ItemCard';
+
 // Item interface definition to ensure consistency
 export interface Item {
   id: number;
@@ -291,7 +293,7 @@ export const inventory: Item[] = [
     imageUrl: '/MJblackbomber.png',
     description: 'This Michael Jackson Dangerous World Tour bomber was made exclusively available to production crew. Truly the holy grail for \'90s thrifters. Email for purchasing info!',
     status: 'live',
-    sex: 'coming',
+    sex: 'unisex',
     category: 'jackets'
   },
   {
@@ -304,7 +306,7 @@ export const inventory: Item[] = [
     imageUrl: '/chichi/chichi1.jpg',
     description: 'N/A',
     status: 'coming',
-    sex: 'womens',
+    sex: 'women',
     category: 'bottoms'
   },
   {
@@ -317,10 +319,10 @@ export const inventory: Item[] = [
     imageUrl: '/chichi/chichi2.jpg',
     description: 'N/A',
     status: 'coming',
-    sex: 'womens',
+    sex: 'women',
     category: 'tops'
   },
-    {
+  {
     id: 22,
     title: 'N/A',
     brand: 'N/A',
@@ -330,10 +332,10 @@ export const inventory: Item[] = [
     imageUrl: '/chichi/chichi3.jpg',
     description: 'N/A',
     status: 'coming',
-    sex: 'womens',
+    sex: 'women',
     category: 'tops'
   },
-    {
+  {
     id: 23,
     title: 'N/A',
     brand: 'N/A',
@@ -343,10 +345,10 @@ export const inventory: Item[] = [
     imageUrl: '/chichi/chichi4.jpg',
     description: 'N/A',
     status: 'coming',
-    sex: 'womens',
+    sex: 'women',
     category: 'bottoms'
   },
-    {
+  {
     id: 24,
     title: 'N/A',
     brand: 'N/A',
@@ -356,7 +358,7 @@ export const inventory: Item[] = [
     imageUrl: '/chichi/chichi5.jpg',
     description: 'N/A',
     status: 'coming',
-    sex: 'womens',
+    sex: 'women',
     category: 'tops'
   },
 ];
