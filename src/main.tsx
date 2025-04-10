@@ -1,3 +1,4 @@
+
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
@@ -16,6 +17,7 @@ const clearCache = () => {
   // Clear cache for app data
   localStorage.removeItem('thriftsc-items-cache');
   localStorage.removeItem('thriftsc-filters');
+  localStorage.removeItem('thriftsc-early-access');
   
   // Set a cache version
   localStorage.setItem('thriftsc-cache-version', timestamp.toString());
