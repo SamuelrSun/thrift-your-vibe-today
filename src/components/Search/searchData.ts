@@ -30,19 +30,6 @@ export const inventory: Item[] = [
   },
   {
     id: 2,
-    title: 'Croft & Barrow Leather Jacket',
-    brand: 'Croft & Barrow',
-    price: 99,
-    size: 'L',
-    condition: 'Gently Used',
-    imageUrl: '/croft.png',
-    description: 'Classic Croft & Barrow leather jacket with timeless design. Excellent condition with minimal wear, perfect for any casual outfit.',
-    status: 'sold',
-    sex: 'men',
-    category: 'jackets'
-  },
-  {
-    id: 3,
     title: 'Adidas Navy Puffer Jacket',
     brand: 'Adidas',
     price: 49,
@@ -55,7 +42,7 @@ export const inventory: Item[] = [
     category: 'jackets'
   },
   {
-    id: 4,
+    id: 3,
     title: 'Patagonia Tan Fleece',
     brand: 'Patagonia',
     price: 89,
@@ -68,21 +55,7 @@ export const inventory: Item[] = [
     category: 'jackets'
   },
   {
-    id: 5,
-    title: 'Yeezy Gray Hoodie',
-    brand: 'Yeezy',
-    price: 29,
-    size: 'L',
-    condition: 'Gently Used',
-    imageUrl: '/ye.png',
-    description: 'Cactus Plant Flea Market "Ye Must Be Born Again" hoodie in black. Features bold 3D puff print text across the front and a relaxed, oversized fit. Made from heavyweight cotton fleece for a cozy, premium feel.',
-    status: 'live',
-    sex: 'men',
-    category: 'tops',
-    fake: true
-  },
-  {
-    id: 6,
+    id: 4,
     title: 'Adidas Herzogenaurach',
     brand: 'Adidas',
     price: 89,
@@ -95,7 +68,7 @@ export const inventory: Item[] = [
     category: 'shoes'
   },
   {
-    id: 7,
+    id: 5,
     title: 'Ami Sweater',
     brand: 'Ami',
     price: 44,
@@ -109,8 +82,7 @@ export const inventory: Item[] = [
     fake: true
   },
   {
-    id: 8,
-    title: 'Columbia Jacket',
+    id: 6    title: 'Columbia Jacket',
     brand: 'Columbia',
     price: 65,
     size: 'L',
@@ -122,7 +94,7 @@ export const inventory: Item[] = [
     category: 'jackets'
   },
   {
-    id: 9,
+    id: 7,
     title: 'Discont\'d Combat Boots (Box Included)',
     brand: 'Discont\'d',
     price: 219,
@@ -135,7 +107,7 @@ export const inventory: Item[] = [
     category: 'shoes'
   },
   {
-    id: 10,
+    id: 8,
     title: 'Doc Martens Platforms',
     brand: 'Doc Martens',
     price: 69,
@@ -148,7 +120,7 @@ export const inventory: Item[] = [
     category: 'shoes'
   },
   {
-    id: 11,
+    id: 9,
     title: 'Nike Dunk Low',
     brand: 'Nike',
     price: 39,
@@ -162,7 +134,7 @@ export const inventory: Item[] = [
     fake: true
   },
   {
-    id: 12,
+    id: 10,
     title: 'Levi\'s Denim Jacket',
     brand: 'Levi\'s',
     price: 44,
@@ -175,7 +147,7 @@ export const inventory: Item[] = [
     category: 'jackets'
   },
   {
-    id: 13,
+    id: 11,
     title: 'Adidas Messi Jersey',
     brand: 'Adidas',
     price: 19,
@@ -189,7 +161,7 @@ export const inventory: Item[] = [
     fake: true
   },
   {
-    id: 14,
+    id: 12,
     title: 'Nike Jordan 1 Retro',
     brand: 'Nike',
     price: 79,
@@ -203,7 +175,7 @@ export const inventory: Item[] = [
     fake: true
   },
   {
-    id: 15,
+    id: 13,
     title: 'Nike Green Fleece (Japan Excl.)',
     brand: 'Nike',
     price: 149,
@@ -216,7 +188,7 @@ export const inventory: Item[] = [
     category: 'jackets'
   },
   {
-    id: 16,
+    id: 14,
     title: 'Stüssy Hoodie',
     brand: 'Stüssy',
     price: 59,
@@ -229,7 +201,7 @@ export const inventory: Item[] = [
     category: 'tops'
   },
   {
-    id: 17,
+    id: 15,
     title: 'White Fox Hoodie (New with Tag)',
     brand: 'White Fox',
     price: 44,
@@ -242,7 +214,7 @@ export const inventory: Item[] = [
     category: 'tops'
   },
   {
-    id: 18,
+    id: 16,
     title: 'New Balance 990s v6',
     brand: 'New Balance',
     price: 119,
@@ -255,7 +227,7 @@ export const inventory: Item[] = [
     category: 'shoes'
   },
   {
-    id: 19,
+    id: 17,
     title: 'Haruta Arvin Loafers',
     brand: 'Haruta Arvin',
     price: 39,
@@ -268,7 +240,7 @@ export const inventory: Item[] = [
     category: 'shoes'
   },
   {
-    id: 20,
+    id: 18,
     title: 'Michael Jackson Tour Excl. Bomber',
     brand: 'Identity Inc.',
     price: "$1,249",
@@ -281,7 +253,7 @@ export const inventory: Item[] = [
     category: 'jackets'
   },
   {
-    id: 20,
+    id: 19,
     title: 'N/A',
     brand: 'N/A',
     price: 0,
@@ -294,7 +266,7 @@ export const inventory: Item[] = [
     category: 'bottoms'
   },
   {
-    id: 21,
+    id: 20,
     title: 'N/A',
     brand: 'N/A',
     price: 0,
@@ -307,7 +279,7 @@ export const inventory: Item[] = [
     category: 'tops'
   },
   {
-    id: 22,
+    id: 21,
     title: 'N/A',
     brand: 'N/A',
     price: 0,
@@ -320,7 +292,7 @@ export const inventory: Item[] = [
     category: 'tops'
   },
   {
-    id: 23,
+    id: 22,
     title: 'N/A',
     brand: 'N/A',
     price: "0",
@@ -333,7 +305,7 @@ export const inventory: Item[] = [
     category: 'bottoms'
   },
   {
-    id: 24,
+    id: 23,
     title: 'N/A',
     brand: 'N/A',
     price: 0,
