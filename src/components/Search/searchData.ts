@@ -1,21 +1,5 @@
 import { Item } from '../shared/ItemCard';
 
-// Item interface definition to ensure consistency
-export interface Item {
-  id: number;
-  title: string;
-  brand: string;
-  price: number | string;
-  size: string; // Can be traditional sizes (S, M, L, XL) or numerical sizes (8, 9, 10, etc)
-  condition: string;
-  imageUrl: string;
-  description: string;
-  status?: 'live' | 'sold' | 'coming';
-  sex?: 'men' | 'women' | 'unisex';
-  category?: string;
-  fake?: boolean; // Added property to indicate if an item is a dupe/fake
-}
-
 // ====================================================================================
 // STORE INVENTORY - EDIT THIS SECTION TO ADD/MODIFY YOUR LISTINGS
 // ====================================================================================
