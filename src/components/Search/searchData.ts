@@ -82,7 +82,8 @@ export const inventory: Item[] = [
     fake: true
   },
   {
-    id: 6    title: 'Columbia Jacket',
+    id: 6,
+    title: 'Columbia Jacket',
     brand: 'Columbia',
     price: 65,
     size: 'L',
