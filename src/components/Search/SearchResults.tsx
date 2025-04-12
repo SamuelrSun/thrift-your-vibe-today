@@ -2,7 +2,7 @@
 import React from 'react';
 import ItemCard from '../shared/ItemCard';
 import CompactItemCard from '../shared/ItemCard/CompactItemCard';
-import { Item } from '../shared/ItemCard';
+import { Item } from '../shared/ItemCard/types';
 
 interface SearchResultsProps {
   searchQuery: string;
@@ -44,10 +44,10 @@ const SearchResults = ({
         ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6' 
         : 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'}`}
       >
-        {searchResults.map(item => (
+        {searchResults.map((item, index) => (
           viewMode === 'grid' 
-            ? <ItemCard key={item.id} item={item} />
-            : <CompactItemCard key={item.id} item={item} />
+            ? <ItemCard key={`${item.brand}-${item.title}-${index}`} item={item} />
+            : <CompactItemCard key={`${item.brand}-${item.title}-${index}`} item={item} />
         ))}
       </div>
       

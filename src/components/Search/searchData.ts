@@ -1,320 +1,273 @@
-import { Item } from '../shared/ItemCard';
+import { Item } from '../shared/ItemCard/types';
 
 // ====================================================================================
 // STORE INVENTORY - EDIT THIS SECTION TO ADD/MODIFY YOUR LISTINGS
 // ====================================================================================
 // Instructions:
 // 1. To add a new item: Copy an existing item block and change the values
-// 2. To edit an item: Find the item by its ID and modify its properties
-// 3. Always give each new item a unique ID (increment from the highest existing ID)
-// 4. Make sure all image links are valid and accessible
-// 5. Keep the format consistent for all items
-// 6. Set status to 'live', 'sold', or 'coming' to control how the item is displayed
-// 7. Add sex ('men', 'women', 'unisex') and category (e.g., 'tops', 'bottoms', 'outerwear')
-// 8. For condition, use: 'Brand New', 'Like New', 'Gently Used', or 'Well Loved'
-// 9. Set fake to true for items that are duplicates/replicas of designer items
+// 2. To edit an item: Find the item and modify its properties
+// 3. Make sure all image links are valid and accessible
+// 4. Keep the format consistent for all items
+// 5. Add sex ('men', 'women', 'unisex') and category (e.g., 'tops', 'bottoms', 'outerwear')
+// 6. For condition, use: 'Brand New', 'Like New', 'Gently Used', or 'Well Loved'
+// 7. Set fake to true for items that are duplicates/replicas of designer items
+// 8. Each item should have at least one image in the images array
 
 export const inventory: Item[] = [
   {
-    id: 1,
     title: 'Tide x Downy Leather Jacket',
     brand: 'Tide',
     price: 99,
     size: 'L',
     condition: 'Gently Used',
-    imageUrl: '/tide.png',
+    images: ['/tide.png', '/MJ00010001.png'],
     description: 'Vintage Tide Racing Downy leather jacket in blue and orange. Great condition with authentic racing wear patterns and iconic Tide branding.',
-    status: 'live',
     sex: 'men',
     category: 'jackets'
   },
   {
-    id: 2,
     title: 'Adidas Navy Puffer Jacket',
     brand: 'Adidas',
     price: 49,
     size: 'M',
     condition: 'Gently Used',
-    imageUrl: '/MJ00010001.png',
+    images: ['/MJ00010001.png', '/tide.png'],
     description: 'Sleek navy Adidas puffer jacket with iconic white triple stripes, a high collar, and a cozy quilted design perfect for staying warm in style.',
-    status: 'live',
     sex: 'unisex',
     category: 'jackets'
   },
   {
-    id: 3,
     title: 'Patagonia Tan Fleece',
     brand: 'Patagonia',
     price: 89,
     size: 'L',
     condition: 'Like New',
-    imageUrl: '/patagonia.png',
+    images: ['/patagonia.png', '/columbiagrayjacket.png'],
     description: 'Cozy Patagonia fleece jacket in a soft off-white color, featuring a navy chest zip pocket, contrast trim, and a full front zipper for effortless layering and warmth.',
-    status: 'live',
     sex: 'unisex',
     category: 'jackets'
   },
   {
-    id: 4,
     title: 'Adidas Herzogenaurach',
     brand: 'Adidas',
     price: 89,
     size: '10.5',
     condition: 'Like New',
-    imageUrl: '/adidasyellowher.png',
+    images: ['/adidasyellowher.png', '/greendunks.png'],
     description: 'Premium black leather jacket with zippered front and classic motorcycle-inspired design. Minimal wear with buttery soft leather for a comfortable fit.',
-    status: 'live',
     sex: 'men',
     category: 'shoes'
   },
   {
-    id: 5,
     title: 'Ami Sweater',
     brand: 'Ami',
     price: 44,
     size: 'M',
     condition: 'Gently Used',
-    imageUrl: '/amiblacksweater.png',
+    images: ['/amiblacksweater.png', '/stussybluehoodie.png'],
     description: 'AMI Paris cardigan in black wool with the signature red Ami de Coeur logo on the chest. Features a classic V-neck, button front closure, and ribbed cuffs and hem. A cozy yet elevated staple perfect for layering.',
-    status: 'live',
     sex: 'unisex',
     category: 'tops',
     fake: true
   },
   {
-    id: 6,
     title: 'Columbia Jacket',
     brand: 'Columbia',
     price: 65,
     size: 'L',
     condition: 'Gently Used',
-    imageUrl: '/columbiagrayjacket.png',
+    images: ['/columbiagrayjacket.png', '/levibluejacket.png'],
     description: 'Columbia light gray canvas jacket with full front zipper. Features a stand-up collar, paneled construction, and subtle branding on the lower front. Durable, casual design that\'s perfect for everyday wear or light outdoor activities.',
-    status: 'live',
     sex: 'men',
     category: 'jackets'
   },
   {
-    id: 7,
     title: 'Discont\'d Combat Boots (Box Included)',
     brand: 'Discont\'d',
     price: 219,
     size: '9',
     condition: 'Brand New',
-    imageUrl: '/combatboots.png',
+    images: ['/combatboots.png', '/docmartinsblackboots.png'],
     description: 'Leather combat boots with a rugged, textured finish. Features a lace-up front with metal eyelets, side zipper for easy wear, and a sturdy, lugged sole for traction. Durable, versatile, and perfect for everyday wear or outdoor adventures.',
-    status: 'live',
     sex: 'men',
     category: 'shoes'
   },
   {
-    id: 8,
     title: 'Doc Martens Platforms',
     brand: 'Doc Martens',
     price: 69,
     size: '10',
     condition: 'Brand New',
-    imageUrl: '/docmartinsblackboots.png',
+    images: ['/docmartinsblackboots.png', '/greendunks.png'],
     description: 'Dr. Martens 1461 shoes in smooth black leather. Classic 3-eye design with yellow stitching and a durable, cushioned sole. Comfortable, sturdy, and easy to pair with just about anything.',
-    status: 'live',
     sex: 'men',
     category: 'shoes'
   },
   {
-    id: 9,
     title: 'Nike Dunk Low',
     brand: 'Nike',
     price: 39,
     size: '12',
     condition: 'Like New',
-    imageUrl: '/greendunks.png',
+    images: ['/greendunks.png', '/nikegraydunks.png'],
     description: 'Nike Dunk Low in the "Vintage Green" colorway, featuring a crisp white leather base with dark green overlays, classic low-top silhouette, and iconic Swoosh branding—clean, timeless, and always in style.',
-    status: 'live',
     sex: 'men',
     category: 'shoes',
     fake: true
   },
   {
-    id: 10,
     title: 'Levi\'s Denim Jacket',
     brand: 'Levi\'s',
     price: 44,
     size: 'L',
     condition: 'Like New',
-    imageUrl: '/levibluejacket.png',
+    images: ['/levibluejacket.png', '/nikegreenfleece.png'],
     description: 'Classic denim trucker jacket in medium wash with button front closure and traditional chest pockets. Perfectly broken in with that vintage feel.',
-    status: 'live',
     sex: 'men',
     category: 'jackets'
   },
   {
-    id: 11,
     title: 'Adidas Messi Jersey',
     brand: 'Adidas',
     price: 19,
     size: 'M',
     condition: 'Gently Used',
-    imageUrl: 'messibluejersey.png',
+    images: ['messibluejersey.png', '/stussybluehoodie.png'],
     description: 'Argentina national team jersey with iconic blue and white stripes. Features number 10, AFA crest, FIFA champion badge, and Adidas branding. Official design with tournament patches on sleeves.',
-    status: 'live',
     sex: 'men',
     category: 'tops',
     fake: true
   },
   {
-    id: 12,
     title: 'Nike Jordan 1 Retro',
     brand: 'Nike',
     price: 79,
     size: '12',
     condition: 'Brand New',
-    imageUrl: '/nikegraydunks.png',
+    images: ['/nikegraydunks.png', '/whitefoxcremehoodie.png'],
     description: 'Air Jordan 1 Retro High OG in a blue-gray, white, and black colorway with a light blue outsole. Features premium leather and suede construction, classic Nike Swoosh, and the iconic Wings.',
-    status: 'live',
     sex: 'men',
     category: 'shoes',
     fake: true
   },
   {
-    id: 13,
     title: 'Nike Green Fleece (Japan Excl.)',
     brand: 'Nike',
     price: 149,
     size: 'M',
     condition: 'Like New',
-    imageUrl: '/nikegreenfleece.png',
+    images: ['/nikegreenfleece.png', '/990s.png'],
     description: 'Nike, Japan exclusive track jacket in deep green with signature white swoosh design across the chest. Features a full front zipper, ribbed cuffs and collar for a classic athletic fit.',
-    status: 'live',
     sex: 'men',
     category: 'jackets'
   },
   {
-    id: 14,
     title: 'Stüssy Hoodie',
     brand: 'Stüssy',
     price: 59,
     size: 'L',
     condition: 'Gently Used',
-    imageUrl: '/stussybluehoodie.png',
+    images: ['/stussybluehoodie.png', '/harutablackloafers.png'],
     description: 'Stüssy light blue pullover hoodie with bright yellow embroidered logo across the chest. Features a spacious kangaroo pocket and ribbed cuffs for a comfortable, classic streetwear fit.',
-    status: 'live',
     sex: 'men',
     category: 'tops'
   },
   {
-    id: 15,
     title: 'White Fox Hoodie (New with Tag)',
     brand: 'White Fox',
     price: 44,
     size: 'M',
     condition: 'Brand New',
-    imageUrl: '/whitefoxcremehoodie.png',
+    images: ['/whitefoxcremehoodie.png', '/MJblackbomber.png'],
     description: 'White Fox cream-colored pullover hoodie with minimal chest logo design. Brand new with original tags attached, featuring a classic fit and ribbed cuffs and hem.',
-    status: 'live',
     sex: 'unisex',
     category: 'tops'
   },
   {
-    id: 16,
     title: 'New Balance 990s v6',
     brand: 'New Balance',
     price: 119,
     size: '10.5',
     condition: 'Brand New',
-    imageUrl: '/990s.png',
+    images: ['/990s.png', '/chichi/chichi1.jpg'],
     description: 'New Balance 990v6 in a classic grey colorway. Features a mix of suede and mesh for breathability and durability. Designed for comfort and style, these sneakers include a cushioned midsole and a sturdy rubber outsole, making them perfect for everyday wear.',
-    status: 'live',
     sex: 'men',
     category: 'shoes'
   },
   {
-    id: 17,
     title: 'Haruta Arvin Loafers',
     brand: 'Haruta Arvin',
     price: 39,
     size: '10',
     condition: 'Gently Used',
-    imageUrl: '/harutablackloafers.png',
+    images: ['/harutablackloafers.png', '/chichi/chichi2.jpg'],
     description: 'Haruta Arvin loafers in polished black leather. Sleek penny loafer design with stitched detailing and a low stacked heel. Made in Japan, these shoes offer timeless style and everyday comfort.',
-    status: 'live',
     sex: 'men',
     category: 'shoes'
   },
   {
-    id: 18,
     title: 'Michael Jackson Tour Excl. Bomber',
     brand: 'Identity Inc.',
     price: "$1,249",
     size: 'S',
     condition: 'Gently Used',
-    imageUrl: '/MJblackbomber.png',
+    images: ['/MJblackbomber.png', '/chichi/chichi3.jpg'],
     description: 'This Michael Jackson Dangerous World Tour bomber was made exclusively available to production crew. Truly the holy grail for \'90s thrifters. Email for purchasing info!',
-    status: 'live',
     sex: 'unisex',
     category: 'jackets'
   },
   {
-    id: 19,
     title: 'N/A',
     brand: 'N/A',
     price: 0,
     size: 'S',
     condition: 'Gently Used',
-    imageUrl: '/chichi/chichi1.jpg',
+    images: ['/chichi/chichi1.jpg', '/chichi/chichi4.jpg'],
     description: 'N/A',
-    status: 'coming',
     sex: 'women',
     category: 'bottoms'
   },
   {
-    id: 20,
     title: 'N/A',
     brand: 'N/A',
     price: 0,
     size: 'S',
     condition: 'Gently Used',
-    imageUrl: '/chichi/chichi2.jpg',
+    images: ['/chichi/chichi2.jpg', '/chichi/chichi5.jpg'],
     description: 'N/A',
-    status: 'coming',
     sex: 'women',
     category: 'tops'
   },
   {
-    id: 21,
     title: 'N/A',
     brand: 'N/A',
     price: 0,
     size: 'S',
     condition: 'Gently Used',
-    imageUrl: '/chichi/chichi3.jpg',
+    images: ['/chichi/chichi3.jpg', '/chichi/chichi1.jpg'],
     description: 'N/A',
-    status: 'coming',
     sex: 'women',
     category: 'tops'
   },
   {
-    id: 22,
     title: 'N/A',
     brand: 'N/A',
     price: "0",
     size: 'S',
     condition: 'Gently Used',
-    imageUrl: '/chichi/chichi4.jpg',
+    images: ['/chichi/chichi4.jpg', '/chichi/chichi2.jpg'],
     description: 'N/A',
-    status: 'coming',
     sex: 'women',
     category: 'bottoms'
   },
   {
-    id: 23,
     title: 'N/A',
     brand: 'N/A',
     price: 0,
     size: 'S',
     condition: 'Gently Used',
-    imageUrl: '/chichi/chichi5.jpg',
+    images: ['/chichi/chichi5.jpg', '/chichi/chichi3.jpg'],
     description: 'N/A',
-    status: 'coming',
     sex: 'women',
     category: 'tops'
   },
