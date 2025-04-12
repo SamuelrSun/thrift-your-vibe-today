@@ -6,7 +6,7 @@ import { toast } from "@/hooks/use-toast";
 
 export interface CartItem {
   id: string;
-  item_id: string;
+  item_id: number;
   title: string;
   brand: string;
   price: number;
@@ -16,7 +16,6 @@ export interface CartItem {
   quantity: number;
   sex?: 'men' | 'women' | 'unisex';
   category?: string;
-  sold?: boolean;  // Add the sold property
 }
 
 type CartContextType = {
@@ -27,7 +26,7 @@ type CartContextType = {
   removeFromCart: (itemId: string) => Promise<void>;
   updateQuantity: (itemId: string, quantity: number) => Promise<void>;
   clearCart: () => Promise<void>;
-  isItemInCart: (itemId: string) => boolean;
+  isItemInCart: (itemId: number) => boolean;
 };
 
 export const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -56,13 +55,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
             throw error;
           }
 
-          // Convert the item_id from number to string for each database item
-          const cartItemsWithStringIds = data.map(item => ({
-            ...item,
-            item_id: String(item.item_id)
-          })) as CartItem[];
-
-          setCartItems(cartItemsWithStringIds);
+          setCartItems(data as CartItem[]);
         } catch (error) {
           console.error('Error fetching cart items:', error);
           toast({
@@ -111,12 +104,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
     if (user) {
       try {
-        // Convert item_id to number for Supabase storage
         const { data, error } = await supabase
           .from('cart_items')
           .insert({
             ...item,
-            item_id: parseInt(item.item_id), // Convert to number for database
             user_id: user.id,
             quantity: 1,
           })
@@ -127,13 +118,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
           throw error;
         }
 
-        // Convert item_id back to string for our app
-        const cartItem = {
-          ...data,
-          item_id: String(data.item_id)
-        } as CartItem;
-
-        setCartItems(prevItems => [...prevItems, cartItem]);
+        setCartItems(prevItems => [...prevItems, data as CartItem]);
         
         toast({
           title: "Added to cart",
@@ -232,14 +217,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
           throw error;
         }
 
-        // Convert item_id back to string
-        const updatedItem = {
-          ...data,
-          item_id: String(data.item_id)
-        } as CartItem;
-
         setCartItems(prevItems =>
-          prevItems.map(item => (item.id === itemId ? updatedItem : item))
+          prevItems.map(item => (item.id === itemId ? (data as CartItem) : item))
         );
       } catch (error) {
         console.error('Error updating item quantity:', error);
@@ -292,7 +271,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const isItemInCart = (itemId: string) => {
+  const isItemInCart = (itemId: number) => {
     return cartItems.some(item => item.item_id === itemId);
   };
 

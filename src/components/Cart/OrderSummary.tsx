@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -40,38 +39,6 @@ const OrderSummary = ({
 
   const validateEmail = (email: string) => {
     return email.endsWith('@usc.edu');
-  };
-
-  const updateItemsAsSold = () => {
-    try {
-      // Get cart items from localStorage
-      const cartItems = JSON.parse(localStorage.getItem('thriftsc-cart-items') || '[]');
-      
-      // Get the current inventory from localStorage or other source
-      let inventory = JSON.parse(localStorage.getItem('thriftsc-inventory') || '[]');
-      
-      // Check if inventory exists, if not we can't update sold status
-      if (inventory.length > 0) {
-        // Update the inventory items to mark purchased items as sold
-        const updatedInventory = inventory.map((item: any) => {
-          // Check if this item was in the cart (purchased)
-          const wasInCart = cartItems.some((cartItem: any) => 
-            cartItem.item_id === `${item.brand}-${item.title}-${item.size}`.toLowerCase().replace(/[^a-z0-9]/g, '-')
-          );
-          
-          // If it was in the cart, mark it as sold
-          if (wasInCart) {
-            return { ...item, sold: true };
-          }
-          return item;
-        });
-        
-        // Save the updated inventory back to localStorage
-        localStorage.setItem('thriftsc-inventory', JSON.stringify(updatedInventory));
-      }
-    } catch (error) {
-      console.error("Error updating items as sold:", error);
-    }
   };
 
   const handleSubmitPayment = async (e: React.FormEvent) => {
@@ -128,9 +95,6 @@ const OrderSummary = ({
       }
       
       console.log("Email sent successfully:", data);
-      
-      // Update the items as sold
-      updateItemsAsSold();
       
       setTimeout(() => {
         onClearCart();

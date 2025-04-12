@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -13,52 +13,21 @@ interface ImageCarouselProps {
 const ImageCarousel = ({ images, title, onClick, className }: ImageCarouselProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [imageError, setImageError] = useState<Record<number, boolean>>({});
-  const [slideDirection, setSlideDirection] = useState<'left' | 'right' | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const handlePrevious = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (isTransitioning) return;
-    
-    setSlideDirection('right');
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
-    }, 10);
+    setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
   };
 
   const handleNext = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (isTransitioning) return;
-    
-    setSlideDirection('left');
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-    }, 10);
+    setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
 
   const handleDotClick = (index: number, e: React.MouseEvent) => {
     e.stopPropagation();
-    if (isTransitioning || index === currentImageIndex) return;
-    
-    setSlideDirection(index > currentImageIndex ? 'left' : 'right');
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setCurrentImageIndex(index);
-    }, 10);
+    setCurrentImageIndex(index);
   };
-
-  useEffect(() => {
-    if (isTransitioning) {
-      const timer = setTimeout(() => {
-        setIsTransitioning(false);
-        setSlideDirection(null);
-      }, 300); // Match this with the CSS transition duration
-      
-      return () => clearTimeout(timer);
-    }
-  }, [isTransitioning]);
 
   const handleImageError = (index: number) => {
     console.error(`Failed to load image at index ${index} for item: ${title}`);
@@ -89,23 +58,12 @@ const ImageCarousel = ({ images, title, onClick, className }: ImageCarouselProps
       className={cn("relative h-full w-full overflow-hidden", className)}
       onClick={onClick}
     >
-      <div 
-        className={cn(
-          "w-full h-full transition-transform duration-300 ease-in-out",
-          {
-            "transform translate-x-full": slideDirection === 'right' && isTransitioning,
-            "transform -translate-x-full": slideDirection === 'left' && isTransitioning,
-            "transform translate-x-0": !isTransitioning
-          }
-        )}
-      >
-        <img 
-          src={currentImageSrc} 
-          alt={`${title} - ${currentImageIndex + 1} of ${carouselImages.length}`} 
-          onError={() => handleImageError(currentImageIndex)}
-          className="w-full h-full object-cover"
-        />
-      </div>
+      <img 
+        src={currentImageSrc} 
+        alt={`${title} - ${currentImageIndex + 1} of ${carouselImages.length}`} 
+        onError={() => handleImageError(currentImageIndex)}
+        className="w-full h-full object-cover transition-transform hover:scale-105"
+      />
       
       {/* Navigation Arrows */}
       <button 

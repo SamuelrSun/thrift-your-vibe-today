@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Heart, ShoppingCart, Check, ChevronDown, ChevronUp } from 'lucide-react';
 import Button from '../../shared/Button';
@@ -18,14 +19,14 @@ const ItemCard = ({ item }: ItemCardProps) => {
   const { addToCart, isItemInCart } = useCart();
   const { likeItem, unlikeItem, isItemLiked } = useLikes();
   
+  // Generate a unique identifier based on item properties for cart/likes functionality
   const getItemIdentifier = (item: Item) => {
     return `${item.brand}-${item.title}-${item.size}`.toLowerCase().replace(/[^a-z0-9]/g, '-');
   };
   
-  const itemId = item.item_id || getItemIdentifier(item);
+  const itemId = getItemIdentifier(item);
   const inCart = isItemInCart(itemId);
   const isLiked = isItemLiked(itemId);
-  const isSold = item.sold === true;
 
   const isSpecialPurchaseItem = (item: Item) => {
     const specialItems = [
@@ -46,7 +47,7 @@ const ItemCard = ({ item }: ItemCardProps) => {
   const handleAddToCart = async (e: React.MouseEvent) => {
     e.stopPropagation();
     
-    if (isSpecialPurchaseItem(item) || isSold) {
+    if (isSpecialPurchaseItem(item)) {
       return;
     }
     
@@ -58,13 +59,12 @@ const ItemCard = ({ item }: ItemCardProps) => {
       item_id: itemId,
       title: item.title,
       brand: item.brand,
-      price: typeof item.price === 'number' ? item.price : parseFloat(String(item.price).replace('$', '')),
+      price: typeof item.price === 'number' ? item.price : 0,
       size: item.size,
       condition: item.condition,
       image_url: item.images[0] || '',
       sex: item.sex,
-      category: item.category,
-      sold: item.sold
+      category: item.category
     });
     
     setIsAddingToCart(false);
@@ -80,15 +80,14 @@ const ItemCard = ({ item }: ItemCardProps) => {
         item_id: itemId,
         title: item.title,
         brand: item.brand,
-        price: typeof item.price === 'number' ? item.price : parseFloat(String(item.price).replace('$', '')),
+        price: typeof item.price === 'number' ? item.price : 0,
         size: item.size,
         condition: item.condition,
         image_url: item.images[0] || '',
         description: item.description,
         images: item.images,
         sex: item.sex,
-        category: item.category,
-        sold: item.sold
+        category: item.category
       });
     }
   };
@@ -123,12 +122,6 @@ const ItemCard = ({ item }: ItemCardProps) => {
                 images={item.images} 
                 title={item.title} 
               />
-              
-              {isSold && (
-                <div className="absolute top-0 right-0 left-0 bg-gray-800/70 text-white font-bold py-1 px-3 text-center">
-                  SOLD
-                </div>
-              )}
             </div>
             <div className="p-4 h-[12%] border-t border-thrift-lightgray flex justify-between items-center">
               <p className="font-medium text-lg">{priceDisplay}</p>
@@ -189,14 +182,6 @@ const ItemCard = ({ item }: ItemCardProps) => {
                     </span>
                   </div>
                 )}
-                
-                {isSold && (
-                  <div className="mt-2 inline-block">
-                    <span className="bg-gray-800 text-white font-bold px-3 py-1 rounded text-xs uppercase">
-                      Sold Out
-                    </span>
-                  </div>
-                )}
               </div>
             </div>
             <div className="flex gap-2 mt-4">
@@ -206,13 +191,6 @@ const ItemCard = ({ item }: ItemCardProps) => {
                   disabled={true}
                 >
                   Email for Purchasing
-                </Button>
-              ) : isSold ? (
-                <Button 
-                  className="w-full flex items-center justify-center gap-2 bg-gray-500/70"
-                  disabled={true}
-                >
-                  Sold Out
                 </Button>
               ) : (
                 <Button 

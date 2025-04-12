@@ -22,9 +22,8 @@ const CompactItemCard = ({ item, isSelected, onSelect }: CompactItemCardProps) =
     return `${item.brand}-${item.title}-${item.size}`.toLowerCase().replace(/[^a-z0-9]/g, '-');
   };
   
-  const itemId = item.item_id || getItemIdentifier(item);
+  const itemId = getItemIdentifier(item);
   const isLiked = isItemLiked(itemId);
-  const isSold = item.sold === true;
 
   const handleLike = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -37,15 +36,14 @@ const CompactItemCard = ({ item, isSelected, onSelect }: CompactItemCardProps) =
         item_id: itemId,
         title: item.title,
         brand: item.brand,
-        price: typeof item.price === 'number' ? item.price : parseFloat(String(item.price).replace('$', '')),
+        price: typeof item.price === 'number' ? item.price : 0,
         size: item.size,
         condition: item.condition,
         image_url: item.images[0] || '',
         description: item.description,
         images: item.images,
         sex: item.sex,
-        category: item.category,
-        sold: item.sold
+        category: item.category
       });
     }
   };
@@ -73,12 +71,6 @@ const CompactItemCard = ({ item, isSelected, onSelect }: CompactItemCardProps) =
           title={item.title}
           className="aspect-square"
         />
-        
-        {isSold && (
-          <div className="absolute top-0 right-0 left-0 bg-gray-800/70 text-white font-bold py-1 px-3 text-center">
-            SOLD
-          </div>
-        )}
         
         <Button 
           variant="ghost" 
