@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Heart } from 'lucide-react';
 import Button from '../Button';
@@ -17,7 +16,6 @@ const CompactItemCard = ({ item, isSelected, onSelect }: CompactItemCardProps) =
   const { isItemInCart } = useCart();
   const { likeItem, unlikeItem, isItemLiked } = useLikes();
   
-  // Generate a unique identifier based on item properties
   const getItemIdentifier = (item: Item) => {
     return `${item.brand}-${item.title}-${item.size}`.toLowerCase().replace(/[^a-z0-9]/g, '-');
   };
@@ -74,10 +72,8 @@ const CompactItemCard = ({ item, isSelected, onSelect }: CompactItemCardProps) =
         />
         
         {item.sold && (
-          <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-            <div className="bg-gray-200 text-gray-800 font-bold px-4 py-1 rounded transform -rotate-45 text-lg">
-              SOLD
-            </div>
+          <div className="absolute top-1/2 left-0 w-full bg-gray-500/50 text-white text-center py-2 uppercase tracking-wider text-sm z-10">
+            Sold
           </div>
         )}
         

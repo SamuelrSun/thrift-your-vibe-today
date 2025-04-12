@@ -18,7 +18,6 @@ const ItemCard = ({ item }: ItemCardProps) => {
   const { addToCart, isItemInCart } = useCart();
   const { likeItem, unlikeItem, isItemLiked } = useLikes();
   
-  // Generate a unique identifier based on item properties for cart/likes functionality
   const getItemIdentifier = (item: Item) => {
     return `${item.brand}-${item.title}-${item.size}`.toLowerCase().replace(/[^a-z0-9]/g, '-');
   };
@@ -125,10 +124,8 @@ const ItemCard = ({ item }: ItemCardProps) => {
               />
               
               {item.sold && (
-                <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                  <div className="bg-gray-200 text-gray-800 font-bold px-6 py-2 rounded transform -rotate-45 text-xl">
-                    SOLD
-                  </div>
+                <div className="absolute top-1/2 left-0 w-full bg-gray-500/50 text-white text-center py-2 uppercase tracking-wider text-sm z-10">
+                  Sold
                 </div>
               )}
             </div>
