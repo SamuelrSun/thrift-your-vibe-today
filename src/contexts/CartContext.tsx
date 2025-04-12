@@ -1,32 +1,23 @@
-
 import { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "./AuthContext";
 import { toast } from "@/hooks/use-toast";
+import { CartItem as ItemType } from "@/components/shared/ItemCard/types";
 
-export interface CartItem {
+export type CartItem = ItemType & { 
   id: string;
-  item_id: number;
-  title: string;
-  brand: string;
-  price: number;
-  size: string;
-  condition: string;
-  image_url: string;
   quantity: number;
-  sex?: 'men' | 'women' | 'unisex';
-  category?: string;
-}
+};
 
 type CartContextType = {
   cartItems: CartItem[];
   cartCount: number;
   isLoading: boolean;
-  addToCart: (item: Omit<CartItem, "id" | "quantity">) => Promise<boolean>;
+  addToCart: (item: Omit<ItemType, "id" | "quantity">) => Promise<boolean>;
   removeFromCart: (itemId: string) => Promise<void>;
   updateQuantity: (itemId: string, quantity: number) => Promise<void>;
   clearCart: () => Promise<void>;
-  isItemInCart: (itemId: number) => boolean;
+  isItemInCart: (itemId: string | number) => boolean;
 };
 
 export const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -55,7 +46,12 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
             throw error;
           }
 
-          setCartItems(data as CartItem[]);
+          const typedData: CartItem[] = data.map(item => ({
+            ...item,
+            item_id: String(item.item_id)
+          }));
+
+          setCartItems(typedData);
         } catch (error) {
           console.error('Error fetching cart items:', error);
           toast({
@@ -94,8 +90,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
   }, [cartItems, user, isLoading]);
 
-  const addToCart = async (item: Omit<CartItem, "id" | "quantity">): Promise<boolean> => {
-    const existingItem = cartItems.find(cartItem => cartItem.item_id === item.item_id);
+  const addToCart = async (item: Omit<ItemType, "id" | "quantity">): Promise<boolean> => {
+    const itemIdStr = String(item.item_id);
+    const existingItem = cartItems.find(cartItem => String(cartItem.item_id) === itemIdStr);
 
     if (existingItem) {
       await updateQuantity(existingItem.id, existingItem.quantity + 1);
@@ -104,13 +101,16 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
     if (user) {
       try {
+        const dbItem = {
+          ...item,
+          item_id: typeof item.item_id === 'string' ? parseInt(item.item_id, 10) : item.item_id,
+          user_id: user.id,
+          quantity: 1,
+        };
+
         const { data, error } = await supabase
           .from('cart_items')
-          .insert({
-            ...item,
-            user_id: user.id,
-            quantity: 1,
-          })
+          .insert(dbItem)
           .select('*')
           .single();
 
@@ -118,7 +118,12 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
           throw error;
         }
 
-        setCartItems(prevItems => [...prevItems, data as CartItem]);
+        const newItem: CartItem = {
+          ...data,
+          item_id: String(data.item_id)
+        };
+
+        setCartItems(prevItems => [...prevItems, newItem]);
         
         toast({
           title: "Added to cart",
@@ -143,7 +148,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
           quantity: 1
         };
         
-        setCartItems(prevItems => [...prevItems, newItem]);
+        setCartItems(prevItems => [...prevItems, newItem as CartItem]);
         
         toast({
           title: "Added to cart",
@@ -217,8 +222,13 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
           throw error;
         }
 
+        const updatedItem: CartItem = {
+          ...data,
+          item_id: String(data.item_id)
+        };
+
         setCartItems(prevItems =>
-          prevItems.map(item => (item.id === itemId ? (data as CartItem) : item))
+          prevItems.map(item => (item.id === itemId ? updatedItem : item))
         );
       } catch (error) {
         console.error('Error updating item quantity:', error);
@@ -271,8 +281,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const isItemInCart = (itemId: number) => {
-    return cartItems.some(item => item.item_id === itemId);
+  const isItemInCart = (itemId: string | number) => {
+    const itemIdStr = String(itemId);
+    return cartItems.some(item => String(item.item_id) === itemIdStr);
   };
 
   const value = {

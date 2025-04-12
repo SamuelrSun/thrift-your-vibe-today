@@ -36,7 +36,7 @@ const CompactItemCard = ({ item, isSelected, onSelect }: CompactItemCardProps) =
         item_id: itemId,
         title: item.title,
         brand: item.brand,
-        price: typeof item.price === 'number' ? item.price : 0,
+        price: typeof item.price === 'number' ? item.price : parseFloat(item.price),
         size: item.size,
         condition: item.condition,
         image_url: item.images[0] || '',

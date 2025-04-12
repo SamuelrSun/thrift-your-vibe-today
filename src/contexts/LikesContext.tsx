@@ -1,3 +1,4 @@
+
 import { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "./AuthContext";
@@ -10,8 +11,8 @@ type LikesContextType = {
   likedItems: LikedItem[];
   isLoading: boolean;
   likeItem: (item: Omit<LikedItem, "id" | "created_at">) => Promise<boolean>;
-  unlikeItem: (itemId: string) => Promise<void>;
-  isItemLiked: (itemId: string) => boolean;
+  unlikeItem: (itemId: string | number) => Promise<void>;
+  isItemLiked: (itemId: string | number) => boolean;
 };
 
 export const LikesContext = createContext<LikesContextType | undefined>(undefined);
@@ -38,7 +39,13 @@ export function LikesProvider({ children }: { children: React.ReactNode }) {
             throw error;
           }
 
-          setLikedItems(data as LikedItem[]);
+          // Convert data to the expected LikedItem type, handling item_id type conversions
+          const typedData: LikedItem[] = data.map(item => ({
+            ...item,
+            item_id: String(item.item_id) // Convert number to string
+          }));
+
+          setLikedItems(typedData);
         } catch (error) {
           console.error('Error fetching liked items:', error);
           toast({
@@ -80,12 +87,16 @@ export function LikesProvider({ children }: { children: React.ReactNode }) {
   const likeItem = async (item: Omit<LikedItem, "id" | "created_at">): Promise<boolean> => {
     if (user) {
       try {
+        // Convert item_id to number for database insertion
+        const dbItem = {
+          ...item,
+          item_id: typeof item.item_id === 'string' ? parseInt(item.item_id, 10) : item.item_id,
+          user_id: user.id,
+        };
+
         const { data, error } = await supabase
           .from('liked_items')
-          .insert({
-            ...item,
-            user_id: user.id,
-          })
+          .insert(dbItem)
           .select('*')
           .single();
 
@@ -100,7 +111,13 @@ export function LikesProvider({ children }: { children: React.ReactNode }) {
           throw error;
         }
 
-        setLikedItems(prevItems => [...prevItems, data as LikedItem]);
+        // Convert back to our expected format with string item_id
+        const newItem: LikedItem = {
+          ...data,
+          item_id: String(data.item_id)
+        };
+
+        setLikedItems(prevItems => [...prevItems, newItem]);
         
         toast({
           title: "Added to likes",
@@ -145,20 +162,25 @@ export function LikesProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const unlikeItem = async (itemId: string) => {
+  const unlikeItem = async (itemId: string | number) => {
+    const itemIdStr = String(itemId);
+    
     if (user) {
       try {
+        // Convert itemId to number for database query
+        const dbItemId = typeof itemId === 'string' ? parseInt(itemId, 10) : itemId;
+        
         const { error } = await supabase
           .from('liked_items')
           .delete()
-          .eq('item_id', itemId)
+          .eq('item_id', dbItemId)
           .eq('user_id', user.id);
 
         if (error) {
           throw error;
         }
 
-        setLikedItems(prevItems => prevItems.filter(item => item.item_id !== itemId));
+        setLikedItems(prevItems => prevItems.filter(item => String(item.item_id) !== itemIdStr));
         
         toast({
           title: "Removed from likes",
@@ -173,7 +195,7 @@ export function LikesProvider({ children }: { children: React.ReactNode }) {
         });
       }
     } else {
-      setLikedItems(prevItems => prevItems.filter(item => item.item_id !== itemId));
+      setLikedItems(prevItems => prevItems.filter(item => String(item.item_id) !== itemIdStr));
       
       toast({
         title: "Removed from likes",
@@ -182,8 +204,9 @@ export function LikesProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const isItemLiked = (itemId: string) => {
-    return likedItems.some(item => item.item_id === itemId);
+  const isItemLiked = (itemId: string | number) => {
+    const itemIdStr = String(itemId);
+    return likedItems.some(item => String(item.item_id) === itemIdStr);
   };
 
   const value = {

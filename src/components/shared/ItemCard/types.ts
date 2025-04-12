@@ -14,7 +14,7 @@ export interface Item {
 }
 
 export interface CartItem {
-  item_id?: string;
+  item_id: string | number;
   title: string;
   brand: string;
   price: number;
@@ -28,7 +28,7 @@ export interface CartItem {
 
 export interface LikedItem {
   id?: string;
-  item_id: string;
+  item_id: string | number;
   title: string;
   brand: string;
   price: number;
@@ -37,7 +37,7 @@ export interface LikedItem {
   image_url: string;
   description: string;
   created_at?: string;
-  images?: string[]; // Add images property
+  images?: string[];
   sex?: 'men' | 'women' | 'unisex';
   category?: string;
   sold?: boolean;
