@@ -43,7 +43,8 @@ const CompactItemCard = ({ item, isSelected, onSelect }: CompactItemCardProps) =
         description: item.description,
         images: item.images,
         sex: item.sex,
-        category: item.category
+        category: item.category,
+        sold: item.sold
       });
     }
   };
@@ -71,6 +72,14 @@ const CompactItemCard = ({ item, isSelected, onSelect }: CompactItemCardProps) =
           title={item.title}
           className="aspect-square"
         />
+        
+        {item.sold && (
+          <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+            <div className="bg-gray-200 text-gray-800 font-bold px-4 py-1 rounded transform -rotate-45 text-lg">
+              SOLD
+            </div>
+          </div>
+        )}
         
         <Button 
           variant="ghost" 

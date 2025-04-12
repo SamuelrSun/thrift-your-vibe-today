@@ -47,7 +47,7 @@ const ItemCard = ({ item }: ItemCardProps) => {
   const handleAddToCart = async (e: React.MouseEvent) => {
     e.stopPropagation();
     
-    if (isSpecialPurchaseItem(item)) {
+    if (isSpecialPurchaseItem(item) || item.sold) {
       return;
     }
     
@@ -64,7 +64,8 @@ const ItemCard = ({ item }: ItemCardProps) => {
       condition: item.condition,
       image_url: item.images[0] || '',
       sex: item.sex,
-      category: item.category
+      category: item.category,
+      sold: item.sold
     });
     
     setIsAddingToCart(false);
@@ -87,7 +88,8 @@ const ItemCard = ({ item }: ItemCardProps) => {
         description: item.description,
         images: item.images,
         sex: item.sex,
-        category: item.category
+        category: item.category,
+        sold: item.sold
       });
     }
   };
@@ -122,6 +124,14 @@ const ItemCard = ({ item }: ItemCardProps) => {
                 images={item.images} 
                 title={item.title} 
               />
+              
+              {item.sold && (
+                <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                  <div className="bg-gray-200 text-gray-800 font-bold px-6 py-2 rounded transform -rotate-45 text-xl">
+                    SOLD
+                  </div>
+                </div>
+              )}
             </div>
             <div className="p-4 h-[12%] border-t border-thrift-lightgray flex justify-between items-center">
               <p className="font-medium text-lg">{priceDisplay}</p>
@@ -185,7 +195,14 @@ const ItemCard = ({ item }: ItemCardProps) => {
               </div>
             </div>
             <div className="flex gap-2 mt-4">
-              {isSpecialPurchaseItem(item) ? (
+              {item.sold ? (
+                <Button 
+                  className="w-full flex items-center justify-center gap-2 bg-gray-400"
+                  disabled={true}
+                >
+                  Sold Out
+                </Button>
+              ) : isSpecialPurchaseItem(item) ? (
                 <Button 
                   className="w-full flex items-center justify-center gap-2 bg-thrift-sage/70"
                   disabled={true}
