@@ -16,7 +16,7 @@ const LikedItemsList = ({ items, selectedItemId, onSelectItem }: LikedItemsListP
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {items.map(item => (
           <CompactItemCard 
-            key={item.item_id} 
+            key={String(item.item_id)} 
             item={{
               title: item.title,
               brand: item.brand,
@@ -26,10 +26,11 @@ const LikedItemsList = ({ items, selectedItemId, onSelectItem }: LikedItemsListP
               images: item.images || [item.image_url], // Convert image_url to images array
               description: item.description,
               sex: item.sex,
-              category: item.category
+              category: item.category,
+              sold: item.sold
             }} 
-            isSelected={selectedItemId === item.item_id}
-            onSelect={() => onSelectItem(item.item_id)} 
+            isSelected={selectedItemId === String(item.item_id)}
+            onSelect={() => onSelectItem(String(item.item_id))} 
           />
         ))}
       </div>

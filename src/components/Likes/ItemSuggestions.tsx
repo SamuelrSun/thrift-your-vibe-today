@@ -25,7 +25,7 @@ const ItemSuggestions = ({ selectedItemId, fallbackItemId }: ItemSuggestionsProp
     
     if (itemId) {
       // Find the selected item
-      const selectedItem = likedItems.find(item => item.item_id === itemId);
+      const selectedItem = likedItems.find(item => String(item.item_id) === itemId);
       
       if (selectedItem) {
         // Generate similar item recommendations (in a real app, this would be an API call)
@@ -53,7 +53,7 @@ const ItemSuggestions = ({ selectedItemId, fallbackItemId }: ItemSuggestionsProp
     return null;
   }
   
-  const selectedItem = likedItems.find(item => item.item_id === activeItemId);
+  const selectedItem = likedItems.find(item => String(item.item_id) === activeItemId);
   
   if (!selectedItem) {
     return null;
@@ -69,7 +69,8 @@ const ItemSuggestions = ({ selectedItemId, fallbackItemId }: ItemSuggestionsProp
     images: item.images || [item.image_url], // Use image_url as fallback
     description: item.description,
     sex: item.sex,
-    category: item.category
+    category: item.category,
+    sold: item.sold
   });
   
   return (

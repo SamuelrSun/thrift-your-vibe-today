@@ -56,7 +56,7 @@ const LikesPage = () => {
           <div className="lg:w-1/2">
             <ItemSuggestions 
               selectedItemId={selectedItemId} 
-              fallbackItemId={likedItems[0]?.item_id || null}
+              fallbackItemId={likedItems.length > 0 ? String(likedItems[0].item_id) : null}
             />
           </div>
         </div>
