@@ -14,7 +14,7 @@ export interface Item {
 }
 
 export interface CartItem {
-  item_id?: string;
+  item_id: string;
   title: string;
   brand: string;
   price: number;
