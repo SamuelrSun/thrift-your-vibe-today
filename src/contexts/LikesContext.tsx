@@ -1,30 +1,17 @@
-
 import { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "./AuthContext";
 import { toast } from "@/hooks/use-toast";
+import { LikedItem as ItemType } from "@/components/shared/ItemCard/types";
 
-export interface LikedItem {
-  id: string;
-  item_id: number;
-  title: string;
-  brand: string;
-  price: number;
-  size: string;
-  condition: string;
-  image_url: string;
-  description: string;
-  created_at: string;
-  sex?: 'men' | 'women' | 'unisex';
-  category?: string;
-}
+export type LikedItem = ItemType;
 
 type LikesContextType = {
   likedItems: LikedItem[];
   isLoading: boolean;
   likeItem: (item: Omit<LikedItem, "id" | "created_at">) => Promise<boolean>;
-  unlikeItem: (itemId: number) => Promise<void>;
-  isItemLiked: (itemId: number) => boolean;
+  unlikeItem: (itemId: string) => Promise<void>;
+  isItemLiked: (itemId: string) => boolean;
 };
 
 export const LikesContext = createContext<LikesContextType | undefined>(undefined);
@@ -158,7 +145,7 @@ export function LikesProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const unlikeItem = async (itemId: number) => {
+  const unlikeItem = async (itemId: string) => {
     if (user) {
       try {
         const { error } = await supabase
@@ -195,7 +182,7 @@ export function LikesProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const isItemLiked = (itemId: number) => {
+  const isItemLiked = (itemId: string) => {
     return likedItems.some(item => item.item_id === itemId);
   };
 

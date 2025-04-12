@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 
 const LikesPage = () => {
   const { likedItems, isLoading } = useLikes();
-  const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
+  const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
 
   if (isLoading) {
     return (

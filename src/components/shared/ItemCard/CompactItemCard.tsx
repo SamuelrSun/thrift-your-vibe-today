@@ -9,9 +9,11 @@ import ImageCarousel from './ImageCarousel';
 
 interface CompactItemCardProps {
   item: Item;
+  isSelected?: boolean;
+  onSelect?: () => void;
 }
 
-const CompactItemCard = ({ item }: CompactItemCardProps) => {
+const CompactItemCard = ({ item, isSelected, onSelect }: CompactItemCardProps) => {
   const { isItemInCart } = useCart();
   const { likeItem, unlikeItem, isItemLiked } = useLikes();
   
@@ -39,9 +41,16 @@ const CompactItemCard = ({ item }: CompactItemCardProps) => {
         condition: item.condition,
         image_url: item.images[0] || '',
         description: item.description,
+        images: item.images,
         sex: item.sex,
         category: item.category
       });
+    }
+  };
+
+  const handleClick = () => {
+    if (onSelect) {
+      onSelect();
     }
   };
 
@@ -52,7 +61,10 @@ const CompactItemCard = ({ item }: CompactItemCardProps) => {
   const priceDisplay = typeof item.price === 'number' ? `$${item.price}` : item.price;
 
   return (
-    <div className="rounded-lg shadow-sm hover:shadow-md transition-shadow bg-white overflow-hidden border border-thrift-lightgray">
+    <div 
+      className={`rounded-lg shadow-sm hover:shadow-md transition-shadow bg-white overflow-hidden border border-thrift-lightgray ${isSelected ? 'ring-2 ring-thrift-terracotta' : ''}`}
+      onClick={handleClick}
+    >
       <div className="relative aspect-square overflow-hidden">
         <ImageCarousel 
           images={item.images} 

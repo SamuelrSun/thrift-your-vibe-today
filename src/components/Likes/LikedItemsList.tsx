@@ -1,12 +1,12 @@
 
 import { useLikes } from '@/contexts/LikesContext';
 import CompactItemCard from '../shared/ItemCard/CompactItemCard';
-import { LikedItem } from '@/contexts/LikesContext';
+import { LikedItem } from '@/components/shared/ItemCard/types';
 
 interface LikedItemsListProps {
   items: LikedItem[];
-  selectedItemId: number | null;
-  onSelectItem: (itemId: number) => void;
+  selectedItemId: string | null;
+  onSelectItem: (itemId: string) => void;
 }
 
 const LikedItemsList = ({ items, selectedItemId, onSelectItem }: LikedItemsListProps) => {
@@ -16,8 +16,18 @@ const LikedItemsList = ({ items, selectedItemId, onSelectItem }: LikedItemsListP
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {items.map(item => (
           <CompactItemCard 
-            key={item.id} 
-            item={item} 
+            key={item.item_id} 
+            item={{
+              title: item.title,
+              brand: item.brand,
+              price: item.price,
+              size: item.size,
+              condition: item.condition,
+              images: item.images || [item.image_url], // Convert image_url to images array
+              description: item.description,
+              sex: item.sex,
+              category: item.category
+            }} 
             isSelected={selectedItemId === item.item_id}
             onSelect={() => onSelectItem(item.item_id)} 
           />

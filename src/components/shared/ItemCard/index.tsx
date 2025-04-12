@@ -85,6 +85,7 @@ const ItemCard = ({ item }: ItemCardProps) => {
         condition: item.condition,
         image_url: item.images[0] || '',
         description: item.description,
+        images: item.images,
         sex: item.sex,
         category: item.category
       });

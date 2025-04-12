@@ -1,6 +1,5 @@
-
 import { useState } from 'react';
-import { Item } from '../components/shared/ItemCard';
+import { Item } from '../components/shared/ItemCard/types';
 
 export interface FilterState {
   priceMin: number | '';
