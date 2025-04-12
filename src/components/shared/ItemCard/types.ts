@@ -24,7 +24,7 @@ export interface CartItem {
   image_url: string;
   sex?: 'men' | 'women' | 'unisex';
   category?: string;
-  sold?: boolean;
+  sold?: boolean; // Add sold property here
 }
 
 export interface LikedItem {
@@ -43,4 +43,3 @@ export interface LikedItem {
   category?: string;
   sold?: boolean;
 }
-

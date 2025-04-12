@@ -1,3 +1,4 @@
+
 import { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "./AuthContext";
@@ -15,6 +16,7 @@ export interface CartItem {
   quantity: number;
   sex?: 'men' | 'women' | 'unisex';
   category?: string;
+  sold?: boolean;  // Add the sold property
 }
 
 type CartContextType = {
@@ -54,7 +56,13 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
             throw error;
           }
 
-          setCartItems(data as CartItem[]);
+          // Convert the item_id from number to string for each database item
+          const cartItemsWithStringIds = data.map(item => ({
+            ...item,
+            item_id: String(item.item_id)
+          })) as CartItem[];
+
+          setCartItems(cartItemsWithStringIds);
         } catch (error) {
           console.error('Error fetching cart items:', error);
           toast({
@@ -103,10 +111,12 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
     if (user) {
       try {
+        // Convert item_id to number for Supabase storage
         const { data, error } = await supabase
           .from('cart_items')
           .insert({
             ...item,
+            item_id: parseInt(item.item_id), // Convert to number for database
             user_id: user.id,
             quantity: 1,
           })
@@ -117,7 +127,13 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
           throw error;
         }
 
-        setCartItems(prevItems => [...prevItems, data as CartItem]);
+        // Convert item_id back to string for our app
+        const cartItem = {
+          ...data,
+          item_id: String(data.item_id)
+        } as CartItem;
+
+        setCartItems(prevItems => [...prevItems, cartItem]);
         
         toast({
           title: "Added to cart",
@@ -216,8 +232,14 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
           throw error;
         }
 
+        // Convert item_id back to string
+        const updatedItem = {
+          ...data,
+          item_id: String(data.item_id)
+        } as CartItem;
+
         setCartItems(prevItems =>
-          prevItems.map(item => (item.id === itemId ? (data as CartItem) : item))
+          prevItems.map(item => (item.id === itemId ? updatedItem : item))
         );
       } catch (error) {
         console.error('Error updating item quantity:', error);

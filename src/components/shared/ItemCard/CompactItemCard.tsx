@@ -22,7 +22,7 @@ const CompactItemCard = ({ item, isSelected, onSelect }: CompactItemCardProps) =
     return `${item.brand}-${item.title}-${item.size}`.toLowerCase().replace(/[^a-z0-9]/g, '-');
   };
   
-  const itemId = getItemIdentifier(item);
+  const itemId = item.item_id || getItemIdentifier(item);
   const isLiked = isItemLiked(itemId);
   const isSold = item.sold === true;
 
