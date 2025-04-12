@@ -68,7 +68,8 @@ export const inventory: Item[] = [
     description: 'AMI Paris cardigan in black wool with the signature red Ami de Coeur logo on the chest. Features a classic V-neck, button front closure, and ribbed cuffs and hem. A cozy yet elevated staple perfect for layering.',
     sex: 'unisex',
     category: 'tops',
-    fake: true
+    fake: true,
+    sold: true
   },
   {
     title: 'Columbia Jacket',
