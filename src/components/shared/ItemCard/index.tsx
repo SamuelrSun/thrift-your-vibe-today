@@ -124,7 +124,7 @@ const ItemCard = ({ item }: ItemCardProps) => {
               />
               
               {item.sold && (
-                <div className="absolute top-1/2 left-0 w-full bg-gray-500/50 text-white text-center py-2 uppercase tracking-wider text-sm z-10">
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3/4 bg-gray-500/50 text-white text-center py-2 uppercase tracking-wider text-sm z-10">
                   Sold
                 </div>
               )}
