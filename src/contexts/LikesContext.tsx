@@ -1,3 +1,4 @@
+
 import { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "./AuthContext";
@@ -38,7 +39,13 @@ export function LikesProvider({ children }: { children: React.ReactNode }) {
             throw error;
           }
 
-          setLikedItems(data as LikedItem[]);
+          // Convert database item_id (number) to string for frontend use
+          const convertedData = data.map(item => ({
+            ...item,
+            item_id: String(item.item_id)
+          })) as LikedItem[];
+
+          setLikedItems(convertedData);
         } catch (error) {
           console.error('Error fetching liked items:', error);
           toast({
@@ -80,12 +87,16 @@ export function LikesProvider({ children }: { children: React.ReactNode }) {
   const likeItem = async (item: Omit<LikedItem, "id" | "created_at">): Promise<boolean> => {
     if (user) {
       try {
+        // Convert string item_id to number for database
+        const dbItem = {
+          ...item,
+          item_id: parseInt(item.item_id),
+          user_id: user.id,
+        };
+
         const { data, error } = await supabase
           .from('liked_items')
-          .insert({
-            ...item,
-            user_id: user.id,
-          })
+          .insert(dbItem)
           .select('*')
           .single();
 
@@ -100,7 +111,13 @@ export function LikesProvider({ children }: { children: React.ReactNode }) {
           throw error;
         }
 
-        setLikedItems(prevItems => [...prevItems, data as LikedItem]);
+        // Convert the item_id back to string for frontend use
+        const convertedData = {
+          ...data,
+          item_id: String(data.item_id)
+        } as LikedItem;
+
+        setLikedItems(prevItems => [...prevItems, convertedData]);
         
         toast({
           title: "Added to likes",
@@ -148,10 +165,13 @@ export function LikesProvider({ children }: { children: React.ReactNode }) {
   const unlikeItem = async (itemId: string) => {
     if (user) {
       try {
+        // Convert string itemId to number for database query
+        const dbItemId = parseInt(itemId);
+        
         const { error } = await supabase
           .from('liked_items')
           .delete()
-          .eq('item_id', itemId)
+          .eq('item_id', dbItemId)
           .eq('user_id', user.id);
 
         if (error) {
