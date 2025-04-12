@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Heart, ShoppingCart, Check, ChevronDown, ChevronUp } from 'lucide-react';
 import Button from '../../shared/Button';
@@ -19,12 +18,11 @@ const ItemCard = ({ item }: ItemCardProps) => {
   const { addToCart, isItemInCart } = useCart();
   const { likeItem, unlikeItem, isItemLiked } = useLikes();
   
-  // Generate a unique identifier based on item properties for cart/likes functionality
   const getItemIdentifier = (item: Item) => {
     return `${item.brand}-${item.title}-${item.size}`.toLowerCase().replace(/[^a-z0-9]/g, '-');
   };
   
-  const itemId = getItemIdentifier(item);
+  const itemId = item.item_id || getItemIdentifier(item);
   const inCart = isItemInCart(itemId);
   const isLiked = isItemLiked(itemId);
   const isSold = item.sold === true;

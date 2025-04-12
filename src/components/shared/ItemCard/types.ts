@@ -11,6 +11,7 @@ export interface Item {
   category?: string;
   fake?: boolean;
   sold?: boolean;
+  item_id?: string;  // Add optional item_id to Item interface
 }
 
 export interface CartItem {
@@ -42,3 +43,4 @@ export interface LikedItem {
   category?: string;
   sold?: boolean;
 }
+

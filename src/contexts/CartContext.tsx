@@ -1,4 +1,3 @@
-
 import { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "./AuthContext";
@@ -6,7 +5,7 @@ import { toast } from "@/hooks/use-toast";
 
 export interface CartItem {
   id: string;
-  item_id: number;
+  item_id: string;
   title: string;
   brand: string;
   price: number;
@@ -26,7 +25,7 @@ type CartContextType = {
   removeFromCart: (itemId: string) => Promise<void>;
   updateQuantity: (itemId: string, quantity: number) => Promise<void>;
   clearCart: () => Promise<void>;
-  isItemInCart: (itemId: number) => boolean;
+  isItemInCart: (itemId: string) => boolean;
 };
 
 export const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -271,7 +270,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const isItemInCart = (itemId: number) => {
+  const isItemInCart = (itemId: string) => {
     return cartItems.some(item => item.item_id === itemId);
   };
 
