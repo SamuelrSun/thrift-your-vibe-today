@@ -26,7 +26,8 @@ const LikedItemsList = ({ items, selectedItemId, onSelectItem }: LikedItemsListP
               images: item.images || [item.image_url], // Convert image_url to images array
               description: item.description,
               sex: item.sex,
-              category: item.category
+              category: item.category,
+              sold: item.sold
             }} 
             isSelected={selectedItemId === item.item_id}
             onSelect={() => onSelectItem(item.item_id)} 

@@ -10,6 +10,7 @@ export interface Item {
   sex?: 'men' | 'women' | 'unisex';
   category?: string;
   fake?: boolean;
+  sold?: boolean;
 }
 
 export interface CartItem {
@@ -22,6 +23,7 @@ export interface CartItem {
   image_url: string;
   sex?: 'men' | 'women' | 'unisex';
   category?: string;
+  sold?: boolean;
 }
 
 export interface LikedItem {
@@ -35,7 +37,8 @@ export interface LikedItem {
   image_url: string;
   description: string;
   created_at?: string;
-  images?: string[]; // Add images property
+  images?: string[];
   sex?: 'men' | 'women' | 'unisex';
   category?: string;
+  sold?: boolean;
 }
