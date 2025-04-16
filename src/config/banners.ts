@@ -69,5 +69,6 @@ export const banners: Banner[] = [
       active: true,
       endDate: new Date('2025-04-20T16:00:00'),
       displayText: "Sunday, April 20th"
-  },
+    }
+  }
 ];
