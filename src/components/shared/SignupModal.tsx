@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { X } from 'lucide-react';
@@ -72,17 +73,9 @@ const SignupModal = ({ open, onOpenChange }: SignupModalProps) => {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md p-0 overflow-hidden border-0 bg-white rounded-lg">
         <div className="relative">
-          {/* Close button */}
-          <button 
-            onClick={() => onOpenChange(false)} 
-            className="absolute right-4 top-4 z-10 text-gray-500 hover:text-gray-700"
-          >
-            <X className="h-5 w-5" />
-            <span className="sr-only">Close</span>
-          </button>
+          {/* Removed redundant close button */}
           
           <div className="p-6 flex flex-col items-center">
-            {/* Logo in circle */}
             <Avatar className="h-20 w-20 mb-4 bg-thrift-cream border-2 border-thrift-sage">
               <AvatarImage src="/favicon.png" alt="ThriftSC Logo" />
               <AvatarFallback className="bg-thrift-sage text-white text-lg">
