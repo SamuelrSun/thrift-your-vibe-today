@@ -30,7 +30,9 @@ const OrderSummary = ({
   const [phone, setPhone] = useState("");
   const [paymentImage, setPaymentImage] = useState<File | null>(null);
   const [isSending, setIsSending] = useState(false);
-  
+  const [discountCode, setDiscountCode] = useState("");
+  const [appliedDiscount, setAppliedDiscount] = useState<DiscountCode | undefined>();
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setPaymentImage(e.target.files[0]);
@@ -114,6 +116,27 @@ const OrderSummary = ({
     }
   };
 
+  const handleApplyDiscount = () => {
+    const discount = isValidDiscountCode(discountCode);
+    if (discount) {
+      setAppliedDiscount(discount);
+      toast({
+        title: "Discount applied!",
+        description: `${discount.percentOff}% off has been applied to your order.`
+      });
+    } else {
+      toast({
+        title: "Invalid discount code",
+        description: "Please check your code and try again.",
+        variant: "destructive"
+      });
+    }
+  };
+
+  const finalPrice = appliedDiscount 
+    ? totalPrice * (1 - appliedDiscount.percentOff / 100) 
+    : totalPrice;
+
   return (
     <Card className="p-5">
       <h2 className="text-xl font-medium mb-4">Order Summary</h2>
@@ -124,11 +147,37 @@ const OrderSummary = ({
           <span>${subtotal?.toFixed(2) || '0.00'}</span>
         </div>
         
+        {appliedDiscount && (
+          <div className="flex justify-between text-green-600">
+            <span>Discount ({appliedDiscount.percentOff}% off)</span>
+            <span>-${(totalPrice * appliedDiscount.percentOff / 100).toFixed(2)}</span>
+          </div>
+        )}
+        
         <Separator className="my-2" />
         
         <div className="flex justify-between font-medium text-base">
           <span>Order total</span>
-          <span>${totalPrice?.toFixed(2) || '0.00'}</span>
+          <span>${finalPrice.toFixed(2)}</span>
+        </div>
+      </div>
+      
+      <div className="mt-4 space-y-2">
+        <Label htmlFor="discountCode">Discount Code</Label>
+        <div className="flex gap-2">
+          <Input
+            id="discountCode"
+            placeholder="Enter code"
+            value={discountCode}
+            onChange={(e) => setDiscountCode(e.target.value)}
+          />
+          <Button 
+            variant="outline" 
+            onClick={handleApplyDiscount}
+            type="button"
+          >
+            Apply
+          </Button>
         </div>
       </div>
       

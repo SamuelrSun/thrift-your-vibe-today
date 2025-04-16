@@ -71,3 +71,36 @@ Yes it is!
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+
+## Editing Product Data & UI Elements
+
+### Banners
+To edit or add promotional banners on the search page:
+1. Navigate to `src/config/banners.ts`
+2. Edit the `banners` array to modify existing banners or add new ones
+3. Each banner object supports:
+   - Basic info (title, description, contact)
+   - Styling (colors, borders)
+   - Icons (using lucide-react icons)
+   - Countdown timers
+   - Custom buttons and links
+
+### Discount Codes
+To manage discount codes for the cart:
+1. Open `src/config/discounts.ts`
+2. Edit the `discountCodes` array to:
+   - Add new discount codes
+   - Modify discount percentages
+   - Set expiration dates
+   - Add descriptions
+
+### Product Inventory
+To update product listings:
+1. Go to `src/components/Search/searchData.ts`
+2. Modify the `inventory` array to:
+   - Add new products
+   - Update existing products
+   - Set prices and availability
+   - Update images (store images in `/public`)
+   - Mark items as sold
+   - Add category tags
