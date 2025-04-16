@@ -1,19 +1,24 @@
+
 import React, { useState } from 'react';
 import { Heart, ShoppingCart, Check, ChevronDown, ChevronUp } from 'lucide-react';
 import Button from '../../shared/Button';
 import { useCart } from '@/contexts/CartContext';
 import { useLikes } from '@/contexts/LikesContext';
 import ImageCarousel from './ImageCarousel';
+import VisibilityToggle from './VisibilityToggle';
 import { Item } from './types';
 
 interface ItemCardProps {
   item: Item;
+  showVisibilityToggle?: boolean;
+  onVisibilityChange?: (itemId: string, visible: boolean) => void;
 }
 
-const ItemCard = ({ item }: ItemCardProps) => {
+const ItemCard = ({ item, showVisibilityToggle = false, onVisibilityChange }: ItemCardProps) => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
   const [showFullDescription, setShowFullDescription] = useState(false);
+  const [isVisible, setIsVisible] = useState(item.visible !== false); // Default to visible if not specified
 
   const { addToCart, isItemInCart } = useCart();
   const { likeItem, unlikeItem, isItemLiked } = useLikes();
@@ -97,6 +102,18 @@ const ItemCard = ({ item }: ItemCardProps) => {
     setShowFullDescription(!showFullDescription);
   };
 
+  const handleVisibilityChange = (visible: boolean) => {
+    setIsVisible(visible);
+    if (onVisibilityChange) {
+      onVisibilityChange(itemId, visible);
+    }
+  };
+
+  // If the item is not visible and we're not showing the visibility toggle, don't render the card
+  if (item.visible === false && !showVisibilityToggle) {
+    return null;
+  }
+
   const formattedTitle = item.title.toLowerCase().includes(item.brand.toLowerCase()) 
     ? item.title 
     : `${item.brand} ${item.title}`;
@@ -111,6 +128,13 @@ const ItemCard = ({ item }: ItemCardProps) => {
       className={`relative h-[400px] cursor-pointer perspective-1000 ${isFlipped ? 'flipped' : ''}`}
       onClick={handleFlip}
     >
+      {showVisibilityToggle && (
+        <VisibilityToggle 
+          visible={isVisible} 
+          onChange={handleVisibilityChange}
+        />
+      )}
+      
       <div className="absolute inset-0 w-full h-full transition-all duration-500 preserve-3d" style={{transform: isFlipped ? 'rotateY(180deg)' : ''}}>
         <div className="absolute inset-0 w-full h-full backface-hidden">
           <div className="rounded-lg overflow-hidden shadow-md h-full bg-white border border-thrift-lightgray">
@@ -126,6 +150,14 @@ const ItemCard = ({ item }: ItemCardProps) => {
               {item.sold && (
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3/4 bg-gray-500/50 text-white text-center py-2 uppercase tracking-wider text-sm z-10">
                   Sold
+                </div>
+              )}
+              
+              {item.visible === false && (
+                <div className="absolute top-0 left-0 w-full h-full bg-gray-900/30 z-10 flex items-center justify-center">
+                  <span className="bg-gray-900/70 text-white px-4 py-2 rounded text-sm uppercase tracking-wider">
+                    Hidden
+                  </span>
                 </div>
               )}
             </div>

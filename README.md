@@ -104,3 +104,30 @@ To update product listings:
    - Update images (store images in `/public`)
    - Mark items as sold
    - Add category tags
+
+### Product Visibility
+To manage product visibility:
+1. Add the `visible` property to products in `src/components/Search/searchData.ts`:
+   ```typescript
+   {
+     title: "New Product",
+     brand: "Brand Name",
+     // other properties
+     visible: false // Set to false to hide from customers but keep in database
+   }
+   ```
+2. To show products with visibility toggle in admin views:
+   ```typescript
+   <ItemCard 
+     item={product} 
+     showVisibilityToggle={true} 
+     onVisibilityChange={(itemId, visible) => {
+       // Handle visibility change
+       console.log(`Item ${itemId} visibility set to ${visible}`);
+     }}
+   />
+   ```
+3. Hidden products will:
+   - Not appear in search results for customers
+   - Show with a "Hidden" overlay in admin views
+   - Have a visibility toggle (eye/eye-off icon) that can be clicked to change status

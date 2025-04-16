@@ -11,6 +11,7 @@ export interface Item {
   category?: string;
   fake?: boolean;
   sold?: boolean;
+  visible?: boolean;
 }
 
 export interface CartItem {

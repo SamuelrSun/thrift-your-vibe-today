@@ -13,6 +13,7 @@ interface ImageCarouselProps {
 const ImageCarousel = ({ images, title, onClick, className }: ImageCarouselProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [imageError, setImageError] = useState<Record<number, boolean>>({});
+  const [isHovering, setIsHovering] = useState(false);
 
   const handlePrevious = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -57,6 +58,8 @@ const ImageCarousel = ({ images, title, onClick, className }: ImageCarouselProps
     <div 
       className={cn("relative h-full w-full overflow-hidden", className)}
       onClick={onClick}
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
     >
       <img 
         src={currentImageSrc} 
@@ -65,22 +68,26 @@ const ImageCarousel = ({ images, title, onClick, className }: ImageCarouselProps
         className="w-full h-full object-cover transition-transform hover:scale-105"
       />
       
-      {/* Navigation Arrows */}
-      <button 
-        className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white rounded-full p-1 transition-colors"
-        onClick={handlePrevious}
-        aria-label="Previous image"
-      >
-        <ChevronLeft className="h-5 w-5" />
-      </button>
-      
-      <button 
-        className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white rounded-full p-1 transition-colors"
-        onClick={handleNext}
-        aria-label="Next image"
-      >
-        <ChevronRight className="h-5 w-5" />
-      </button>
+      {/* Navigation Arrows - Only visible on hover */}
+      {isHovering && (
+        <>
+          <button 
+            className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white rounded-full p-1 transition-colors animate-fade-in"
+            onClick={handlePrevious}
+            aria-label="Previous image"
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </button>
+          
+          <button 
+            className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white rounded-full p-1 transition-colors animate-fade-in"
+            onClick={handleNext}
+            aria-label="Next image"
+          >
+            <ChevronRight className="h-5 w-5" />
+          </button>
+        </>
+      )}
       
       {/* Pagination Dots */}
       <div className="absolute bottom-2 left-0 right-0 flex justify-center space-x-1">
