@@ -25,7 +25,7 @@ export const banners: Banner[] = [
   {
     id: 1,
     title: "Pop-up on Trousdale Crosswalk",
-    description: "Our first pop-up will be this Thursday, April 10th from 8am-4pm!",
+    description: "Our next pop-up will be this Thursday, April 17th from 8am-3pm!",
     contactInfo: "info@thriftsc.com",
     buttonText: "Get Details",
     buttonLink: "/events/trousdale-popup",
@@ -36,8 +36,8 @@ export const banners: Banner[] = [
     iconLabel: "Upcoming Event",
     countdown: {
       active: true,
-      endDate: new Date('2025-04-10T16:00:00'),
-      displayText: "Thursday, April 10th"
+      endDate: new Date('2025-04-17T16:00:00'),
+      displayText: "Thursday, April 17th"
     }
   },
   {
@@ -52,5 +52,22 @@ export const banners: Banner[] = [
     textColor: "text-thrift-charcoal",
     icon: SwatchBook,
     iconLabel: "Consignment Service",
+  },
+  {
+    id: 3,
+    title: "Want 10% off?",
+    description: "Sign up now with your USC email for 10% off your first purchase!",
+    contactInfo: "info@thriftsc.com",
+    buttonText: "Sign Up",
+    buttonLink: "/consignment",
+    color: "bg-gradient-to-r from-thrift-sage/10 to-thrift-sage/20",
+    borderColor: "border-thrift-sage",
+    textColor: "text-thrift-charcoal",
+    icon: ShoppingBag,
+    iconLabel: "Limited-Time Discount",
+    countdown: {
+      active: true,
+      endDate: new Date('2025-04-20T16:00:00'),
+      displayText: "Sunday, April 20th"
   }
 ];
