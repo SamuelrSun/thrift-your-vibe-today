@@ -13,9 +13,9 @@ export const discountCodes: DiscountCode[] = [
     description: "Welcome discount for new customers"
   },
   {
-    code: "SPRING25",
-    percentOff: 25,
-    description: "Spring season special",
+    code: "DEMODAY",
+    percentOff: 10,
+    description: "10% off for customers from Troy Labs' Demo Day",
     expiryDate: new Date('2025-05-31')
   }
 ];
