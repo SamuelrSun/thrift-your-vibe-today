@@ -102,7 +102,8 @@ export const inventory: Item[] = [
     images: ['/docmartinsblackboots.png', '/greendunks.png'],
     description: 'Dr. Martens 1461 shoes in smooth black leather. Classic 3-eye design with yellow stitching and a durable, cushioned sole. Comfortable, sturdy, and easy to pair with just about anything.',
     sex: 'men',
-    category: 'shoes'
+    category: 'shoes',
+    visible: false
   },
   {
     title: 'Nike Dunk Low',
