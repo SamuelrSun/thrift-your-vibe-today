@@ -8,6 +8,7 @@ import { Check, Upload } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { DiscountCode, isValidDiscountCode } from "@/config/discounts";
 
 interface OrderSummaryProps {
   subtotal: number;
