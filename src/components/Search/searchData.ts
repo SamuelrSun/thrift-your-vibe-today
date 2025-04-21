@@ -97,7 +97,7 @@ export const inventory: Item[] = [
     price: 15,
     size: 'L',
     condition: 'Like New',
-    images: ['/IsaacW/Tide Card Log Sweater.png'],
+    images: ['/Joey/TideCardSweater.png'],
     description: 'Flame design Tide Card Log Sweater',
     sex: 'unisex',
     category: 'tops'
