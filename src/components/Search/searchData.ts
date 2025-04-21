@@ -15,13 +15,134 @@ import { Item } from '../shared/ItemCard/types';
 
 export const inventory: Item[] = [
   {
-    title: 'Tide x Downy Leather Jacket',
-    brand: 'Tide',
-    price: 99,
+    title: 'American Eagle Long Sleeve Polo',
+    brand: 'American Eagle',
+    price: 15,
+    size: 'M',
+    condition: 'Like New',
+    images: ['/IsaacW/American Eagle Long Sleeve PoloF.jpg', '/American Eagle Long Sleeve PoloB.jpg'],
+    description: 'Old School Blue and White AE Quarter Polo',
+    sex: 'men',
+    category: 'tops'
+  },
+  {
+    title: 'Stussy Designer Shirt',
+    brand: 'Stussy',
+    price: 35,
+    size: 'M',
+    condition: 'Like New',
+    images: ['/IsaacW/Stussy Designer ShirtF.jpg', '/Stussy Designer ShirtB.jpg'],
+    description: 'Stussy Red Design Shirt',
+    sex: 'men',
+    category: 'tops'
+  },
+  {
+    title: 'Stussy Mains Basic Shirt',
+    brand: 'Stussy',
+    price: 25,
+    size: 'M',
+    condition: 'Well Loved',
+    images: ['/IsaacW/Stussy Mains Basic ShirtF.jpg', '/Stussy Mains Basic ShirtB.jpg'],
+    description: 'Basic Stussy T-Shirt, hardly-visible stains on bottom portion of shirt',
+    sex: 'men',
+    category: 'tops'
+  },
+  {
+    title: 'Lacoste Reversible Bomber',
+    brand: 'Lacoste Olive',
+    price: 30,
+    size: 'M',
+    condition: 'Like New',
+    images: ['/IsaacW/Lacoste Reversible BomberF.jpg', '/Lacoste Reversible BomberB.jpg'],
+    description: 'Reversible Lacoste Bomber Jacket',
+    sex: 'men',
+    category: 'jackets'
+  },
+  {
+    title: 'American Eagle Blue Cardigan',
+    brand: 'American Eagle',
+    price: 40,
+    size: 'M',
+    condition: 'Brand New',
+    images: ['/IsaacW/American Eagle Blue CardiganF.jpg', '/American Eagle Blue CardiganB.jpg'],
+    description: 'AE Blue Cardigan Button Up',
+    sex: 'men',
+    category: 'tops'
+  },
+  {
+    title: 'Arcteryx Darrah Puffer',
+    brand: 'Arcteryx',
+    price: 125,
+    size: 'S',
+    condition: 'Like New',
+    images: ['/IsaacW/Arcteryx Darrah PufferF.jpg', '/Arcteryx Darrah PufferB.jpg'],
+    description: 'Small Arcteryx womens puffer',
+    sex: 'women',
+    category: 'jackets'
+  },
+  {
+    title: 'M-Original Sweater',
+    brand: 'M-Original',
+    price: 15,
     size: 'L',
-    condition: 'Gently Used',
-    images: ['/IsaacW/tide.png'],
-    description: 'Vintage Tide Racing Downy leather jacket in blue and orange. Great condition with authentic racing wear patterns and iconic Tide branding.',
+    condition: 'Like New',
+    images: ['/IsaacW/M-Original SweaterF.jpg', '/M-Original SweaterB.jpg'],
+    description: 'Cross striped black and white m-original sweater',
+    sex: 'unisex',
+    category: 'tops'
+  },
+  {
+    title: 'Tide Card Log Sweater',
+    brand: 'Tide Card Log',
+    price: 15,
+    size: 'L',
+    condition: 'Like New',
+    images: ['/IsaacW/Tide Card Log Sweater.jpg'],
+    description: 'Flame design Tide Card Log Sweater',
+    sex: 'unisex',
+    category: 'tops'
+  },
+  {
+    title: 'Cambridge Classics Sweater',
+    brand: 'Cambridge Classics',
+    price: 15,
+    size: ',',
+    condition: 'Well Loved',
+    images: ['/IsaacW/Cambridge Classics SweaterF.jpg', '/Cambridge Classics SweaterB.jpg'],
+    description: 'Old school blue cambridge classics sweater',
+    sex: 'unisex',
+    category: 'tops'
+  },
+  {
+    title: 'Thisisneverthat Hoodie',
+    brand: 'thisisneverthat',
+    price: 50,
+    size: 's',
+    condition: 'Well Loved',
+    images: ['/IsaacW/Thisisneverthat HoodieF.jpg', '/Thisisneverthat HoodieB.jpg'],
+    description: 'Thick light blue thisisneverthat hoodie',
+    sex: 'men',
+    category: 'tops'
+  },
+  {
+    title: 'Nasty Gal Button Up Short Sleeve',
+    brand: 'Nasty Gal',
+    price: 10,
+    size: '2',
+    condition: 'Brand New',
+    images: ['/IsaacW/Nasty Gal Button Up Short SleeveF.jpg', '/Nasty Gal Button Up Short SleeveB.jpg'],
+    description: 'Striped black and white button up perfect for summer time',
+    sex: 'women',
+    category: 'tops'
+  },
+  {
+    title: 'North Face Vintage Fleece',
+    brand: 'North Face',
+    price: 45,
+    size: 'M',
+    condition: 'Well Loved',
+    images: ['/IsaacW/North Face Vintage FleeceF.jpg', '/North Face Vintage FleeceB.jpg', '/North Face Vintage FleeceR.jpg'],
+    description: 'Vintage North Face Fleece. Left pocket slightly torn, but completely functional',
     sex: 'men',
     category: 'jackets'
   },
@@ -31,18 +152,7 @@ export const inventory: Item[] = [
     price: 99,
     size: 'L',
     condition: 'Gently Used',
-    images: ['/IsaacW/tide.png', '/MJ00010001.png'],
-    description: 'Vintage Tide Racing Downy leather jacket in blue and orange. Great condition with authentic racing wear patterns and iconic Tide branding.',
-    sex: 'men',
-    category: 'jackets'
-  },
-  {
-    title: 'Tide x Downy Leather Jacket',
-    brand: 'Tide',
-    price: 99,
-    size: 'L',
-    condition: 'Gently Used',
-    images: ['/IsaacW/tide.png', '/MJ00010001.png'],
+    images: ['/IsaacW/Tide x Downy Leather JacketF.jpg', '/Tide x Downy Leather JacketB.jpg'],
     description: 'Vintage Tide Racing Downy leather jacket in blue and orange. Great condition with authentic racing wear patterns and iconic Tide branding.',
     sex: 'men',
     category: 'jackets'
@@ -175,12 +285,12 @@ export const inventory: Item[] = [
     fake: true
   },
   {
-    title: 'Nike Green Fleece (Japan Excl.)',
+    title: 'Nike Reversible Green Fleece (Japan Excl.)',
     brand: 'Nike',
-    price: 149,
+    price: 50,
     size: 'M',
     condition: 'Like New',
-    images: ['/IsaacW/nikegreenfleece.png', '/990s.png'],
+    images: ['/IsaacW/Nike Reversible Green Fleece (Japan Excl.)F.jpg', '/Nike Reversible Green Fleece (Japan Excl.)B.jpg', '/Nike Reversible Green Fleece (Japan Excl.)U.jpg'],
     description: 'Nike, Japan exclusive track jacket in deep green with signature white swoosh design across the chest. Features a full front zipper, ribbed cuffs and collar for a classic athletic fit.',
     sex: 'men',
     category: 'jackets'
