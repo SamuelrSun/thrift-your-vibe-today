@@ -36,17 +36,19 @@ const ImageCarousel = ({ images, title, onClick, className }: ImageCarouselProps
   };
 
   const processImageUrl = (url: string) => {
+    // If already a fully qualified URL, return as is
     if (url.startsWith('http://') || url.startsWith('https://')) {
       return url;
     }
     
-    if (url.includes(' ')) {
-      return url.replace(/ /g, '%20');
-    }
+    // Make sure the URL starts with a slash for local resources
+    const urlWithSlash = url.startsWith('/') ? url : `/${url}`;
     
-    return url;
+    // Handle spaces in URLs
+    return urlWithSlash.replace(/ /g, '%20');
   };
 
+  // Use a fallback image when the primary one fails
   const currentImageSrc = imageError[currentImageIndex] 
     ? '/placeholder.svg' 
     : processImageUrl(images[currentImageIndex] || '/placeholder.svg');
