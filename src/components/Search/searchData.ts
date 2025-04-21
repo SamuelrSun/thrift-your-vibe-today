@@ -20,7 +20,7 @@ export const inventory: Item[] = [
     price: 15,
     size: 'M',
     condition: 'Like New',
-    images: ['/IsaacW/American Eagle Long Sleeve PoloF.jpg', '/American Eagle Long Sleeve PoloB.jpg'],
+    images: ['/IsaacW/American Eagle Long Sleeve PoloF.png', '/American Eagle Long Sleeve PoloB.png'],
     description: 'Old School Blue and White AE Quarter Polo',
     sex: 'men',
     category: 'tops'
@@ -31,7 +31,7 @@ export const inventory: Item[] = [
     price: 35,
     size: 'M',
     condition: 'Like New',
-    images: ['/IsaacW/Stussy Designer ShirtF.jpg', '/Stussy Designer ShirtB.jpg'],
+    images: ['/IsaacW/Stussy Designer ShirtF.png', '/Stussy Designer ShirtB.png'],
     description: 'Stussy Red Design Shirt',
     sex: 'men',
     category: 'tops'
@@ -42,7 +42,7 @@ export const inventory: Item[] = [
     price: 25,
     size: 'M',
     condition: 'Well Loved',
-    images: ['/IsaacW/Stussy Mains Basic ShirtF.jpg', '/Stussy Mains Basic ShirtB.jpg'],
+    images: ['/IsaacW/Stussy Mains Basic ShirtF.png', '/Stussy Mains Basic ShirtB.png'],
     description: 'Basic Stussy T-Shirt, hardly-visible stains on bottom portion of shirt',
     sex: 'men',
     category: 'tops'
@@ -53,7 +53,7 @@ export const inventory: Item[] = [
     price: 30,
     size: 'M',
     condition: 'Like New',
-    images: ['/IsaacW/Lacoste Reversible BomberF.jpg', '/Lacoste Reversible BomberB.jpg'],
+    images: ['/IsaacW/Lacoste Reversible BomberF.png', '/Lacoste Reversible BomberB.png'],
     description: 'Reversible Lacoste Bomber Jacket',
     sex: 'men',
     category: 'jackets'
@@ -64,7 +64,7 @@ export const inventory: Item[] = [
     price: 40,
     size: 'M',
     condition: 'Brand New',
-    images: ['/IsaacW/American Eagle Blue CardiganF.jpg', '/American Eagle Blue CardiganB.jpg'],
+    images: ['/IsaacW/American Eagle Blue CardiganF.png', '/American Eagle Blue CardiganB.png'],
     description: 'AE Blue Cardigan Button Up',
     sex: 'men',
     category: 'tops'
@@ -75,7 +75,7 @@ export const inventory: Item[] = [
     price: 125,
     size: 'S',
     condition: 'Like New',
-    images: ['/IsaacW/Arcteryx Darrah PufferF.jpg', '/Arcteryx Darrah PufferB.jpg'],
+    images: ['/IsaacW/Arcteryx Darrah PufferF.png', '/Arcteryx Darrah PufferB.png'],
     description: 'Small Arcteryx womens puffer',
     sex: 'women',
     category: 'jackets'
@@ -86,7 +86,7 @@ export const inventory: Item[] = [
     price: 15,
     size: 'L',
     condition: 'Like New',
-    images: ['/IsaacW/M-Original SweaterF.jpg', '/M-Original SweaterB.jpg'],
+    images: ['/IsaacW/M-Original SweaterF.png', '/M-Original SweaterB.png'],
     description: 'Cross striped black and white m-original sweater',
     sex: 'unisex',
     category: 'tops'
@@ -97,7 +97,7 @@ export const inventory: Item[] = [
     price: 15,
     size: 'L',
     condition: 'Like New',
-    images: ['/IsaacW/Tide Card Log Sweater.jpg'],
+    images: ['/IsaacW/Tide Card Log Sweater.png'],
     description: 'Flame design Tide Card Log Sweater',
     sex: 'unisex',
     category: 'tops'
@@ -108,7 +108,7 @@ export const inventory: Item[] = [
     price: 15,
     size: ',',
     condition: 'Well Loved',
-    images: ['/IsaacW/Cambridge Classics SweaterF.jpg', '/Cambridge Classics SweaterB.jpg'],
+    images: ['/IsaacW/Cambridge Classics SweaterF.png', '/Cambridge Classics SweaterB.png'],
     description: 'Old school blue cambridge classics sweater',
     sex: 'unisex',
     category: 'tops'
@@ -119,7 +119,7 @@ export const inventory: Item[] = [
     price: 50,
     size: 's',
     condition: 'Well Loved',
-    images: ['/IsaacW/Thisisneverthat HoodieF.jpg', '/Thisisneverthat HoodieB.jpg'],
+    images: ['/IsaacW/Thisisneverthat HoodieF.png', '/Thisisneverthat HoodieB.png'],
     description: 'Thick light blue thisisneverthat hoodie',
     sex: 'men',
     category: 'tops'
@@ -130,7 +130,7 @@ export const inventory: Item[] = [
     price: 10,
     size: '2',
     condition: 'Brand New',
-    images: ['/IsaacW/Nasty Gal Button Up Short SleeveF.jpg', '/Nasty Gal Button Up Short SleeveB.jpg'],
+    images: ['/IsaacW/Nasty Gal Button Up Short SleeveF.png', '/Nasty Gal Button Up Short SleeveB.png'],
     description: 'Striped black and white button up perfect for summer time',
     sex: 'women',
     category: 'tops'
@@ -141,7 +141,7 @@ export const inventory: Item[] = [
     price: 45,
     size: 'M',
     condition: 'Well Loved',
-    images: ['/IsaacW/North Face Vintage FleeceF.jpg', '/North Face Vintage FleeceB.jpg', '/North Face Vintage FleeceR.jpg'],
+    images: ['/IsaacW/North Face Vintage FleeceF.png', '/North Face Vintage FleeceB.png', '/North Face Vintage FleeceR.png'],
     description: 'Vintage North Face Fleece. Left pocket slightly torn, but completely functional',
     sex: 'men',
     category: 'jackets'
@@ -152,7 +152,7 @@ export const inventory: Item[] = [
     price: 99,
     size: 'L',
     condition: 'Gently Used',
-    images: ['/IsaacW/Tide x Downy Leather JacketF.jpg', '/Tide x Downy Leather JacketB.jpg'],
+    images: ['/IsaacW/Tide x Downy Leather JacketF.png', '/Tide x Downy Leather JacketB.png'],
     description: 'Vintage Tide Racing Downy leather jacket in blue and orange. Great condition with authentic racing wear patterns and iconic Tide branding.',
     sex: 'men',
     category: 'jackets'
