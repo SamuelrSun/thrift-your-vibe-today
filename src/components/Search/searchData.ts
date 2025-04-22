@@ -250,18 +250,6 @@ export const inventory: Item[] = [
     category: 'jackets'
   },
   {
-    title: 'Adidas Messi Jersey',
-    brand: 'Adidas',
-    price: 19,
-    size: 'M',
-    condition: 'Gently Used',
-    images: ['/IsaacW/messibluejersey.png', '/stussybluehoodie.png'],
-    description: 'Argentina national team jersey with iconic blue and white stripes. Features number 10, AFA crest, FIFA champion badge, and Adidas branding. Official design with tournament patches on sleeves.',
-    sex: 'men',
-    category: 'tops',
-    fake: true
-  },
-  {
     title: 'Nike Jordan 1 Retro',
     brand: 'Nike',
     price: 79,
@@ -279,37 +267,15 @@ export const inventory: Item[] = [
     price: 50,
     size: 'M',
     condition: 'Like New',
-    images: ['/IsaacW/nikegreenfleece.png'],
+    images: ['/IsaacW/Nike Reversible Green Fleece (Japan Excl.)F.jpg', '/Nike Reversible Green Fleece (Japan Excl.)B.jpg', '/Nike Reversible Green Fleece (Japan Excl.)U.jpg'],
     description: 'Nike, Japan exclusive track jacket in deep green with signature white swoosh design across the chest. Features a full front zipper, ribbed cuffs and collar for a classic athletic fit.',
     sex: 'men',
     category: 'jackets'
   },
   {
-    title: 'Stüssy Hoodie',
-    brand: 'Stüssy',
-    price: 59,
-    size: 'L',
-    condition: 'Gently Used',
-    images: ['/IsaacW/stussybluehoodie.png', '/harutablackloafers.png'],
-    description: 'Stüssy light blue pullover hoodie with bright yellow embroidered logo across the chest. Features a spacious kangaroo pocket and ribbed cuffs for a comfortable, classic streetwear fit.',
-    sex: 'men',
-    category: 'tops'
-  },
-  {
-    title: 'White Fox Hoodie (New with Tag)',
-    brand: 'White Fox',
-    price: 44,
-    size: 'M',
-    condition: 'Brand New',
-    images: ['/whitefoxcremehoodie.png', '/MJblackbomber.png'],
-    description: 'White Fox cream-colored pullover hoodie with minimal chest logo design. Brand new with original tags attached, featuring a classic fit and ribbed cuffs and hem.',
-    sex: 'unisex',
-    category: 'tops'
-  },
-  {
     title: 'New Balance 990s v6',
     brand: 'New Balance',
-    price: 119,
+    price: 80,
     size: '10.5',
     condition: 'Brand New',
     images: ['/IsaacW/990s.png', '/chichi/chichi1.jpg'],
@@ -320,7 +286,7 @@ export const inventory: Item[] = [
   {
     title: 'Haruta Arvin Loafers',
     brand: 'Haruta Arvin',
-    price: 39,
+    price: 35,
     size: '10',
     condition: 'Gently Used',
     images: ['/IsaacW/harutablackloafers.png', '/chichi/chichi2.jpg'],
@@ -331,7 +297,7 @@ export const inventory: Item[] = [
   {
     title: 'Michael Jackson Tour Excl. Bomber',
     brand: 'Identity Inc.',
-    price: "$1,249",
+    price: "$1,250",
     size: 'S',
     condition: 'Gently Used',
     images: ['/IsaacW/MJblackbomber.png', '/chichi/chichi3.jpg'],
