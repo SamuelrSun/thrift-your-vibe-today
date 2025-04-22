@@ -169,17 +169,6 @@ export const inventory: Item[] = [
     category: 'jackets'
   },
   {
-    title: 'Patagonia Tan Fleece',
-    brand: 'Patagonia',
-    price: 89,
-    size: 'L',
-    condition: 'Like New',
-    images: ['/IsaacW/patagonia.png', '/columbiagrayjacket.png'],
-    description: 'Cozy Patagonia fleece jacket in a soft off-white color, featuring a navy chest zip pocket, contrast trim, and a full front zipper for effortless layering and warmth.',
-    sex: 'unisex',
-    category: 'jackets'
-  },
-  {
     title: 'Adidas Herzogenaurach',
     brand: 'Adidas',
     price: 89,
