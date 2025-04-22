@@ -130,7 +130,7 @@ export const inventory: Item[] = [
     price: 10,
     size: '2',
     condition: 'Brand New',
-    images: ['/IsaacW/Nasty Gal Button Up Short SleeveB.png'],
+    images: ['/IsaacW/Nasty Gal Button Up Short SleeveF.png', '/Nasty Gal Button Up Short SleeveB.png'],
     description: 'Striped black and white button up perfect for summer time',
     sex: 'women',
     category: 'tops'
@@ -160,7 +160,7 @@ export const inventory: Item[] = [
   {
     title: 'Adidas Navy Puffer Jacket',
     brand: 'Adidas',
-    price: 49,
+    price: 35,
     size: 'M',
     condition: 'Gently Used',
     images: ['/IsaacW/MJ00010001.png', '/tide.png'],
@@ -178,30 +178,6 @@ export const inventory: Item[] = [
     description: 'Premium black leather jacket with zippered front and classic motorcycle-inspired design. Minimal wear with buttery soft leather for a comfortable fit.',
     sex: 'men',
     category: 'shoes'
-  },
-  {
-    title: 'Ami Sweater',
-    brand: 'Ami',
-    price: 44,
-    size: 'M',
-    condition: 'Gently Used',
-    images: ['/IsaacW/amiblacksweater.png', '/stussybluehoodie.png'],
-    description: 'AMI Paris cardigan in black wool with the signature red Ami de Coeur logo on the chest. Features a classic V-neck, button front closure, and ribbed cuffs and hem. A cozy yet elevated staple perfect for layering.',
-    sex: 'unisex',
-    category: 'tops',
-    fake: true,
-    sold: true
-  },
-  {
-    title: 'Columbia Jacket',
-    brand: 'Columbia',
-    price: 65,
-    size: 'L',
-    condition: 'Gently Used',
-    images: ['/IsaacW/columbiagrayjacket.png', '/levibluejacket.png'],
-    description: 'Columbia light gray canvas jacket with full front zipper. Features a stand-up collar, paneled construction, and subtle branding on the lower front. Durable, casual design that\'s perfect for everyday wear or light outdoor activities.',
-    sex: 'men',
-    category: 'jackets'
   },
   {
     title: 'Discont\'d Combat Boots (Box Included)',
