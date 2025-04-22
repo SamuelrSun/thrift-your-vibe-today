@@ -160,7 +160,7 @@ export const inventory: Item[] = [
   {
     title: 'Adidas Navy Puffer Jacket',
     brand: 'Adidas',
-    price: 35,
+    price: 49,
     size: 'M',
     condition: 'Gently Used',
     images: ['/IsaacW/MJ00010001.png', '/tide.png'],
@@ -178,6 +178,30 @@ export const inventory: Item[] = [
     description: 'Premium black leather jacket with zippered front and classic motorcycle-inspired design. Minimal wear with buttery soft leather for a comfortable fit.',
     sex: 'men',
     category: 'shoes'
+  },
+  {
+    title: 'Ami Sweater',
+    brand: 'Ami',
+    price: 44,
+    size: 'M',
+    condition: 'Gently Used',
+    images: ['/IsaacW/amiblacksweater.png', '/stussybluehoodie.png'],
+    description: 'AMI Paris cardigan in black wool with the signature red Ami de Coeur logo on the chest. Features a classic V-neck, button front closure, and ribbed cuffs and hem. A cozy yet elevated staple perfect for layering.',
+    sex: 'unisex',
+    category: 'tops',
+    fake: true,
+    sold: true
+  },
+  {
+    title: 'Columbia Jacket',
+    brand: 'Columbia',
+    price: 65,
+    size: 'L',
+    condition: 'Gently Used',
+    images: ['/IsaacW/columbiagrayjacket.png', '/levibluejacket.png'],
+    description: 'Columbia light gray canvas jacket with full front zipper. Features a stand-up collar, paneled construction, and subtle branding on the lower front. Durable, casual design that\'s perfect for everyday wear or light outdoor activities.',
+    sex: 'men',
+    category: 'jackets'
   },
   {
     title: 'Discont\'d Combat Boots (Box Included)',
@@ -255,7 +279,7 @@ export const inventory: Item[] = [
     price: 50,
     size: 'M',
     condition: 'Like New',
-    images: ['/IsaacW/Nike Reversible Green Fleece (Japan Excl.)F.jpg', '/Nike Reversible Green Fleece (Japan Excl.)B.jpg', '/Nike Reversible Green Fleece (Japan Excl.)U.jpg'],
+    images: ['/IsaacW/nikegreenfleece.png'],
     description: 'Nike, Japan exclusive track jacket in deep green with signature white swoosh design across the chest. Features a full front zipper, ribbed cuffs and collar for a classic athletic fit.',
     sex: 'men',
     category: 'jackets'
