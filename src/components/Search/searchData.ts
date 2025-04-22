@@ -130,7 +130,7 @@ export const inventory: Item[] = [
     price: 10,
     size: '2',
     condition: 'Brand New',
-    images: ['/IsaacW/Nasty Gal Button Up Short SleeveF.png', '/Nasty Gal Button Up Short SleeveB.png'],
+    images: ['/IsaacW/Nasty Gal Button Up Short SleeveB.png'],
     description: 'Striped black and white button up perfect for summer time',
     sex: 'women',
     category: 'tops'
