@@ -9,6 +9,7 @@ import { toast } from '@/hooks/use-toast';
 import PromoBanner from '../shared/PromoBanner';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import SearchFilterBubbles from "./SearchFilterBubbles";
 
 // Fisher-Yates (Knuth) shuffle algorithm
 const shuffleArray = (array: any[]) => {
@@ -91,21 +92,33 @@ const SearchPage = () => {
     setViewMode(prev => prev === 'grid' ? 'compact' : 'grid');
   };
 
+  const handleBubbleToggle = (bubbleId: string) => {
+    toggleFilter("categories", bubbleId);
+    const results = applyFilters(allItems);
+    setFilteredItems(results);
+  };
+
   return (
     <div className="container mx-auto px-4 py-8 mt-0 md:mt-0">
       <SearchHeader phrase={randomPhrase} />
-      
-      <div className="mb-10">
+
+      <div className="mb-4">
         <SearchBar 
           onSearch={handleSearch}
           onClear={handleClearSearch}
         />
+        <div className="mt-2">
+          <SearchFilterBubbles
+            activeFilters={activeFilters.categories}
+            onToggleFilter={handleBubbleToggle}
+          />
+        </div>
       </div>
-      
+
       <div className="mb-6">
         <PromoBanner />
       </div>
-      
+
       <div className="flex flex-col md:flex-row gap-8">
         <div className="md:w-1/4">
           <FilterPanel 
@@ -116,7 +129,6 @@ const SearchPage = () => {
             onClearFilters={handleClearFilters}
           />
         </div>
-        
         <SearchResults 
           searchQuery={searchQuery}
           searchResults={filteredItems}
@@ -125,7 +137,7 @@ const SearchPage = () => {
           viewMode={viewMode}
         />
       </div>
-      
+
       <div className="mt-10 mb-6 text-center">
         <h2 className="text-2xl font-playfair font-semibold mb-3">New listings dropping soon!</h2>
         <p className="mb-5">Want first dibs? Check out our full collection at our next pop-up!</p>
