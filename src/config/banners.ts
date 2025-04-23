@@ -1,5 +1,4 @@
-
-import { LucideIcon, Calendar, SwatchBook, ShoppingBag } from 'lucide-react';
+import { LucideIcon, Calendar, SwatchBook, ShoppingBag, MailPlus } from 'lucide-react';
 
 export interface Banner {
   id: number;
@@ -70,5 +69,18 @@ export const banners: Banner[] = [
       endDate: new Date('2025-04-20T16:00:00'),
       displayText: "Sunday, April 20th"
     }
+  },
+  {
+    id: 4,
+    title: "Stay in the Loop—Join Our Newsletter",
+    description: "Early access, exclusive discounts, and inside perks—straight to your inbox!",
+    contactInfo: "info@thriftsc.com",
+    buttonText: "Sign Up",
+    buttonLink: "/newsletter",
+    color: "bg-gradient-to-r from-thrift-sage/10 to-thrift-sage/20",
+    borderColor: "border-thrift-sage",
+    textColor: "text-thrift-charcoal",
+    icon: MailPlus,
+    iconLabel: "Newsletter Signup",
   }
 ];

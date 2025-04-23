@@ -1,5 +1,5 @@
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import { banners } from './banner/BannerData';
@@ -25,7 +25,7 @@ const PromoBanner = () => {
   };
   
   // Effect to handle autoplay
-  useState(() => {
+  useEffect(() => {
     startAutoplay();
     
     return () => {
@@ -33,10 +33,10 @@ const PromoBanner = () => {
         clearInterval(autoplayRef.current);
       }
     };
-  });
+  }, [api]);
   
   // Effect to handle carousel events
-  useState(() => {
+  useEffect(() => {
     if (!api) return;
     
     const handleSelect = () => {
@@ -49,7 +49,7 @@ const PromoBanner = () => {
     return () => {
       api.off("select", handleSelect);
     };
-  });
+  }, [api]);
 
   const handleManualNavigation = (direction: 'prev' | 'next') => {
     if (direction === 'prev') {
