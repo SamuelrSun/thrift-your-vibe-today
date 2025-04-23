@@ -59,7 +59,6 @@ const ItemSuggestions = ({ selectedItemId, fallbackItemId }: ItemSuggestionsProp
     return null;
   }
   
-  // Map LikedItem to the format expected by ItemCard
   const mapToItemCardFormat = (item: LikedItem): Item => ({
     title: item.title,
     brand: item.brand,
@@ -130,3 +129,4 @@ const ItemSuggestions = ({ selectedItemId, fallbackItemId }: ItemSuggestionsProp
 };
 
 export default ItemSuggestions;
+
