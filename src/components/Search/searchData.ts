@@ -86,7 +86,7 @@ export const inventory: Item[] = [
     price: 15,
     size: 'L',
     condition: 'Like New',
-    images: ['/IsaacW/M-Original SweaterF.png', '/M-Original SweaterB.png'],
+    images: ['/IsaacW/M-OriginalSweater.png'],
     description: 'Cross striped black and white m-original sweater',
     sex: 'unisex',
     category: 'tops'
