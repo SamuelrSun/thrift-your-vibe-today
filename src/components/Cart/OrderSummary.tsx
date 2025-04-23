@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -183,7 +184,7 @@ const OrderSummary = ({
         <div className="border rounded-md p-4 bg-muted/20">
           <p className="font-medium mb-2">Payment Instructions:</p>
           <ol className="list-decimal list-inside space-y-1 text-sm">
-            <li>Send ${totalPrice?.toFixed(2) || '0.00'} via Venmo to <span className="font-medium">@thriftsc (6248)</span></li>
+            <li>Send ${totalPrice?.toFixed(2) || '0.00'} via Venmo to <span className="font-medium">@ThriftSC (6248)</span></li>
             <li>In the description: <span className="font-mono bg-muted p-1 rounded text-xs">
               [Product] - [Your USC Email]</span>
             </li>
@@ -287,3 +288,4 @@ const OrderSummary = ({
 };
 
 export default OrderSummary;
+
