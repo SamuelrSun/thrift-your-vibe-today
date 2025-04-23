@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import SearchBar from './SearchBar';
 import FilterPanel from './FilterPanel';
@@ -21,6 +22,7 @@ const shuffleArray = (array: any[]) => {
   return shuffled;
 };
 
+// Map bubble filters to their corresponding category filters
 const BUBBLE_TO_CATEGORY_MAP: { [bubbleId: string]: string[] } = {
   mens: ["mens"],
   womens: ["womens"],
@@ -61,6 +63,14 @@ const SearchPage = () => {
     loadItems();
   }, []);
 
+  // Apply filters whenever activeFilters changes
+  useEffect(() => {
+    if (allItems.length > 0) {
+      const results = applyFilters(allItems);
+      setFilteredItems(results);
+    }
+  }, [activeFilters, allItems, applyFilters]);
+
   const handleSearch = (query: string) => {
     setSearchQuery(query);
     
@@ -100,35 +110,33 @@ const SearchPage = () => {
     setViewMode(prev => prev === 'grid' ? 'compact' : 'grid');
   };
 
+  // Handle bubble filter toggle with a single click
   const handleBubbleToggle = (bubbleId: string) => {
+    // Get categories related to this bubble
     const relevantCategories = BUBBLE_TO_CATEGORY_MAP[bubbleId];
     if (!relevantCategories) return;
-
-    // Check if all categories related to this bubble are already active
-    const allActive = relevantCategories.every(cat => activeFilters.categories.includes(cat));
     
-    // For each relevant category, toggle its state
-    relevantCategories.forEach(cat => {
-      // If all categories are active, we want to remove them all
-      // If not all are active, we want to add any that are missing
-      if (allActive) {
-        // Remove if present
+    // Check if ANY of the categories for this bubble are active
+    const isActive = relevantCategories.some(cat => 
+      activeFilters.categories.includes(cat)
+    );
+    
+    // If already active, remove all related categories
+    if (isActive) {
+      relevantCategories.forEach(cat => {
         if (activeFilters.categories.includes(cat)) {
           toggleFilter("categories", cat);
         }
-      } else {
-        // Add if not present
+      });
+    } 
+    // If not active, add all related categories
+    else {
+      relevantCategories.forEach(cat => {
         if (!activeFilters.categories.includes(cat)) {
           toggleFilter("categories", cat);
         }
-      }
-    });
-
-    // Apply filters immediately after toggling
-    setTimeout(() => {
-      const results = applyFilters(allItems);
-      setFilteredItems(results);
-    }, 0);
+      });
+    }
   };
 
   return (
