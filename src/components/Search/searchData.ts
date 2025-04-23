@@ -180,30 +180,6 @@ export const inventory: Item[] = [
     category: 'shoes'
   },
   {
-    title: 'Ami Sweater',
-    brand: 'Ami',
-    price: 44,
-    size: 'M',
-    condition: 'Gently Used',
-    images: ['/IsaacW/amiblacksweater.png', '/stussybluehoodie.png'],
-    description: 'AMI Paris cardigan in black wool with the signature red Ami de Coeur logo on the chest. Features a classic V-neck, button front closure, and ribbed cuffs and hem. A cozy yet elevated staple perfect for layering.',
-    sex: 'unisex',
-    category: 'tops',
-    fake: true,
-    sold: true
-  },
-  {
-    title: 'Columbia Jacket',
-    brand: 'Columbia',
-    price: 65,
-    size: 'L',
-    condition: 'Gently Used',
-    images: ['/IsaacW/columbiagrayjacket.png', '/levibluejacket.png'],
-    description: 'Columbia light gray canvas jacket with full front zipper. Features a stand-up collar, paneled construction, and subtle branding on the lower front. Durable, casual design that\'s perfect for everyday wear or light outdoor activities.',
-    sex: 'men',
-    category: 'jackets'
-  },
-  {
     title: 'Discont\'d Combat Boots (Box Included)',
     brand: 'Discont\'d',
     price: 219,
@@ -213,18 +189,6 @@ export const inventory: Item[] = [
     description: 'Leather combat boots with a rugged, textured finish. Features a lace-up front with metal eyelets, side zipper for easy wear, and a sturdy, lugged sole for traction. Durable, versatile, and perfect for everyday wear or outdoor adventures.',
     sex: 'men',
     category: 'shoes'
-  },
-  {
-    title: 'Doc Martens Platforms',
-    brand: 'Doc Martens',
-    price: 69,
-    size: '10',
-    condition: 'Brand New',
-    images: ['/IsaacW/docmartinsblackboots.png', '/greendunks.png'],
-    description: 'Dr. Martens 1461 shoes in smooth black leather. Classic 3-eye design with yellow stitching and a durable, cushioned sole. Comfortable, sturdy, and easy to pair with just about anything.',
-    sex: 'men',
-    category: 'shoes',
-    visible: false
   },
   {
     title: 'Nike Dunk Low',
