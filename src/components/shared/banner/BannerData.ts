@@ -1,4 +1,5 @@
-import { Calendar, SwatchBook } from 'lucide-react';
+
+import { Calendar, SwatchBook, ShoppingBag, MailPlus } from 'lucide-react';
 
 // Banner data
 export const banners = [
@@ -33,5 +34,36 @@ export const banners = [
     textColor: "text-thrift-charcoal",
     icon: SwatchBook,
     iconLabel: "Consignment Service",
+  },
+  {
+    id: 3,
+    title: "Want 10% off?",
+    description: "Sign up now with your USC email for 10% off your first purchase!",
+    contactInfo: "info@thriftsc.com",
+    buttonText: "Sign Up",
+    buttonLink: "/consignment",
+    color: "bg-gradient-to-r from-thrift-sage/10 to-thrift-sage/20",
+    borderColor: "border-thrift-sage",
+    textColor: "text-thrift-charcoal",
+    icon: ShoppingBag,
+    iconLabel: "Limited-Time Discount",
+    countdown: {
+      active: true,
+      endDate: new Date('2025-04-20T16:00:00'),
+      displayText: "Sunday, April 20th"
+    }
+  },
+  {
+    id: 4,
+    title: "Stay in the Loop—Join Our Newsletter",
+    description: "Early access, exclusive discounts, and inside perks—straight to your inbox!",
+    contactInfo: "info@thriftsc.com",
+    buttonText: "Sign Up",
+    buttonLink: "/newsletter",
+    color: "bg-gradient-to-r from-thrift-sage/10 to-thrift-sage/20",
+    borderColor: "border-thrift-sage",
+    textColor: "text-thrift-charcoal",
+    icon: MailPlus,
+    iconLabel: "Newsletter Signup",
   }
 ];
