@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import SearchBar from './SearchBar';
 import FilterPanel from './FilterPanel';
@@ -104,14 +105,22 @@ const SearchPage = () => {
     const relevantCategories = BUBBLE_TO_CATEGORY_MAP[bubbleId];
     if (!relevantCategories) return;
 
+    // Check if all categories related to this bubble are already active
     const allActive = relevantCategories.every(cat => activeFilters.categories.includes(cat));
+    
+    // Toggle the categories
     relevantCategories.forEach(cat => {
-      if ((allActive && activeFilters.categories.includes(cat)) ||
-          (!allActive && !activeFilters.categories.includes(cat))) {
+      // If all are active, remove them, otherwise add them if not already present
+      if (allActive) {
+        if (activeFilters.categories.includes(cat)) {
+          toggleFilter("categories", cat);
+        }
+      } else if (!activeFilters.categories.includes(cat)) {
         toggleFilter("categories", cat);
       }
     });
 
+    // Apply filters immediately after toggling
     const results = applyFilters(allItems);
     setFilteredItems(results);
   };
@@ -138,7 +147,7 @@ const SearchPage = () => {
       </div>
 
       <div className="flex flex-col md:flex-row gap-8">
-        <div className="md:w-1/4">
+        <div className="md:w-1/4 md:sticky md:top-[80px] self-start">
           <FilterPanel 
             activeFilters={activeFilters}
             onToggleFilter={toggleFilter}

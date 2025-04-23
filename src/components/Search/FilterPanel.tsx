@@ -126,7 +126,7 @@ const FilterPanel = ({
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-5">
+    <div className="bg-white rounded-lg shadow-md p-5 sticky top-[80px]">
       <div className="flex justify-between items-center mb-4">
         <h3 className="text-lg font-medium">Filters</h3>
         <button 

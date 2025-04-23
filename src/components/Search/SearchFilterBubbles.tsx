@@ -72,4 +72,3 @@ const SearchFilterBubbles = ({
 };
 
 export default SearchFilterBubbles;
-
