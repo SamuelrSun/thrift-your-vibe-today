@@ -53,7 +53,7 @@ export const inventory: Item[] = [
     price: 30,
     size: 'M',
     condition: 'Like New',
-    images: ['/IsaacW/Lacoste Reversible BomberF.png', '/Lacoste Reversible BomberB.png'],
+    images: ['/LacosteJacket.png'],
     description: 'Reversible Lacoste Bomber Jacket',
     sex: 'men',
     category: 'jackets'
@@ -64,7 +64,7 @@ export const inventory: Item[] = [
     price: 40,
     size: 'M',
     condition: 'Brand New',
-    images: ['/IsaacW/American Eagle Blue CardiganF.png', '/American Eagle Blue CardiganB.png'],
+    images: ['/AE77Sweater.png'],
     description: 'AE Blue Cardigan Button Up',
     sex: 'men',
     category: 'tops'
@@ -86,7 +86,7 @@ export const inventory: Item[] = [
     price: 15,
     size: 'L',
     condition: 'Like New',
-    images: ['/IsaacW/M-OriginalSweater.png'],
+    images: ['/M-OriginalSweater.png', 'M-OriginalSweaterB.png'],
     description: 'Cross striped black and white m-original sweater',
     sex: 'unisex',
     category: 'tops'
