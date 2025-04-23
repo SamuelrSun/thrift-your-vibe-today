@@ -1,5 +1,4 @@
 
-import { useMemo } from "react";
 import { Button } from "@/components/ui/button";
 
 interface BubbleOption {
@@ -12,46 +11,59 @@ interface SearchFilterBubblesProps {
   onToggleFilter: (category: string) => void;
 }
 
+/**
+ * - For "mens": toggles the "mens" filter
+ * - For "womens": toggles the "womens" filter
+ * - For "jackets": toggles both "mens-outerwear" and "womens-outerwear"
+ * - For "shoes": toggles both "mens-shoes" and "womens-shoes"
+ * - For "tops": toggles both "mens-tops" and "womens-tops"
+ */
 const FILTER_OPTIONS: BubbleOption[] = [
   { id: "mens", label: "Men's" },
   { id: "womens", label: "Women's" },
-  { id: "mens-outerwear", label: "Jackets" },
-  { id: "womens-outerwear", label: "Women's Jackets" },
-  { id: "mens-shoes", label: "Men's Shoes" },
-  { id: "womens-shoes", label: "Women's Shoes" },
-  { id: "mens-accessories", label: "Accessories" },
-  { id: "womens-dresses", label: "Dresses" },
-  // Add or remove other prominent categories as needed
+  { id: "jackets", label: "Jackets" },
+  { id: "shoes", label: "Shoes" },
+  { id: "tops", label: "Tops" },
 ];
+
+const categoryMap: { [bubbleId: string]: string[] } = {
+  mens: ["mens"],
+  womens: ["womens"],
+  jackets: ["mens-outerwear", "womens-outerwear"],
+  shoes: ["mens-shoes", "womens-shoes"],
+  tops: ["mens-tops", "womens-tops"],
+};
+
+/**
+ * A bubble is active if all of its underlying categories are selected.
+ */
+const isBubbleActive = (bubbleId: string, activeFilters: string[]) => {
+  const categories = categoryMap[bubbleId];
+  return categories.every((cat) => activeFilters.includes(cat));
+};
 
 const SearchFilterBubbles = ({
   activeFilters,
   onToggleFilter,
 }: SearchFilterBubblesProps) => {
-  // Active means filter id is in active categories
-  const isActive = (id: string) => activeFilters.includes(id);
-
-  // For unique keys and accessibility
-  const bubbleId = (id: string) => `filter-bubble-${id}`;
-
   return (
     <div className="w-full flex justify-center">
-      <div className="max-w-2xl flex overflow-x-auto gap-2 px-2 py-1 scrollbar-hide">
-        {FILTER_OPTIONS.map((filter) => (
+      <div className="max-w-xl flex overflow-x-auto gap-2 px-2 py-1 scrollbar-hide">
+        {FILTER_OPTIONS.map((bubble) => (
           <Button
-            key={filter.id}
+            key={bubble.id}
             size="sm"
-            variant={isActive(filter.id) ? "default" : "outline"}
-            className={`rounded-full px-4 py-1 border transition-colors
-              ${isActive(filter.id) ? "bg-thrift-sage text-white border-thrift-sage" : "bg-thrift-cream border-thrift-lightgray text-thrift-charcoal hover:bg-thrift-sage/10"}
+            variant={isBubbleActive(bubble.id, activeFilters) ? "default" : "outline"}
+            className={`rounded-full px-4 py-1 border transition-colors 
+              ${isBubbleActive(bubble.id, activeFilters) ? "bg-thrift-sage text-white border-thrift-sage" : "bg-thrift-cream border-thrift-lightgray text-thrift-charcoal hover:bg-thrift-sage/10"}
             `}
-            aria-pressed={isActive(filter.id)}
-            aria-label={filter.label}
-            id={bubbleId(filter.id)}
-            onClick={() => onToggleFilter(filter.id)}
+            aria-pressed={isBubbleActive(bubble.id, activeFilters)}
+            aria-label={bubble.label}
+            id={`filter-bubble-${bubble.id}`}
+            onClick={() => onToggleFilter(bubble.id)}
             type="button"
           >
-            {filter.label}
+            {bubble.label}
           </Button>
         ))}
       </div>
@@ -60,3 +72,4 @@ const SearchFilterBubbles = ({
 };
 
 export default SearchFilterBubbles;
+

@@ -21,6 +21,14 @@ const shuffleArray = (array: any[]) => {
   return shuffled;
 };
 
+const BUBBLE_TO_CATEGORY_MAP: { [bubbleId: string]: string[] } = {
+  mens: ["mens"],
+  womens: ["womens"],
+  jackets: ["mens-outerwear", "womens-outerwear"],
+  shoes: ["mens-shoes", "womens-shoes"],
+  tops: ["mens-tops", "womens-tops"],
+};
+
 const SearchPage = () => {
   const [allItems, setAllItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
@@ -93,7 +101,17 @@ const SearchPage = () => {
   };
 
   const handleBubbleToggle = (bubbleId: string) => {
-    toggleFilter("categories", bubbleId);
+    const relevantCategories = BUBBLE_TO_CATEGORY_MAP[bubbleId];
+    if (!relevantCategories) return;
+
+    const allActive = relevantCategories.every(cat => activeFilters.categories.includes(cat));
+    relevantCategories.forEach(cat => {
+      if ((allActive && activeFilters.categories.includes(cat)) ||
+          (!allActive && !activeFilters.categories.includes(cat))) {
+        toggleFilter("categories", cat);
+      }
+    });
+
     const results = applyFilters(allItems);
     setFilteredItems(results);
   };
