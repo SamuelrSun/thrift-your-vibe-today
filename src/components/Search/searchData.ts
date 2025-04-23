@@ -149,7 +149,7 @@ export const inventory: Item[] = [
   {
     title: 'Tide x Downy Leather Jacket',
     brand: 'Tide',
-    price: 99,
+    price: 85,
     size: 'L',
     condition: 'Gently Used',
     images: ['/IsaacW/Tide x Downy Leather JacketF.png', '/Tide x Downy Leather JacketB.png'],
