@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import SearchBar from './SearchBar';
 import FilterPanel from './FilterPanel';
@@ -108,21 +107,28 @@ const SearchPage = () => {
     // Check if all categories related to this bubble are already active
     const allActive = relevantCategories.every(cat => activeFilters.categories.includes(cat));
     
-    // Toggle the categories
+    // For each relevant category, toggle its state
     relevantCategories.forEach(cat => {
-      // If all are active, remove them, otherwise add them if not already present
+      // If all categories are active, we want to remove them all
+      // If not all are active, we want to add any that are missing
       if (allActive) {
+        // Remove if present
         if (activeFilters.categories.includes(cat)) {
           toggleFilter("categories", cat);
         }
-      } else if (!activeFilters.categories.includes(cat)) {
-        toggleFilter("categories", cat);
+      } else {
+        // Add if not present
+        if (!activeFilters.categories.includes(cat)) {
+          toggleFilter("categories", cat);
+        }
       }
     });
 
     // Apply filters immediately after toggling
-    const results = applyFilters(allItems);
-    setFilteredItems(results);
+    setTimeout(() => {
+      const results = applyFilters(allItems);
+      setFilteredItems(results);
+    }, 0);
   };
 
   return (
