@@ -160,7 +160,7 @@ export const inventory: Item[] = [
   {
     title: 'Adidas Navy Puffer Jacket',
     brand: 'Adidas',
-    price: 49,
+    price: 35,
     size: 'M',
     condition: 'Gently Used',
     images: ['/IsaacW/MJ00010001.png', '/tide.png'],
