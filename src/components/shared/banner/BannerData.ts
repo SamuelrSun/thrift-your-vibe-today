@@ -1,4 +1,3 @@
-
 import { Calendar, SwatchBook } from 'lucide-react';
 
 // Banner data
