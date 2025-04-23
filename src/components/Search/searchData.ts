@@ -130,7 +130,7 @@ export const inventory: Item[] = [
     price: 50,
     size: 's',
     condition: 'Well Loved',
-    images: ['/IsaacW/Thisisneverthat HoodieF.png', '/Thisisneverthat HoodieB.png'],
+    images: ['/ThisisNeverThatHoodie.png'],
     description: 'Thick light blue thisisneverthat hoodie',
     sex: 'men',
     category: 'tops'
