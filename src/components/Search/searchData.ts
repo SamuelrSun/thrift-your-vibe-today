@@ -237,12 +237,12 @@ export const inventory: Item[] = [
     fake: true
   },
   {
-    title: 'Nike Reversible Green Fleece (Japan Excl.)',
+    title: 'Nike Green Fleece (Japan Excl.)',
     brand: 'Nike',
     price: 50,
     size: 'M',
     condition: 'Like New',
-    images: ['/IsaacW/Nike Reversible Green Fleece (Japan Excl.)F.jpg', '/Nike Reversible Green Fleece (Japan Excl.)B.jpg', '/Nike Reversible Green Fleece (Japan Excl.)U.jpg'],
+    images: ['/nikegreenfleece.png'],
     description: 'Nike, Japan exclusive track jacket in deep green with signature white swoosh design across the chest. Features a full front zipper, ribbed cuffs and collar for a classic athletic fit.',
     sex: 'men',
     category: 'jackets'
