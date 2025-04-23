@@ -26,6 +26,17 @@ export const inventory: Item[] = [
     category: 'tops'
   },
   {
+    title: 'Nike Air Max SC',
+    brand: 'Nike',
+    price: 70,
+    size: 8,
+    condition: 'Brand New',
+    images: ['/AirMax.png'],
+    description: 'Nike Air Maxes for women',
+    sex: 'women',
+    category: 'shoes'
+  },
+  {
     title: 'Stussy Designer Shirt',
     brand: 'Stussy',
     price: 35,
