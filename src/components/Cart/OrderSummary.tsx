@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Card } from "@/components/ui/card";
@@ -78,10 +78,8 @@ const OrderSummary = ({
     onCheckout();
     
     try {
-      // Get cart items from context for the email
       const cartItems = JSON.parse(localStorage.getItem('thriftsc-cart-items') || '[]');
       
-      // Send email with order details
       const { data, error } = await supabase.functions.invoke('send-order-email', {
         body: {
           fullName,
@@ -102,7 +100,6 @@ const OrderSummary = ({
       setTimeout(() => {
         onClearCart();
         setIsSending(false);
-        // Navigate to the success page instead of showing success state inline
         navigate("/cart/success");
       }, 1500);
       
@@ -186,7 +183,7 @@ const OrderSummary = ({
         <div className="border rounded-md p-4 bg-muted/20">
           <p className="font-medium mb-2">Payment Instructions:</p>
           <ol className="list-decimal list-inside space-y-1 text-sm">
-            <li>Send ${totalPrice?.toFixed(2) || '0.00'} via Venmo to <span className="font-medium">@SamuelrWang (6248)</span></li>
+            <li>Send ${totalPrice?.toFixed(2) || '0.00'} via Venmo to <span className="font-medium">@thriftsc (6248)</span></li>
             <li>In the description: <span className="font-mono bg-muted p-1 rounded text-xs">
               [Product] - [Your USC Email]</span>
             </li>
