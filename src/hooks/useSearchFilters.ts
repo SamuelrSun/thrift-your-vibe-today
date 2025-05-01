@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Item } from '../components/shared/ItemCard/types';
 
@@ -85,32 +86,37 @@ export const useSearchFilters = (initialItems: Item[]) => {
         return false; // Filter out items with non-numeric prices when price filters are active
       }
 
-      // Size filter
-      if (activeFilters.sizes.length > 0 && 
-          !activeFilters.sizes.includes(item.size.toLowerCase())) {
-        return false;
+      // Size filter - Make sure size is a string before using toLowerCase()
+      if (activeFilters.sizes.length > 0) {
+        const itemSize = item.size ? (typeof item.size === 'string' ? item.size.toLowerCase() : String(item.size).toLowerCase()) : '';
+        if (!activeFilters.sizes.includes(itemSize)) {
+          return false;
+        }
       }
 
       // Condition filter - normalize conditions for comparison
-      if (activeFilters.conditions.length > 0) {
+      if (activeFilters.conditions.length > 0 && item.condition) {
         // Convert condition to lowercase and normalize spaces/hyphens
-        const normalizedCondition = item.condition.toLowerCase().replace(/\s+/g, '-');
+        const normalizedCondition = typeof item.condition === 'string' ? 
+          item.condition.toLowerCase().replace(/\s+/g, '-') : 
+          String(item.condition).toLowerCase().replace(/\s+/g, '-');
+        
         const matchesCondition = activeFilters.conditions.some(condition => {
           // Handle various condition formats
           if (condition === 'brand-new' && 
-              (normalizedCondition === 'brand-new' || item.condition.toLowerCase() === 'brand new')) {
+              (normalizedCondition === 'brand-new' || (typeof item.condition === 'string' && item.condition.toLowerCase() === 'brand new'))) {
             return true;
           }
           if (condition === 'like-new' && 
-              (normalizedCondition === 'like-new' || item.condition.toLowerCase() === 'like new')) {
+              (normalizedCondition === 'like-new' || (typeof item.condition === 'string' && item.condition.toLowerCase() === 'like new'))) {
             return true;
           }
           if (condition === 'gently-used' && 
-              (normalizedCondition === 'gently-used' || item.condition.toLowerCase() === 'gently used')) {
+              (normalizedCondition === 'gently-used' || (typeof item.condition === 'string' && item.condition.toLowerCase() === 'gently used'))) {
             return true;
           }
           if (condition === 'well-loved' && 
-              (normalizedCondition === 'well-loved' || item.condition.toLowerCase() === 'well loved')) {
+              (normalizedCondition === 'well-loved' || (typeof item.condition === 'string' && item.condition.toLowerCase() === 'well loved'))) {
             return true;
           }
           return normalizedCondition === condition;
@@ -122,7 +128,7 @@ export const useSearchFilters = (initialItems: Item[]) => {
       }
 
       // Category and sex filters
-      if (activeFilters.categories.length > 0) {
+      if (activeFilters.categories && activeFilters.categories.length > 0) {
         const { hasMens, hasWomens, specificCategories } = getCategoryFilters(activeFilters.categories);
         
         // Check if the item matches sex filter

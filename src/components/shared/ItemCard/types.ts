@@ -3,7 +3,7 @@ export interface Item {
   title: string;
   brand: string;
   price: number | string;
-  size: string;
+  size: string | number;
   condition: string;
   images: string[];
   description: string;
@@ -19,7 +19,7 @@ export interface CartItem {
   title: string;
   brand: string;
   price: number;
-  size: string;
+  size: string | number;
   condition: string;
   image_url: string;
   sex?: 'men' | 'women' | 'unisex';
@@ -33,7 +33,7 @@ export interface LikedItem {
   title: string;
   brand: string;
   price: number;
-  size: string;
+  size: string | number;
   condition: string;
   image_url: string;
   description: string;

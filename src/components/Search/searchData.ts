@@ -337,7 +337,7 @@ export const inventory: Item[] = [
   },
 ];
 
-// Export dummyItems for backward compatibility with existing code
+// Fix any typing issues with dummyItems
 export const dummyItems = inventory;
 
 // Thrift phrases that will be randomly selected
