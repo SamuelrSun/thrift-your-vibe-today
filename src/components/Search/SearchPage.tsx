@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import SearchBar from './SearchBar';
 import FilterPanel from './FilterPanel';
 import SearchHeader from './SearchHeader';
@@ -53,11 +53,21 @@ const SearchPage = () => {
     
     const loadItems = async () => {
       setIsLoading(true);
-      const items = await fetchItems();
-      const shuffledItems = shuffleArray(items);
-      setAllItems(shuffledItems);
-      setFilteredItems(shuffledItems);
-      setIsLoading(false);
+      try {
+        const items = await fetchItems();
+        const shuffledItems = shuffleArray(items);
+        setAllItems(shuffledItems);
+        setFilteredItems(shuffledItems);
+      } catch (error) {
+        console.error("Error loading items:", error);
+        toast({
+          title: "Error loading items",
+          description: "Please try refreshing the page",
+          variant: "destructive"
+        });
+      } finally {
+        setIsLoading(false);
+      }
     };
     
     loadItems();
@@ -111,20 +121,20 @@ const SearchPage = () => {
   };
 
   // Handle bubble filter toggle with a single click
-  const handleBubbleToggle = (bubbleId: string) => {
+  const handleBubbleToggle = useCallback((bubbleId: string) => {
     // Get categories related to this bubble
     const relevantCategories = BUBBLE_TO_CATEGORY_MAP[bubbleId];
     if (!relevantCategories) return;
     
     // Check if ANY of the categories for this bubble are active
     const isActive = relevantCategories.some(cat => 
-      activeFilters.categories.includes(cat)
+      activeFilters.categories && activeFilters.categories.includes(cat)
     );
     
     // If already active, remove all related categories
     if (isActive) {
       relevantCategories.forEach(cat => {
-        if (activeFilters.categories.includes(cat)) {
+        if (activeFilters.categories && activeFilters.categories.includes(cat)) {
           toggleFilter("categories", cat);
         }
       });
@@ -132,12 +142,12 @@ const SearchPage = () => {
     // If not active, add all related categories
     else {
       relevantCategories.forEach(cat => {
-        if (!activeFilters.categories.includes(cat)) {
+        if (!activeFilters.categories || !activeFilters.categories.includes(cat)) {
           toggleFilter("categories", cat);
         }
       });
     }
-  };
+  }, [activeFilters.categories, toggleFilter]);
 
   return (
     <div className="container mx-auto px-4 py-8 mt-0 md:mt-0">
@@ -150,7 +160,7 @@ const SearchPage = () => {
         />
         <div className="mt-2">
           <SearchFilterBubbles
-            activeFilters={activeFilters.categories}
+            activeFilters={activeFilters.categories || []}
             onToggleFilter={handleBubbleToggle}
           />
         </div>

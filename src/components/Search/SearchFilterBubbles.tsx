@@ -25,6 +25,11 @@ const SearchFilterBubbles = ({
 }: SearchFilterBubblesProps) => {
   // Check if a filter button should appear active based on related categories
   const isFilterActive = (filterId: string): boolean => {
+    // Safe guard against undefined activeFilters
+    if (!activeFilters || !Array.isArray(activeFilters)) {
+      return false;
+    }
+    
     const categoryMap: { [key: string]: string[] } = {
       mens: ["mens"],
       womens: ["womens"],
